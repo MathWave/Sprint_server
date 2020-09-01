@@ -443,7 +443,7 @@ def enter(request):
     if check_login(request.user):
         return HttpResponseRedirect('/main')
     if request.method == 'POST':
-        user = authenticate(username=request.POST['email'], password=request.POST['password'])
+        user = authenticate(username=request.POST['email'].strip(), password=request.POST['password'])
         if user is not None:
             login(request, user)
             request.session["is_auth_ok"] = '1'
