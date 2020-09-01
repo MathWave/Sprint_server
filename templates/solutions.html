@@ -1,0 +1,161 @@
+{% extends 'base_admin.html' %}
+
+{% block title %}{{ Block.name }}|решения{% endblock %}
+
+{% block scripts %}
+        function change() {
+            const task = document.getElementById('task_name').value;
+            const user = document.getElementById('user').value;
+            const group = document.getElementById('group').value;
+            const last_solution = document.getElementById('last_solution').checked;
+            const best_result = document.getElementById('best_result').checked;
+            if (!task && !user && !group && !last_solution && !best_result) {
+                document.querySelector('#control').innerText = 'Сбросить'
+            } else {
+                document.querySelector('#control').innerText = 'Применить'
+            }
+        }
+        function filter() {
+            const task = document.getElementById('task_name').value;
+            const user = document.getElementById('user').value;
+            const group = document.getElementById('group').value;
+            const last_solution = document.getElementById('last_solution').checked;
+            const best_result = document.getElementById('best_result').checked;
+            var req = '';
+            if (task) {
+                req += '&task_name=' + task;
+            }
+            if (user) {
+                req += '&user=' + user;
+            }
+            if (group) {
+                req += '&group=' + group;
+            }
+            if (last_solution) {
+                req += '&last_solution=' + last_solution;
+            }
+            if (best_result) {
+                req += '&best_result=' + best_result;
+            }
+            window.location.href = '/admin/solutions?block_id={{ Block.id }}' + req;
+        }
+        function retest() {
+            let del = confirm("Подтвердите перетест");
+	        if (del)
+                window.location.href = '/admin/retest?block_id={{ Block.id }}{{ filter }}'
+        }
+{% endblock %}
+
+{% block content %}
+        <h3><a href="/admin/block?id={{ Block.id }}">Обратно к настройкам блока</a></h3>
+        <h5>
+            {{ Block.name }}
+        </h5>
+        <h2>Фильтр</h2>
+        <table>
+            <tr>
+                <td>Таск</td>
+                <td><input type="text" placeholder="Таск" id="task_name" name="task_name" onchange="change()"></td>
+            </tr>
+            <tr>
+                <td>Пользователь</td>
+                <td><input type="text" placeholder="Пользователь" id="user" name="user" onchange="change()"></td>
+            </tr>
+            <tr>
+                <td>Группа</td>
+                <td><input type="text" placeholder="Группа" id="group" name="group" onchange="change()"></td>
+            </tr>
+            <tr>
+                <td>Последнее решение</td>
+                <td><input type="checkbox" id="last_solution" name="last_solution" onchange="change()"></td>
+            </tr>
+            <tr>
+                <td>Лучший результат</td>
+                <td><input type="checkbox" id="best_result" name="best_result" onchange="change()"></td>
+            </tr>
+        </table>
+        <button type="button" class="btn btn-dark" id="control" onclick="filter()" style="margin-top: 20px;">Сбросить</button><br>
+        <button style="margin-top: 10px;" class="btn btn-dark" onclick="window.location.href='/admin/download?{{ filter }}'">Скачать решения</button><br>
+        <button style="margin-top: 10px;" class="btn btn-dark" onclick="retest()">Перетест</button>
+        <hr>
+        <h5>Решения</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Таск</th>
+                    <th scope="col">Пользователь</th>
+                    <th scope="col">Время отправки</th>
+                    <th scope="col">Группа</th>
+                    <th scope="col">Результат</th>
+                    <th scope="col">Оценка</th>
+                    <th scope="col">Комментарий</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for solution in solutions %}
+                     <tr>
+                        <th scope="row">
+                            <a href="/admin/solution?id={{ solution.id }}{{ filter }}">{{ solution.id }}</a>
+                        </th>
+                        <td>
+                            <a href="/admin/task?id={{ solution.task.id }}">{{ solution.task.name }}</a>
+                        </td>
+                        <td>
+                            {{ solution.userinfo.surname }} {{ solution.userinfo.name }} {{ solution.userinfo.middle_name }}
+                        </td>
+                        <td>
+                            {{ solution.time_sent }}
+                        </td>
+                        <td>
+                            {{ solution.userinfo.group }}
+                        </td>
+                        <td>
+                            {{ solution.result }}
+                        </td>
+                        <td>
+                            {{ solution.mark_property }}
+                        </td>
+                        <td>
+                            {% if solution.comment %}
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalLong{{ solution.id }}">
+                                  Посмотреть
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalLong{{ solution.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle{{ solution.id }}" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle{{ solution.id }}">Комментарий к решению {{ solution.id }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-12">
+<pre>
+{{ solution.comment }}
+</pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            {% else %}
+                                <p>Нет комментария</p>
+                            {% endif %}
+                        </td>
+                     </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

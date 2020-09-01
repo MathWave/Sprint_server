@@ -1,0 +1,101 @@
+{% extends 'base_main.html' %}
+
+{% block title %}{{ task.name }}{% endblock %}
+
+{% block styles %}
+    input[type="file"] {
+        display: none;
+    }
+{% endblock %}
+
+{% block scripts %}
+    function uploaded() {
+        document.getElementById('is_uploaded').style.display = 'block';
+        document.getElementById('is_uploaded').nodeValue = document.getElementById('file-upload').nodeValue;
+    }
+{% endblock %}
+
+{% block content %}
+        <!--
+            Помогите! Меня взяли в заложники и заставляют писать на Python!!!
+            Я уже пятый день сижу в подвале и прикручиваю Docker, избавьте меня от мучений и спасите!
+        -->
+        <h5>
+            <a href="/block?id={{ task.block.id }}">Обратно к блоку</a>
+        </h5>
+        <h2>
+            {{ task.name }}
+        </h2>
+        <hr>
+        <h5>Легенда</h5>
+        {% autoescape off %}
+            {{ task.legend }}
+        {% endautoescape %}
+        <hr>
+        <h5>Формат входных данных</h5>
+            {% autoescape off %}
+
+            {{ task.input }}
+            {% endautoescape %}
+
+        <hr>
+        <h5>Формат выходных данных</h5>
+            {% autoescape off %}
+
+            {{ task.output }}
+            {% endautoescape %}
+
+        <hr>
+        <h5>Спецификации</h5>
+            {% autoescape off %}
+
+            {{ task.specifications }}
+            {% endautoescape %}
+
+        <hr>
+        <h2>Отправить решение</h2>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="file-upload" class="btn btn-dark" style="margin-top: 20px;">
+                Загрузить файл
+            </label>
+            <span id="is_uploaded" style="display: none;">Решение загружено</span>
+            <input type="file" class="btn form-control-file" id="file-upload" value="Выбрать файл" name="file" onchange="uploaded()">
+            <br><input type="submit" value="Отправить" class="btn btn-outline-dark">
+        </form>
+        <h2 style="margin-top: 20px;">Решения</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Дата и время отправки</th>
+                    <th scope="col">Результат</th>
+                    <th scope="col">Оценка</th>
+                    <th scope="col">Комментарий</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for solution in solutions %}
+                <tr>
+                    <th scope="row">
+                        <a href="/solution?id={{ solution.id }}">{{ solution.id }}</a>
+                    </th>
+                    <td>
+                        {{ solution.time_sent }}
+                    </td>
+                    <td>
+                        {{ solution.result }}
+                    </td>
+                    <td>
+                        {{ solution.mark_property }}
+                    </td>
+                    <td>
+<pre>
+{{ solution.comment_property }}
+</pre>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

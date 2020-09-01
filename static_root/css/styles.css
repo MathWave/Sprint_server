@@ -1,0 +1,11 @@
+.main_div {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.top-buffer {
+    margin-bottom:15px;
+}
+.top-button {
+    min-width: 100px;
+    display: inline-block;
+}

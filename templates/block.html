@@ -1,0 +1,35 @@
+{% extends 'base_main.html' %}
+
+{% load filters %}
+
+{% block title %}{{ Block.name }}{% endblock %}
+
+{% block content %}
+    <h2>{{ Block.name }}</h2>
+    <h5>Таски</h5>
+    <table>
+        {% for task in Block.tasks %}
+            <tr>
+                <td>
+                    <a href="/task?id={{ task.id }}">{{ task.name }}</a>
+                </td>
+                <td>
+                    {% with mark=task|mark_for_task:user %}
+                        {% if mark|marked %}
+                            <div style="margin-left: 20px; border: 1px solid black; background: {{ mark|mark_color }}; width: 25px; text-align: center;">
+                                {{ mark }}
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <hr>
+    {% if Block.opened %}
+        Открыто для отправки решений
+    {% else %}
+        Закрыто для отправки решений
+    {% endif %}
+    <br>Доступно с <b>{{ Block.time_start }}</b> до <b>{{ Block.time_end }}</b>
+{% endblock %}

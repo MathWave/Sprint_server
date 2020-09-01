@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="307354f8-4e86-4882-89b9-d1f3c67f727c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/Tester.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main/Tester.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+        <option value="HTML File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JupyterTrust" id="3322bd60-eca2-4eb0-a9f7-06c5b84d40c8" />
+  <component name="ProjectId" id="1dJ2COB0q1v499TlMCSWsgYZjEJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Main" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Django server.Sprint">
+    <configuration name="Sprint" type="Python.DjangoServer" factoryName="Django server">
+      <module name="Sprint" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="Sprint.settings" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="localhost" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Docker Image" type="docker-deploy" factoryName="docker-image" server-name="Docker">
+      <deployment type="docker-image">
+        <settings>
+          <option name="command" value="" />
+          <option name="containerName" value="Sprint" />
+          <option name="entrypoint" value="" />
+          <option name="imageTag" value="sprint" />
+          <option name="commandLineOptions" value="-p 8000:8000 --rm" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Django server.Sprint" />
+      <item itemvalue="Docker.Docker Image" />
+    </list>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="Docker" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="307354f8-4e86-4882-89b9-d1f3c67f727c" name="Default Changelist" comment="" />
+      <created>1592128746393</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1592128746393</updated>
+      <workItem from="1592128760434" duration="1952000" />
+      <workItem from="1592240941939" duration="8000" />
+      <workItem from="1593080353686" duration="11475000" />
+      <workItem from="1593167343949" duration="8878000" />
+      <workItem from="1593266985333" duration="45028000" />
+      <workItem from="1593442139198" duration="3958000" />
+      <workItem from="1593455389295" duration="598000" />
+      <workItem from="1593461593689" duration="37429000" />
+      <workItem from="1593777547525" duration="13478000" />
+      <workItem from="1593939690464" duration="4600000" />
+      <workItem from="1594025241900" duration="701000" />
+      <workItem from="1594049490117" duration="5585000" />
+      <workItem from="1594247254749" duration="17546000" />
+      <workItem from="1594623563093" duration="32000" />
+      <workItem from="1594634429158" duration="1103000" />
+      <workItem from="1594743371746" duration="2137000" />
+      <workItem from="1594844645678" duration="2251000" />
+      <workItem from="1595063789931" duration="126000" />
+      <workItem from="1595064066273" duration="374000" />
+      <workItem from="1595127176659" duration="4066000" />
+      <workItem from="1595329031591" duration="1101000" />
+      <workItem from="1595508623914" duration="1211000" />
+      <workItem from="1595532556706" duration="92000" />
+      <workItem from="1595583445783" duration="17191000" />
+      <workItem from="1595792320941" duration="930000" />
+      <workItem from="1595845763410" duration="1773000" />
+      <workItem from="1595972745129" duration="3591000" />
+      <workItem from="1596024637257" duration="107000" />
+      <workItem from="1596063684023" duration="213000" />
+      <workItem from="1596120612188" duration="391000" />
+      <workItem from="1596201177272" duration="226000" />
+      <workItem from="1596201414758" duration="815000" />
+      <workItem from="1596276570841" duration="5537000" />
+      <workItem from="1596449857420" duration="89000" />
+      <workItem from="1596455437630" duration="8819000" />
+      <workItem from="1596623859580" duration="5000" />
+      <workItem from="1596629917732" duration="82000" />
+      <workItem from="1596630110772" duration="1024000" />
+      <workItem from="1596796489605" duration="5000" />
+      <workItem from="1596803356590" duration="3390000" />
+      <workItem from="1596870136506" duration="1142000" />
+      <workItem from="1597048814172" duration="10000" />
+      <workItem from="1597084063308" duration="1511000" />
+      <workItem from="1597122729376" duration="372000" />
+      <workItem from="1597315471507" duration="379000" />
+      <workItem from="1597339855654" duration="2867000" />
+      <workItem from="1597386575476" duration="16837000" />
+      <workItem from="1597497961191" duration="459000" />
+      <workItem from="1597560299122" duration="2437000" />
+      <workItem from="1597562881230" duration="13779000" />
+      <workItem from="1597622228651" duration="144000" />
+      <workItem from="1597622499387" duration="2408000" />
+      <workItem from="1597662646137" duration="3189000" />
+      <workItem from="1597674902804" duration="1144000" />
+      <workItem from="1597751043221" duration="10000" />
+      <workItem from="1597777750241" duration="12257000" />
+      <workItem from="1597794577842" duration="800000" />
+      <workItem from="1597835259080" duration="531000" />
+      <workItem from="1597922501247" duration="193000" />
+      <workItem from="1597947881406" duration="11000" />
+      <workItem from="1598012969761" duration="635000" />
+      <workItem from="1598110146159" duration="2232000" />
+      <workItem from="1598128735664" duration="12049000" />
+      <workItem from="1598225779472" duration="787000" />
+      <workItem from="1598253769060" duration="127000" />
+      <workItem from="1598253967875" duration="159000" />
+      <workItem from="1598310865877" duration="385000" />
+      <workItem from="1598341318423" duration="8133000" />
+      <workItem from="1598367107713" duration="3218000" />
+    </task>
+    <task id="LOCAL-00001" summary="Сделал фильтр по решениям">
+      <created>1593942640712</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1593942640712</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Сделал перемещения внутри фильтра">
+      <created>1594051367768</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1594051367768</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Добавил функцию перетеста">
+      <created>1594247402649</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1594247402649</updated>
+    </task>
+    <task id="LOCAL-00004" summary="че то доделал">
+      <created>1594743390598</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1594743390599</updated>
+    </task>
+    <task id="LOCAL-00005" summary="че то доделал">
+      <created>1595585439041</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1595585439041</updated>
+    </task>
+    <task id="LOCAL-00006" summary="че то доделал">
+      <created>1596459028359</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1596459028359</updated>
+    </task>
+    <task id="LOCAL-00007" summary="посылки тестируются в песочнице">
+      <created>1596823416154</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1596823416154</updated>
+    </task>
+    <task id="LOCAL-00008" summary="немного фиксов в фронте">
+      <created>1597315533629</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1597315533629</updated>
+    </task>
+    <task id="LOCAL-00009" summary="добавил тестовый view">
+      <created>1597343435152</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1597343435152</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Компилятор лежит вместе с проектом">
+      <created>1597387107742</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1597387107743</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Компилятор лежит вместе с проектом">
+      <created>1597412781076</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1597412781076</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Решена проблема с размером очереди">
+      <created>1597442807478</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1597442807478</updated>
+    </task>
+    <task id="LOCAL-00013" summary="frontend improvements">
+      <created>1597502686887</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1597502686888</updated>
+    </task>
+    <task id="LOCAL-00014" summary="cascade delete in models">
+      <created>1597561934073</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1597561934073</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Никакой регистрации">
+      <created>1597784587511</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1597784587511</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Какие-то исправления, стало получше">
+      <created>1597791399412</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1597791399412</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Немного поигрался с ссылками">
+      <created>1597791976872</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1597791976872</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Немного поигрался с ссылками">
+      <created>1597922550170</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1597922550170</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Файловые ссылки оптимизированы под Windows">
+      <created>1598110613362</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1598110613362</updated>
+    </task>
+    <task id="LOCAL-00020" summary="bug fixed">
+      <created>1598110688925</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1598110688925</updated>
+    </task>
+    <task id="LOCAL-00021" summary="работа с моделями, тайтлами&#10;сделал отображение оценок">
+      <created>1598132228857</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1598132228857</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Обновил админку и оценку за блок">
+      <created>1598187944719</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1598187944719</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Сделал фильтр по решениям" />
+    <MESSAGE value="Сделал перемещения внутри фильтра" />
+    <MESSAGE value="Добавил функцию перетеста" />
+    <MESSAGE value="че то доделал" />
+    <MESSAGE value="посылки тестируются в песочнице" />
+    <MESSAGE value="немного фиксов в фронте" />
+    <MESSAGE value="добавил тестовый view" />
+    <MESSAGE value="Компилятор лежит вместе с проектом" />
+    <MESSAGE value="Решена проблема с размером очереди" />
+    <MESSAGE value="frontend improvements" />
+    <MESSAGE value="cascade delete in models" />
+    <MESSAGE value="Никакой регистрации" />
+    <MESSAGE value="Какие-то исправления, стало получше" />
+    <MESSAGE value="Немного поигрался с ссылками" />
+    <MESSAGE value="Файловые ссылки оптимизированы под Windows" />
+    <MESSAGE value="bug fixed" />
+    <MESSAGE value="работа с моделями, тайтлами&#10;сделал отображение оценок" />
+    <MESSAGE value="Обновил админку и оценку за блок" />
+    <option name="LAST_COMMIT_MESSAGE" value="Обновил админку и оценку за блок" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598117670762">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1597562647029" />
+    <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1598117670762" />
+    <state x="2027" y="192" key="#com.intellij.execution.impl.EditConfigurationsDialog/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1596812588261" />
+    <state x="552" y="325" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598013004549">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="552" y="325" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1598013004549" />
+    <state x="421" y="40" key="CommitChangelistDialog2" timestamp="1598187944009">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="421" y="40" key="CommitChangelistDialog2/0.0.1680.1050@0.0.1680.1050" timestamp="1597665677253" />
+    <state x="421" y="40" key="CommitChangelistDialog2/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1598187944009" />
+    <state width="1636" height="365" key="GridCell.Tab.0.bottom" timestamp="1598369166199">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1876" height="219" key="GridCell.Tab.0.bottom/0.0.1680.1050/1680.0.1920.1080@1680.0.1920.1080" timestamp="1595774502944" />
+    <state width="1636" height="328" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1597929306373" />
+    <state width="1636" height="365" key="GridCell.Tab.0.bottom/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1598369166199" />
+    <state width="1876" height="369" key="GridCell.Tab.0.bottom/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1596812589281" />
+    <state width="1636" height="362" key="GridCell.Tab.0.bottom/1680.23.1920.1057/0.0.1680.1050@0.0.1680.1050" timestamp="1597794202114" />
+    <state width="1636" height="346" key="GridCell.Tab.0.bottom/1680.23.1920.1057/0.23.1680.941@0.23.1680.941" timestamp="1598365952898" />
+    <state width="1636" height="365" key="GridCell.Tab.0.center" timestamp="1598369166198">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1876" height="219" key="GridCell.Tab.0.center/0.0.1680.1050/1680.0.1920.1080@1680.0.1920.1080" timestamp="1595774502942" />
+    <state width="1636" height="328" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1597929306372" />
+    <state width="1636" height="365" key="GridCell.Tab.0.center/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1598369166198" />
+    <state width="1876" height="369" key="GridCell.Tab.0.center/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1596812589279" />
+    <state width="1636" height="362" key="GridCell.Tab.0.center/1680.23.1920.1057/0.0.1680.1050@0.0.1680.1050" timestamp="1597794202113" />
+    <state width="1636" height="346" key="GridCell.Tab.0.center/1680.23.1920.1057/0.23.1680.941@0.23.1680.941" timestamp="1598365952897" />
+    <state width="1636" height="365" key="GridCell.Tab.0.left" timestamp="1598369166197">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1876" height="219" key="GridCell.Tab.0.left/0.0.1680.1050/1680.0.1920.1080@1680.0.1920.1080" timestamp="1595774502941" />
+    <state width="1636" height="328" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1597929306371" />
+    <state width="1636" height="365" key="GridCell.Tab.0.left/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1598369166197" />
+    <state width="1876" height="369" key="GridCell.Tab.0.left/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1596812589278" />
+    <state width="1636" height="362" key="GridCell.Tab.0.left/1680.23.1920.1057/0.0.1680.1050@0.0.1680.1050" timestamp="1597794202111" />
+    <state width="1636" height="346" key="GridCell.Tab.0.left/1680.23.1920.1057/0.23.1680.941@0.23.1680.941" timestamp="1598365952896" />
+    <state width="1636" height="365" key="GridCell.Tab.0.right" timestamp="1598369166199">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1876" height="219" key="GridCell.Tab.0.right/0.0.1680.1050/1680.0.1920.1080@1680.0.1920.1080" timestamp="1595774502942" />
+    <state width="1636" height="328" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1597929306372" />
+    <state width="1636" height="365" key="GridCell.Tab.0.right/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1598369166199" />
+    <state width="1876" height="369" key="GridCell.Tab.0.right/1680.0.1920.1080/0.0.1680.1050@1680.0.1920.1080" timestamp="1596812589280" />
+    <state width="1636" height="362" key="GridCell.Tab.0.right/1680.23.1920.1057/0.0.1680.1050@0.0.1680.1050" timestamp="1597794202113" />
+    <state width="1636" height="346" key="GridCell.Tab.0.right/1680.23.1920.1057/0.23.1680.941@0.23.1680.941" timestamp="1598365952897" />
+    <state width="1636" height="346" key="GridCell.Tab.1.bottom" timestamp="1598367307709">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1636" height="346" key="GridCell.Tab.1.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1597566840364" />
+    <state width="1636" height="346" key="GridCell.Tab.1.bottom/0.23.1680.941@0.23.1680.941" timestamp="1597566801602" />
+    <state width="1636" height="346" key="GridCell.Tab.1.bottom/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1598367307709" />
+    <state width="1636" height="344" key="GridCell.Tab.1.bottom/1680.23.1920.1057/0.0.1680.968@0.0.1680.968" timestamp="1593724533433" />
+    <state width="1636" height="346" key="GridCell.Tab.1.bottom/1680.23.1920.1057/0.23.1680.941@0.23.1680.941" timestamp="1598365952899" />
+    <state width="1636" height="346" key="GridCell.Tab.1.center" timestamp="1598367307708">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1636" height="346" key="GridCell.Tab.1.center/0.0.1680.1050@0.0.1680.1050" timestamp="1597566840363" />
+    <state width="1636" height="346" key="GridCell.Tab.1.center/0.23.1680.941@0.23.1680.941" timestamp="1597566801599" />
+    <state width="1636" height="346" key="GridCell.Tab.1.center/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1598367307708" />
+    <state width="1636" height="344" key="GridCell.Tab.1.center/1680.23.1920.1057/0.0.1680.968@0.0.1680.968" timestamp="1593724533433" />
+    <state width="1636" height="346" key="GridCell.Tab.1.center/1680.23.1920.1057/0.23.1680.941@0.23.1680.941" timestamp="1598365952899" />
+    <state width="1636" height="346" key="GridCell.Tab.1.left" timestamp="1598367307707">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1636" height="346" key="GridCell.Tab.1.left/0.0.1680.1050@0.0.1680.1050" timestamp="1597566840363" />
+    <state width="1636" height="346" key="GridCell.Tab.1.left/0.23.1680.941@0.23.1680.941" timestamp="1597566801598" />
+    <state width="1636" height="346" key="GridCell.Tab.1.left/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1598367307707" />
+    <state width="1636" height="344" key="GridCell.Tab.1.left/1680.23.1920.1057/0.0.1680.968@0.0.1680.968" timestamp="1593724533431" />
+    <state width="1636" height="346" key="GridCell.Tab.1.left/1680.23.1920.1057/0.23.1680.941@0.23.1680.941" timestamp="1598365952898" />
+    <state width="1636" height="346" key="GridCell.Tab.1.right" timestamp="1598367307709">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1636" height="346" key="GridCell.Tab.1.right/0.0.1680.1050@0.0.1680.1050" timestamp="1597566840364" />
+    <state width="1636" height="346" key="GridCell.Tab.1.right/0.23.1680.941@0.23.1680.941" timestamp="1597566801600" />
+    <state width="1636" height="346" key="GridCell.Tab.1.right/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1598367307709" />
+    <state width="1636" height="344" key="GridCell.Tab.1.right/1680.23.1920.1057/0.0.1680.968@0.0.1680.968" timestamp="1593724533433" />
+    <state width="1636" height="346" key="GridCell.Tab.1.right/1680.23.1920.1057/0.23.1680.941@0.23.1680.941" timestamp="1598365952899" />
+    <state x="341" y="164" key="SettingsEditor" timestamp="1596201402533">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="341" y="164" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1596201402533" />
+    <state x="440" y="261" key="Vcs.Push.Dialog.v2" timestamp="1598187947550">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="440" y="261" key="Vcs.Push.Dialog.v2/0.0.1680.1050@0.0.1680.1050" timestamp="1597561935084" />
+    <state x="440" y="261" key="Vcs.Push.Dialog.v2/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1598187947550" />
+    <state width="840" height="525" key="XDebugger.FullValuePopup" timestamp="1593428853665">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="840" height="525" key="XDebugger.FullValuePopup/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1593428853665" />
+    <state x="601" y="255" key="com.intellij.docker.deployment.ui.DockerPortBindingsField.v173.dialogSize" timestamp="1597562337826">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="601" y="255" key="com.intellij.docker.deployment.ui.DockerPortBindingsField.v173.dialogSize/0.0.1680.1050@0.0.1680.1050" timestamp="1597562337826" />
+    <state x="622" y="444" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597787655766">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="622" y="444" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1597787655766" />
+    <state x="488" y="266" width="858" height="582" key="find.popup" timestamp="1598130129158">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="488" y="266" width="858" height="582" key="find.popup/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1598130129158" />
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1593446577968">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/1680.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1593446577968" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Main/Tester.py</url>
+          <line>42</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

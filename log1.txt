@@ -1,0 +1,1 @@
+mono C:\Users\nchuykin\data\solutions\2280\Calculator\test_folder\nunit3-console.exe --work C:\Users\nchuykin\data\solutions\2280\Calculator\test_folder C:\Users\nchuykin\data\solutions\2280\Calculator\test_folder\63.dll

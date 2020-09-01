@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <div class="row no-gutters top-buffer">
+        <div class="col" style="min-width: 100px;">
+            <button type="button" class="btn btn-dark btn-block top-button" onclick="main()">Sprint</button>
+        </div>
+
+        {% if is_admin %}
+            <div class="col" style="min-width: 100px;">
+                <button type="button" class="btn btn-light btn-block top-button" onclick="admin()">Админка</button>
+            </div>
+            <div class="col" style="min-width: 100px;">
+                <button type="button" class="btn btn-light btn-block top-button"  onclick="settings()">Настройки</button>
+            </div>
+            <div class="col-8"></div>
+        {% else %}
+            <div class="col" style="min-width: 100px;">
+                <button type="button" class="btn btn-light btn-block top-button"  onclick="settings()">Настройки</button>
+            </div>
+            <div class="col-9"></div>
+        {% endif %}
+
+        <div class="col" style="min-width: 100px;">
+            <button type="button" class="btn btn-light btn-block top-button" onclick="logout()">Выход</button>
+        </div>
+    </div>
+{% endblock %}

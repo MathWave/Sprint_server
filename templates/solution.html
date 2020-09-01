@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sprint|{{ solution.task.name }}|решение</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href={% static "css/styles.css" %}>
+    <script type="text/javascript" src={% static "js/scripts.js" %}></script>
+</head>
+<body>
+    <div class="main_div">
+    <header class="mt-2 mb-2" role="banner">
+        {% if is_admin %}
+                <div class="row no-gutters top-buffer">
+                    {% if from_admin %}
+                        <div class="col">
+                            <button type="button" class="btn btn-light btn-block top-button" onclick="main()">Sprint</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-dark btn-block top-button" onclick="admin()">Админка</button>
+                        </div>
+                    {% else %}
+                        <div class="col">
+                            <button type="button" class="btn btn-dark btn-block top-button" onclick="main()">Sprint</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-light btn-block top-button" onclick="admin()">Админка</button>
+                        </div>
+                    {% endif %}
+                    <div class="col">
+                        <button type="button" class="btn btn-light btn-block top-button"  onclick="settings()">Настройки</button>
+                    </div>
+                    <div class="col-8">
+
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-light btn-block top-button" onclick="logout()">Выход</button>
+                    </div>
+                </div>
+            {% else %}
+                <div class="row no-gutters top-buffer">
+                    <div class="col">
+                        <button type="button" class="btn btn-dark btn-block top-button" onclick="main()">Sprint</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-light btn-block top-button"  onclick="settings()">Настройки</button>
+                    </div>
+                    <div class="col-9">
+
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn btn-light btn-block top-button" onclick="logout()">Выход</button>
+                    </div>
+                </div>
+            {% endif %}
+        </header>
+        <div class="row">
+            <div class="col-6">
+                <h5>
+                    <form method="POST">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    Блок
+                                </td>
+                                <td>
+                                    <a href="/block?id={{ solution.task.block.id }}">{{ solution.task.block.name }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Таск
+                                </td>
+                                <td>
+                                    <a href="/task?id={{ solution.task.id }}">{{ solution.task.name }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Студент
+                                </td>
+                                <td>
+                                    {{ solution.userinfo.surname }} {{ solution.userinfo.name }} {{ solution.userinfo.middle_name }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    id решения
+                                </td>
+                                <td>
+                                <div style="text-align: center;"></div>
+                                    {% if has_prev and can_edit %}
+                                        <a href="/admin/solution?id={{ prev }}{{ req }}"><-</a>
+                                    {% endif %}
+                                    {{ solution.id }}
+                                    {% if has_next and can_edit %}
+                                        <a href="/admin/solution?id={{ next }}{{ req }}">-></a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Результат
+                                </td>
+                                <td>
+                                    {{ solution.result }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Оценка
+                                </td>
+                                <td>
+                                    {% if can_edit %}
+                                        {% csrf_token %}
+                                        <label>
+                                            <select name="mark">
+                                                {% autoescape off %}
+                                                    {{ solution.mark_select }}
+                                                {% endautoescape %}
+                                            </select>
+                                        </label>
+                                    {% else %}
+                                        {{ solution.mark_property }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Комментарий
+                                </td>
+                                <td>
+                                    {% if can_edit %}
+                                        <textarea rows="10" cols="50" style="resize: none;" name="comment">{{ solution.comment }}</textarea>
+                                    {% else %}
+<pre>
+{{ solution.comment_property }}
+</pre>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    {% if can_edit %}
+                        <input type="submit" value="Сохранить" class="btn btn-dark">
+                    {% endif %}
+                    </form>
+                </h5>
+            </div>
+        </div>
+        <h3>Files</h3>
+    {% for filename, text in solution.files.items %}
+        <h5>{{ filename }}</h5>
+        <div class="border border-dark bg-light" style="padding: 15px;">
+<pre>
+{{ text }}
+</pre>
+        </div>
+        <hr>
+    {% endfor %}
+</div>
+
+</body>
+</html>

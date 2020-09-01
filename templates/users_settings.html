@@ -1,0 +1,172 @@
+{% extends 'base_admin.html' %}
+
+{% block title %}{{ course.name }}|настройки{% endblock %}
+
+{% block scripts %}
+        function uploaded() {
+            document.getElementById('is_uploaded').style.display = 'block';
+            document.getElementById('is_uploaded').nodeValue = document.getElementById('file-upload').nodeValue;
+        }
+{% endblock %}
+
+{% block styles %}
+    input[type="file"] {
+        display: none;
+    }
+{% endblock %}
+
+{% block content %}
+        <h3>{{ course.name }}</h3>
+        <h5>Добавить участников</h5>
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>
+                        <input name="input" type="text" placeholder="ФИО, почта или группа" style="width: 200px;">
+                    </td>
+                    <td>
+                        <input type="submit" value="Добавить" class="btn btn-dark">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="file-upload" class="btn btn-dark" style="margin-top: 20px;">
+                Загрузить файл
+            </label>
+            <span id="is_uploaded" style="display: none;">Файл загружен</span>
+            <input type="file" class="btn form-control-file" id="file-upload" value="Выбрать файл" name="file" onchange="uploaded()">
+            <br><input type="submit" value="Отправить" class="btn btn-outline-dark">
+        </form>
+     <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#example" style="margin-top: 20px;">
+                                Правила загрузки файла
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="example" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Инструкция к загружаемому файлу</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-12">
+<pre>
+Загружаемый файл должен представлять из себя
+JSON файл, составленый следующим образом:
+[
+    {
+        "email": "samplename@samplemail.com",
+        "surname": "Иванов",
+        "name": "Иван",
+        "middle_name": "Иванович",
+        "group": "БПИ183"
+    },
+    {
+        "email": "samplename2@samplemail.com",
+        "surname": "Чуйкин",
+        "name": "Виктор",
+        "middle_name": "Вениаминович",
+        "group": "БПИ9000"
+    }
+]
+
+Пояснения к заполняемым полям:
+email - почта
+surname - фамилия
+name - имя
+middle_name - отчество
+group - группа
+
+Все пользователи будут зарегестрированы на сервисе,
+и каждому из них на указанные почты будут
+отправлены сгенерированные пароли.
+Также каждый пользователь будет подписан на
+данный курс. Если пользователь уже был
+зарегестрирован в системе, запись о нем
+будет проигнорирована.
+</pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Понял(-а)</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+        <hr>
+        <h1>Назначить или разжаловать</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>
+                        <select name="user">
+                            {% for user in course.subscribes %}
+                                <option value="{{ user.userinfo.user.email }}">{{ user.userinfo.user.email }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" value="Применить" class="btn btn-dark">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <hr>
+        <h1>Участники</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Фамилия</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Отчество</th>
+                        <th scope="col">Группа</th>
+                        <th scope="col">Почта</th>
+                        <th scope="col">Роль</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user in course.subscribes %}
+                    <tr>
+                        <td>
+                            {{ user.userinfo.surname }}
+                        </td>
+                        <td>
+                            {{ user.userinfo.name }}
+                        </td>
+                        <td>
+                            {{ user.userinfo.middle_name }}
+                        </td>
+                        <td>
+                            {{ user.userinfo.group }}
+                        </td>
+                        <td>
+                            {{ user.userinfo.user.email }}
+                        </td>
+                        <td>
+                            {{ user.role }}
+                        </td>
+                        <td>
+                            <form method="POST" onsubmit="return confirm('Точно отписываем?');">
+                                {% csrf_token %}
+                                <input type="hidden" name="user_delete" value="{{ user.userinfo.user.email }}">
+                                <input type="submit" value="Отписка" class="btn btn-outline-danger">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+{% endblock %}

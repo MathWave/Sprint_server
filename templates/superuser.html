@@ -1,0 +1,85 @@
+{% extends 'base_admin.html' %}
+
+{% block title %}Режим Бога{% endblock %}
+{% block content %}
+    <h1>Настройки системы</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-6">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Параметр</th>
+                            <th scope="col">Значение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for param in params %}
+                            <tr>
+                                <td>{{ param.key }}</td>
+                                <td><input style="width: 100%;" name="{{ param.key }}" value="{{ param.value }}"></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-dark" value="Сохранить">
+    </form>
+    <hr>
+    <h1>Курсы</h1>
+    <table border="1px solid black">
+        <tr>
+            <td>
+                <b>id</b>
+            </td>
+            <td>
+                Название
+            </td>
+            <td>
+                Преподаватели
+            </td>
+            <td></td>
+        </tr>
+        <form method="POST">
+            {% csrf_token %}
+            <tr>
+                <td></td>
+                <td>
+                    <input type="text" name="course_name">
+                </td>
+                <td>
+                    <select name="teacher">
+                        {% for teacher in teachers %}
+                            <option value="{{ teacher.email }}">{{ teacher.email }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <input class="btn btn-dark" type="submit" value="Создать">
+                </td>
+            </tr>
+        </form>
+        {% for course in courses %}
+            <tr>
+                <td>
+                    {{ course.id }}
+                </td>
+                <td>
+                    {{ course.name }}
+                </td>
+                <td>
+                    {% for teacher in course.teachers %}
+                        {{ teacher.surname }} {{ teacher.name }} {{ teacher.middle_name }}
+                    {% endfor %}
+                </td>
+                <td>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <hr>
+    <button class="btn btn-dark" onclick="window.location.href='/admin/'">Django admin</button>
+    <hr>
+{% endblock %}

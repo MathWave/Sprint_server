@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="0" runstate="Runnable" testcasecount="1" result="Failed" label="Error" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.11.1.0" clr-version="4.0.30319.42000" start-time="2020-08-25 17:30:50Z" end-time="2020-08-25 17:30:51Z" duration="1.264470">
+  <command-line><![CDATA[..\..\..\..\..\nunit_console\nunit3-console.exe  59.dll]]></command-line>
+  <test-suite type="Assembly" id="0" name="" fullname="" runstate="NotRunnable" testcasecount="1" result="Failed" label="Error" start-time="2020-08-25 17:30:51Z" end-time="2020-08-25 17:30:51Z" duration="0.001" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <failure>
+      <message><![CDATA[NUnit.Engine.NUnitEngineException : An exception occurred in the driver while loading tests.
+  ----> System.IO.FileLoadException : Не удалось загрузить файл или сборку "nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb" либо одну из их зависимостей. Найденное определение манифеста сборки не соответствует ссылке на сборку. (Исключение из HRESULT: 0x80131040)]]></message>
+      <stack-trace><![CDATA[--NUnitEngineException
+An exception occurred in the driver while loading tests.
+
+Server stack trace: 
+   в NUnit.Engine.Runners.DirectTestRunner.LoadDriver(IFrameworkDriver driver, String testFile, TestPackage subPackage) в C:\Users\Chris\Documents\git\nunit-console\src\NUnitEngine\nunit.engine.core\Runners\DirectTestRunner.cs:строка 166
+   в NUnit.Engine.Runners.DirectTestRunner.LoadPackage() в C:\Users\Chris\Documents\git\nunit-console\src\NUnitEngine\nunit.engine.core\Runners\DirectTestRunner.cs:строка 152
+   в NUnit.Engine.Runners.DirectTestRunner.EnsurePackageIsLoaded() в C:\Users\Chris\Documents\git\nunit-console\src\NUnitEngine\nunit.engine.core\Runners\DirectTestRunner.cs:строка 262
+   в NUnit.Engine.Runners.DirectTestRunner.RunTests(ITestEventListener listener, TestFilter filter) в C:\Users\Chris\Documents\git\nunit-console\src\NUnitEngine\nunit.engine.core\Runners\DirectTestRunner.cs:строка 210
+   в System.Runtime.Remoting.Messaging.StackBuilderSink._PrivateProcessMessage(IntPtr md, Object[] args, Object server, Object[]& outArgs)
+   в System.Runtime.Remoting.Messaging.StackBuilderSink.SyncProcessMessage(IMessage msg)
+
+Exception rethrown at [0]: 
+   в System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   в System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   в NUnit.Engine.ITestEngineRunner.Run(ITestEventListener listener, TestFilter filter)
+   в NUnit.Engine.Runners.ProcessRunner.RunTests(ITestEventListener listener, TestFilter filter) в C:\Users\Chris\Documents\git\nunit-console\src\NUnitEngine\nunit.engine\Runners\ProcessRunner.cs:строка 163
+--
+FileLoadException
+Не удалось загрузить файл или сборку "nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb" либо одну из их зависимостей. Найденное определение манифеста сборки не соответствует ссылке на сборку. (Исключение из HRESULT: 0x80131040)
+   в System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, RuntimeAssembly reqAssembly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)
+   в System.Activator.CreateInstance(String assemblyString, String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, Evidence securityInfo, StackCrawlMark& stackMark)
+   в System.Activator.CreateInstance(String assemblyName, String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, Evidence securityInfo)
+   в System.AppDomain.CreateInstance(String assemblyName, String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, Evidence securityAttributes)
+   в System.AppDomain.CreateInstanceAndUnwrap(String assemblyName, String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, Evidence securityAttributes)
+   в System.AppDomain.CreateInstanceAndUnwrap(String assemblyName, String typeName, Boolean ignoreCase, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, Evidence securityAttributes)
+   в NUnit.Engine.Drivers.NUnit3FrameworkDriver.CreateObject(String typeName, Object[] args) в C:\Users\Chris\Documents\git\nunit-console\src\NUnitEngine\nunit.engine.core\Drivers\NUnit3FrameworkDriver.cs:строка 169
+   в NUnit.Engine.Drivers.NUnit3FrameworkDriver.Load(String testAssemblyPath, IDictionary`2 settings) в C:\Users\Chris\Documents\git\nunit-console\src\NUnitEngine\nunit.engine.core\Drivers\NUnit3FrameworkDriver.cs:строка 84
+   в NUnit.Engine.Runners.DirectTestRunner.LoadDriver(IFrameworkDriver driver, String testFile, TestPackage subPackage) в C:\Users\Chris\Documents\git\nunit-console\src\NUnitEngine\nunit.engine.core\Runners\DirectTestRunner.cs:строка 162
+]]></stack-trace>
+    </failure>
+  </test-suite>
+</test-run>

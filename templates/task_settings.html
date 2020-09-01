@@ -1,0 +1,140 @@
+﻿{% extends 'base_admin.html' %}
+
+{% block title %}{{ task.name }}|настройки{% endblock %}
+
+{% block scripts %}
+        function uploaded() {
+            document.getElementById('is_uploaded').style.display = 'block';
+            document.getElementById('is_uploaded').nodeValue = document.getElementById('file-upload').nodeValue;
+        }
+{% endblock %}
+{% block styles %}
+        input[type="file"] {
+            display: none;
+        }
+{% endblock %}
+    <script>
+
+    </script>
+{% block content %}
+    <h3><a href="/admin/block?id={{ task.block.id }}">{{ task.block.name }}</a></h3>
+    <h5>{{ task.name }}</h5>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>
+                        Легенда
+                    </td>
+                    <td>
+                        <textarea rows="10" cols="50" style="resize: none;" name="legend">{{ task.legend }}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Формат входных данных
+                    </td>
+                    <td>
+                        <textarea rows="10" cols="50" style="resize: none;" name="input">{{ task.input }}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Формат выходных данных
+                    </td>
+                    <td>
+                        <textarea rows="10" cols="50" style="resize: none;" name="output">{{ task.output }}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Спецификации
+                    </td>
+                    <td>
+                        <textarea rows="10" cols="50" style="resize: none;" name="specifications">{{ task.specifications }}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Ограничения по времени
+                    </td>
+                    <td>
+                        <input type="text" name="time_limit" value="{{ task.time_limit }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Вес задачи
+                    </td>
+                    <td>
+                        <input type="text" name="weight" value="{{ task.weight }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Тесты
+                    </td>
+                    <td>
+                        <label for="tests" class="btn btn-dark" style="margin-top: 20px;">
+                            Загрузить файл
+                        </label>
+                        <span id="is_uploaded" style="display: none;">Тесты выбраны</span>
+                        <input type="file" class="btn form-control-file" id="tests" value="Выбрать файл" name="tests" onchange="uploaded()">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        {% if task.tests_uploaded %}
+                            <br><h5><span style="color: red; ">Тесты загружены</span></h5>
+			    <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalLong">
+                                  Посмотреть
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Unit тесты</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-12">
+<pre>
+{{ task.tests_text }}
+</pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+            <hr>
+            <input type="submit" value="Сохранить" class="btn btn-dark">
+        </form>
+        <form method="POST" onsubmit="return confirm('Точно удаляем?');">
+            {% csrf_token %}
+            <input type="hidden" name="test_id" value="{{ task.id }}">
+            <input type="submit" value="Очистить тесты" class="btn btn-dark" style="margin-top: 10px;">
+        </form>
+    {% if is_superuser %}
+        <form method="POST" onsubmit="return confirm('Точно удаляем?');">
+            {% csrf_token %}
+            <input type="hidden" name="task_id" value="{{ task.id }}">
+            <input type="submit" value="Удалить таск" class="btn btn-dark" style="margin-top: 10px;">
+        </form>
+    {% endif %}
+{% endblock %}
