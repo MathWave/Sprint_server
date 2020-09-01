@@ -1,7 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils import timezone
-from .models import *
+from Main.models import *
 from contextlib import contextmanager
 from django.db.transaction import atomic
 from random import choice
@@ -9,6 +9,9 @@ from string import ascii_letters
 import smtplib
 from threading import Thread
 from time import sleep
+
+
+base_dir = 'data'
 
 
 @contextmanager

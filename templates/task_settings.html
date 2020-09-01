@@ -7,6 +7,10 @@
             document.getElementById('is_uploaded').style.display = 'block';
             document.getElementById('is_uploaded').nodeValue = document.getElementById('file-upload').nodeValue;
         }
+        function uploaded1() {
+            document.getElementById('send').style.display = 'block';
+            document.getElementById('is_uploaded1').nodeValue = document.getElementById('file-upload1').nodeValue;
+        }
 {% endblock %}
 {% block styles %}
         input[type="file"] {
@@ -80,13 +84,9 @@
                         </label>
                         <span id="is_uploaded" style="display: none;">Тесты выбраны</span>
                         <input type="file" class="btn form-control-file" id="tests" value="Выбрать файл" name="tests" onchange="uploaded()">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         {% if task.tests_uploaded %}
                             <br><h5><span style="color: red; ">Тесты загружены</span></h5>
-			    <!-- Button trigger modal -->
+                <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalLong">
                                   Посмотреть
                                 </button>
@@ -119,6 +119,58 @@
                                   </div>
                                 </div>
                         {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Дополнительные файлы
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#filesModalLong">
+                          Управлять
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="filesModalLong" tabindex="-1" role="dialog" aria-labelledby="filesModalLongTitle" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="filesModalLongTitle">Дополнительные файлы к таску {{ task.name }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <table>
+                                                {% for file in task.files %}
+                                                    <tr>
+                                                        <td>
+                                                            <img width="14px" height="14px" style="margin-right: 5px;" src="https://image.flaticon.com/icons/svg/876/876755.svg">
+                                                        </td>
+                                                        <td>{{ file.filename }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <label for="files" class="btn btn-primary">
+                                    Загрузить файл
+                                </label>
+                                <form method="POST">
+                                    <input type="file" class="btn form-control-file" id="files" value="Выбрать файл" name="file" onchange="uploaded1()">
+                                    <button type="submit" class="btn btn-success" style="display: none;" id="send">Отправить</button>
+                                </form>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                     </td>
                 </tr>
             </table>

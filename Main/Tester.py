@@ -1,11 +1,14 @@
 from shutil import rmtree, copytree, copyfile
 from os.path import join, basename, exists, isdir, abspath, sep
 from os import remove, listdir, mkdir
-from .models import Solution
+from .models import Solution, ExtraFile
 from subprocess import Popen
 import subprocess
 from threading import Thread
 from xml.dom.minidom import parse
+
+
+base_dir = 'data'
 
 
 def shell(cmd):
@@ -104,8 +107,8 @@ class Tester:
         #            'mono {} '.format(nunit_path(self.working_dir)) + \
         #            str(self.solution.task.id) + '.dll)'
         #Windows
-        test_cmd = 'mono {} '.format(join(self.working_dir, 'nunit3-console.exe')) + \
-                   '--work {} '.format(self.working_dir) + join(self.working_dir, str(self.solution.task.id)) + '.dll'
+        test_cmd = 'cd {} && mono {} '.format(self.working_dir, 'nunit3-console.exe') + str(self.solution.task.id) + '.dll'
+        print('test cmd: ', test_cmd)
         shell(test_cmd)
         with open('log1.txt', 'w') as fs:
             fs.write(test_cmd)
@@ -132,7 +135,7 @@ class Tester:
             self.delete_everything()
             start_new(self.host)
             return
-        sln_path = solution_path(join('C:\\Users\\nchuykin\\data', 'solutions', str(solution.id)))
+        sln_path = solution_path(join(base_dir, 'solutions', str(solution.id)))
         working_dir = join(sln_path, 'test_folder')
         mkdir(working_dir)
         for project in listdir(sln_path):
@@ -159,11 +162,13 @@ class Tester:
         build_tests_cmd += self.solution.task.tests_path()
         print(build_tests_cmd)
         shell(build_tests_cmd)
+        for file in ExtraFile.objects.filter(task=self.solution.task):
+            copyfile(file.file.path, join(working_dir, file.filename))
         thread = Thread(target=self.nunit_testing)
         thread.start()
         thread.join(solution.task.time_limit / 1000)
         if solution.result == 'TESTING':
             solution.result = 'Time limit'
         solution.save()
-        self.delete_everything()
+        # self.delete_everything()
         start_new(self.host)

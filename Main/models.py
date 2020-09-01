@@ -2,7 +2,11 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_delete
-from os.path import sep
+from os.path import sep, join
+from os import remove
+
+
+base_dir = 'data'
 
 
 class ThreadSafe(models.Model):
@@ -102,7 +106,7 @@ class Task(models.Model):
         return self.name
 
     def tests_path(self):
-        return 'C:\\Users\\nchuykin\\data\\tests\\{}.cs'.format(self.id)
+        return join(base_dir, 'tests', str(self.id) + '.cs')
 
     @property
     def tests_text(self):
@@ -112,6 +116,10 @@ class Task(models.Model):
     def tests_uploaded(self):
         from os.path import exists
         return exists(self.tests_path())
+
+    @property
+    def files(self):
+        return ExtraFile.objects.filter(task=self)
 
 
 class UserInfo(models.Model):
@@ -139,7 +147,7 @@ class Solution(models.Model):
         return self.task.name + '|'+ self.user.username
 
     def path(self):
-        return 'C:\\Users\\nchuykin\\data{}solutions{}'.format(sep, sep) + str(self.id)
+        return join(base_dir, 'solutions', str(self.id))
 
     @property
     def userinfo(self):
@@ -200,6 +208,12 @@ class System(models.Model):
         return self.key
 
 
+class ExtraFile(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    file = models.FileField(upload_to=join(base_dir, 'extra_files'))
+    filename = models.TextField()
+
+
 @receiver(post_delete, sender=Task)
 def delete_task_hook(sender, instance, using, **kwargs):
     from os.path import exists
@@ -214,3 +228,8 @@ def delete_solution_hook(sender, instance, using, **kwargs):
     if exists(instance.path()):
         from shutil import rmtree
         rmtree(instance.path())
+
+
+@receiver(post_delete, sender=ExtraFile)
+def delete_file_hook(sender, instance, using, **kwargs):
+    remove(instance.file.path)

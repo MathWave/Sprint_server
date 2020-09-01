@@ -16,7 +16,7 @@ from .Tester import Tester, shell
 from .main import solutions_filter, check_admin_on_course, re_test, check_admin, check_teacher, random_string, \
     send_email, check_permission_block, is_integer, check_god, notificate, blocks_available, check_login, \
     get_restore_hash
-from .models import System, Solution, Block, Subscribe, Course, UserInfo, Task, Restore
+from .models import System, Solution, Block, Subscribe, Course, UserInfo, Task, Restore, ExtraFile
 from os.path import sep
 
 
@@ -267,6 +267,9 @@ def task_settings(request):
             if exists(current_task.tests_path()):
                 remove(current_task.tests_path())
             return HttpResponseRedirect('/admin/task?id=' + str(current_task.id))
+        if 'file' in request.FILES.keys():
+            ExtraFile.objects.create(file=request.FILES['file'], filename=request.FILES['file'].name, task=current_task)
+            return HttpResponseRedirect('/admin/task?id=' + str(current_task.id))
         current_task.legend, current_task.input, current_task.output, current_task.specifications = \
             request.POST['legend'],  request.POST['input'], request.POST['output'], request.POST['specifications']
         current_task.time_limit = int(request.POST['time_limit']) if is_integer(request.POST['time_limit']) else 10000
@@ -281,6 +284,7 @@ def task_settings(request):
                 for chunk in file.chunks():
                     fs.write(chunk)
         current_task.save()
+        return HttpResponseRedirect('/admin/task?id=' + str(current_task.id))
     return render(request, 'task_settings.html', context={'task': current_task,
                                                           'tests': TestsForm(),
                                                           'is_superuser': check_teacher(request.user)})
