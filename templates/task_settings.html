@@ -16,6 +16,11 @@
         input[type="file"] {
             display: none;
         }
+        .my_td {
+            text-align: center; 
+            vertical-align: middle;
+            height: 20px;
+        }
 {% endblock %}
     <script>
 
@@ -81,11 +86,10 @@
                     <td>
                         <label for="tests" class="btn btn-dark" style="margin-top: 20px;">
                             Загрузить файл
-                        </label>
+                        </label><br>
                         <span id="is_uploaded" style="display: none;">Тесты выбраны</span>
                         <input type="file" class="btn form-control-file" id="tests" value="Выбрать файл" name="tests" onchange="uploaded()">
                         {% if task.tests_uploaded %}
-                            <br><h5><span style="color: red; ">Тесты загружены</span></h5>
                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalLong">
                                   Посмотреть
@@ -147,10 +151,12 @@
                                             <table>
                                                 {% for file in task.files %}
                                                     <tr>
-                                                        <td>
+                                                        <td class="my_td">
                                                             <img width="14px" height="14px" style="margin-right: 5px;" src="https://image.flaticon.com/icons/svg/876/876755.svg">
                                                         </td>
-                                                        <td>{{ file.filename }}</td>
+                                                        <td class="my_td">
+                                                            {{ file.filename }}
+                                                        </td>
                                                     </tr>
                                                 {% endfor %}
                                             </table>

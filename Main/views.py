@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
+from django.core.files import File
 from .forms import *
 from django.contrib.auth import login, authenticate, logout
 from django.utils import timezone
@@ -9,7 +10,7 @@ from datetime import datetime
 from django.utils.timezone import make_aware
 from zipfile import ZipFile, BadZipFile
 from threading import Thread
-from os import remove, mkdir
+from os import remove, mkdir, listdir
 from os.path import exists
 from json import load
 from .Tester import Tester, shell
@@ -17,7 +18,11 @@ from .main import solutions_filter, check_admin_on_course, re_test, check_admin,
     send_email, check_permission_block, is_integer, check_god, notificate, blocks_available, check_login, \
     get_restore_hash
 from .models import System, Solution, Block, Subscribe, Course, UserInfo, Task, Restore, ExtraFile
-from os.path import sep
+from os.path import sep, join, exists, isfile
+from shutil import rmtree
+
+
+base_dir = 'data'
 
 
 def set_result(request):
@@ -268,7 +273,26 @@ def task_settings(request):
                 remove(current_task.tests_path())
             return HttpResponseRedirect('/admin/task?id=' + str(current_task.id))
         if 'file' in request.FILES.keys():
-            ExtraFile.objects.create(file=request.FILES['file'], filename=request.FILES['file'].name, task=current_task)
+            if request.FILES['file'].name.endswith('.zip'):
+                try:
+                    wdir = join(base_dir, 'extra_files', str(current_task.id))
+                    if exists(wdir):
+                        rmtree(wdir)
+                    mkdir(wdir)
+                    with open(join(wdir, 'file.zip'), 'wb') as fs:
+                        for chunk in request.FILES['file'].chunks():
+                            fs.write(chunk)
+                    with ZipFile(join(wdir, 'file.zip')) as obj:
+                        obj.extractall(wdir)
+                    remove(join(wdir, 'file.zip'))
+                    for file in listdir(wdir):
+                        if isfile(join(wdir, file)):
+                            ExtraFile.objects.create(file=File(open(join(wdir, file), 'rb')), filename=file, task=current_task)
+                    rmtree(wdir)
+                except BadZipFile:
+                    pass
+            else:
+                ExtraFile.objects.create(file=request.FILES['file'], filename=request.FILES['file'].name, task=current_task)
             return HttpResponseRedirect('/admin/task?id=' + str(current_task.id))
         current_task.legend, current_task.input, current_task.output, current_task.specifications = \
             request.POST['legend'],  request.POST['input'], request.POST['output'], request.POST['specifications']
