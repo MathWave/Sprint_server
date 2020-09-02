@@ -53,16 +53,18 @@
             {% endautoescape %}
 
         <hr>
-        <h2>Отправить решение</h2>
-        <form action="" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <label for="file-upload" class="btn btn-dark" style="margin-top: 20px;">
-                Загрузить файл
-            </label>
-            <span id="is_uploaded" style="display: none;">Решение загружено</span>
-            <input type="file" class="btn form-control-file" id="file-upload" value="Выбрать файл" name="file" onchange="uploaded()">
-            <br><input type="submit" value="Отправить" class="btn btn-outline-dark">
-        </form>
+        {% if can_send %}
+            <h2>Отправить решение</h2>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="file-upload" class="btn btn-dark" style="margin-top: 20px;">
+                    Загрузить файл
+                </label>
+                <span id="is_uploaded" style="display: none;">Решение загружено</span>
+                <input type="file" class="btn form-control-file" id="file-upload" value="Выбрать файл" name="file" onchange="uploaded()">
+                <br><input type="submit" value="Отправить" class="btn btn-outline-dark">
+            </form>
+        {% endif %}
         <h2 style="margin-top: 20px;">Решения</h2>
         <table class="table">
             <thead>

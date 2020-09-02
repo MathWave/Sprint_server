@@ -188,8 +188,9 @@ def task(request):
     user = request.user
     if not check_permission_block(user, current_task.block):
         return HttpResponseRedirect('/main')
+    can_send = len(Solution.objects.filter(user=request.user, task=current_task)) < current_task.max_solutions_count
     if request.method == 'POST':
-        if 'file' in request.FILES.keys():
+        if 'file' in request.FILES.keys() and can_send:
             current_solution = Solution.objects.create(
                 task=current_task,
                 user=request.user,
@@ -215,7 +216,8 @@ def task(request):
             return HttpResponseRedirect('/task?id=' + str(current_task.id))
     return render(request, 'task.html', context={'is_admin': check_admin(user),
                                                  'task': current_task,
-                                                 'solutions': reversed(Solution.objects.filter(task=current_task, user=user))})
+                                                 'solutions': reversed(Solution.objects.filter(task=current_task, user=user)),
+                                                 'can_send': can_send})
 
 
 from django.views.decorators.csrf import csrf_exempt
@@ -301,6 +303,16 @@ def task_settings(request):
             current_task.weight = float(request.POST['weight'].replace(',', '.'))
         except ValueError:
             current_task.weight = 1.0
+        try:
+            current_task.max_mark = int(request.POST['max_mark'])
+            if current_task.max_mark == 0:
+                raise ValueError
+        except ValueError:
+            current_task.max_mark = 10
+        try:
+            current_task.max_solutions_count = int(request.POST['max_solutions_count'])
+        except ValueError:
+            current_task.max_solutions_count = 10
         if 'tests' in request.FILES.keys():
             file = request.FILES['tests']
             cs_file = current_task.tests_path()

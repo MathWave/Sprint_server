@@ -101,6 +101,8 @@ class Task(models.Model):
     specifications = models.TextField(default='')
     time_limit = models.IntegerField(default=10000)
     weight = models.FloatField(default=1.0)
+    max_mark = models.IntegerField(default=10)
+    max_solutions_count = models.IntegerField(default=10)
 
     def __str__(self):
         return self.name
@@ -164,7 +166,7 @@ class Solution(models.Model):
             line += '<option value="нет оценки">нет оценки</option>'
         else:
             line += '<option value="нет оценки" selected>нет оценки</option>'
-        for mark in range(11):
+        for mark in range(self.task.max_mark + 1):
             if mark == self.mark:
                 line += '<option value="{}" selected>{}</option>'.format(mark, mark)
             else:

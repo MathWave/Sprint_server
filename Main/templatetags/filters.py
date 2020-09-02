@@ -8,7 +8,7 @@ register = template.Library()
 @register.filter('mark_for_task')
 def mark_for_task(task, user):
     try:
-        return list(Solution.objects.filter(task=task, user=user, mark__isnull=False))[-1].mark
+        return int(list(Solution.objects.filter(task=task, user=user, mark__isnull=False))[-1].mark * 10 / task.max_mark)
     except IndexError:
         return None
 
