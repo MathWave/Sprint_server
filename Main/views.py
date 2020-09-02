@@ -135,7 +135,7 @@ def users_settings(request):
             line = request.POST['input']
             if '@' in line:
                 users = UserInfo.objects.filter(user__email=line)
-            elif any(c.isdigit() for c in line):
+            elif any(c.isdigit() for c in line) or line == '-':
                 users = UserInfo.objects.filter(group=line)
             else:
                 try:

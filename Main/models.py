@@ -155,7 +155,7 @@ class Solution(models.Model):
 
     @property
     def mark_property(self):
-        return str(self.mark) if self.mark else 'нет оценки'
+        return str(self.mark) if self.mark is not None else 'нет оценки'
 
     @property
     def mark_select(self):
@@ -212,6 +212,22 @@ class ExtraFile(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     file = models.FileField(upload_to=join(base_dir, 'extra_files'))
     filename = models.TextField()
+
+    @property
+    def readable(self):
+        try:
+            open(self.file.path, 'rb').read().decode('UTF-8')
+            return True
+        except UnicodeDecodeError:
+            return False
+
+    @property
+    def text(self):
+        return open(self.file.path, 'r').read()
+    
+
+    def __str__(self):
+        return self.filename
 
 
 @receiver(post_delete, sender=Task)
