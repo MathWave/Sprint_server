@@ -53,7 +53,7 @@
             {% endautoescape %}
 
         <hr>
-        {% if can_send %}
+        {% if can_send or can_edit %}
             <h2>Отправить решение</h2>
             <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -86,7 +86,43 @@
                         {{ solution.time_sent }}
                     </td>
                     <td>
-                        {{ solution.result }}
+                        {% if can_edit %}
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#resultModalLong{{ solution.id }}">
+                                  {{ solution.result }}
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="resultModalLong{{ solution.id }}" tabindex="-1" role="dialog" aria-labelledby="resultModalLongTitle{{ solution.id }}" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="resultModalLongTitle{{ solution.id }}">Подробная информация о тестировании {{ solution.id }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-12">
+<pre>
+{{ solution.details }}
+</pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                        {% else %}
+                                {{ solution.result }}
+                        {% endif %}
+                        
                     </td>
                     <td>
                         {{ solution.mark_property }}

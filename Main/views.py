@@ -63,7 +63,12 @@ def solution(request):
     else:
         from_admin = False
     if request.method == 'POST' and is_admin:
-        current_solution.mark = None if request.POST['mark'] == 'нет оценки' else int(request.POST['mark'])
+        if request.POST['action'] == 'Зачесть':
+            current_solution.mark = None if request.POST['mark'] == 'нет оценки' else int(request.POST['mark'])
+        elif request.POST['action'] == 'Незачесть':
+            current_solution.mark = 0
+        else:
+            current_solution.mark = current_solution.task.max_mark
         current_solution.comment = request.POST['comment']
         current_solution.save()
     has_prev, has_next = False, False
@@ -217,7 +222,8 @@ def task(request):
     return render(request, 'task.html', context={'is_admin': check_admin(user),
                                                  'task': current_task,
                                                  'solutions': reversed(Solution.objects.filter(task=current_task, user=user)),
-                                                 'can_send': can_send})
+                                                 'can_send': can_send,
+                                                 'can_edit': check_admin_on_course(request.user, current_task.block.course)})
 
 
 from django.views.decorators.csrf import csrf_exempt

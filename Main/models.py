@@ -141,6 +141,7 @@ class Solution(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     result = models.TextField()
+    details = models.TextField(default='')
     time_sent = models.DateTimeField(null=True)
     mark = models.IntegerField(null=True)
     comment = models.TextField(default='')

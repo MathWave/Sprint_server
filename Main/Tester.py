@@ -115,13 +115,21 @@ class Tester:
        # p = Popen(test_cmd, shell=True)
        # p.wait(self.solution.task.time_limit)
        # p.kill()
-        doc = parse(join(self.working_dir, 'TestResult.xml'))
-        tag = doc.getElementsByTagName('test-run')[0]
-        passed, total = tag.getAttribute('passed'), tag.getAttribute('total')
-        if not passed or not total:
-            res = 'Time limit'
-        else:
-            res = passed + '/' + total
+        if not exists(join(self.working_dir, 'TestResult.xml')):
+            return
+        try:
+            doc = parse(join(self.working_dir, 'TestResult.xml'))
+            tag = doc.getElementsByTagName('test-run')[0]
+            passed, total = tag.getAttribute('passed'), tag.getAttribute('total')
+            if not passed or not total:
+                res = 'Time limit'
+            else:
+                res = passed + '/' + total
+            self.solution.details = ''
+            for el in doc.getElementsByTagName('test-case'):
+                self.solution.details += el.getAttribute('methodname') + ': ' + el.getAttribute('result') + '\n'
+        except:
+            res = 'TEST ERROR'
         self.solution.result = res
 
 

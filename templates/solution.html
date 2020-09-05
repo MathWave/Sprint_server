@@ -107,6 +107,18 @@
                                     {{ solution.result }}
                                 </td>
                             </tr>
+                            {% if can_edit %}
+                                <tr>
+                                    <td>
+                                        Подробнее
+                                    </td>
+                                    <td>
+<pre>
+{{ solution.details }}
+</pre>
+                                    </td>
+                                </tr>
+                            {% endif %}
                             <tr>
                                 <td>
                                     Оценка
@@ -142,7 +154,9 @@
                             </tr>
                         </table>
                     {% if can_edit %}
-                        <input type="submit" value="Сохранить" class="btn btn-dark">
+                        <input type="submit" name="action" value="Зачесть" class="btn btn-dark">
+                        <input type="submit" name="action" value="Незачесть" class="btn btn-dark">
+                        <input type="submit" name="action" value="Выставить макс. балл" class="btn btn-dark">
                     {% endif %}
                     </form>
                 </h5>
