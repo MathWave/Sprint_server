@@ -1,5 +1,0 @@
-/Users/egormatveev/Desktop/comps/Calculator/Calculator/bin/Debug/Calculator.exe
-/Users/egormatveev/Desktop/comps/Calculator/Calculator/bin/Debug/Calculator.pdb
-/Users/egormatveev/Desktop/comps/Calculator/Calculator/obj/Debug/Calculator.csprojAssemblyReference.cache
-/Users/egormatveev/Desktop/comps/Calculator/Calculator/obj/Debug/Calculator.exe
-/Users/egormatveev/Desktop/comps/Calculator/Calculator/obj/Debug/Calculator.pdb
