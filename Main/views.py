@@ -304,6 +304,16 @@ def task_settings(request):
             return HttpResponseRedirect('/admin/task?id=' + str(current_task.id))
         if 'delete' in request.POST.keys():
             ExtraFile.objects.get(id=request.POST['delete']).delete()
+        if 'test_file_save' in request.POST.keys():
+            tt = request.POST['tests_text']
+            cs_file = current_task.tests_path()
+            with open(cs_file, 'wb') as fs:
+                fs.write(bytes(tt, encoding='utf-8'))
+        if 'extra_file_save' in request.POST.keys():
+            file_id = request.POST['extra_file_save']
+            tt = request.POST['extra_file_text_' + file_id]
+            with open(ExtraFile.objects.get(id=file_id).file.path, 'wb') as fs:
+                fs.write(bytes(tt, encoding='utf-8'))
         current_task.legend, current_task.input, current_task.output, current_task.specifications = \
             request.POST['legend'],  request.POST['input'], request.POST['output'], request.POST['specifications']
         current_task.time_limit = int(request.POST['time_limit']) if is_integer(request.POST['time_limit']) else 10000

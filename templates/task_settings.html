@@ -111,8 +111,8 @@
                                 </button>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                  <div class="modal-dialog" role="document">
+                                <div class="modal fade bd-example-modal-lg" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                  <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLongTitle">Unit тесты</h5>
@@ -124,15 +124,16 @@
                                         <div class="container-fluid">
                                             <div class="row">
                                                 <div class="col-12">
-<pre>
+<textarea cols="82" rows="30" name="tests_text">
 {{ task.tests_text }}
-</pre>
+</textarea>
                                                 </div>
                                             </div>
                                         </div>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" name="test_file_save" value="test_file_save">Save</button>
                                       </div>
                                     </div>
                                   </div>
@@ -163,8 +164,8 @@
                                             </button>
 
                                             <!-- Modal -->
-                                            <div class="modal fade" id="filesModalLong{{ file.id }}" tabindex="-1" role="dialog" aria-labelledby="filesModalLongTitle{{ file.id }}" aria-hidden="true">
-                                              <div class="modal-dialog" role="document">
+                                            <div class="modal fade bd-example-modal-lg" id="filesModalLong{{ file.id }}" tabindex="-1" role="dialog" aria-labelledby="filesModalLongTitle{{ file.id }}" aria-hidden="true">
+                                              <div class="modal-dialog modal-lg" role="document">
                                                 <div class="modal-content">
                                                   <div class="modal-header">
                                                     <h5 class="modal-title" id="filesModalLongTitle{{ file.id }}">{{ file.filename }}</h5>
@@ -176,15 +177,16 @@
                                                     <div class="container-fluid">
                                                         <div class="row">
                                                             <div class="col-12">
-<pre>
+<textarea cols="82" rows="30" name="extra_file_text_{{ file.id }}">
 {{ file.text }}
-</pre>
+</textarea>
                                                             </div>
                                                         </div>
                                                     </div>
                                                   </div>
                                                   <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary" name="extra_file_save" value="{{ file.id }}">Save</button>
                                                   </div>
                                                 </div>
                                               </div>
