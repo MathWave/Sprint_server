@@ -203,7 +203,7 @@ def solutions_filter(request):
                 new_solutions.append(solution)
         solutions = new_solutions
     if 'only_students' in request.keys():
-        solutions = [solution for solution in solutions if check_admin_on_course(soltuion.user, solution.task.block.course)]
+        solutions = [solution for solution in solutions if not check_admin_on_course(solution.user, solution.task.block.course)]
     return sorted(solutions, key=lambda s: s.id, reverse=True)
 
 

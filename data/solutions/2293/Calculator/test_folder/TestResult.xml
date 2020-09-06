@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="0" runstate="Runnable" testcasecount="3" result="Failed" total="3" passed="2" failed="1" inconclusive="0" skipped="0" asserts="3" engine-version="3.11.1.0" clr-version="4.0.30319.42000" start-time="2020-09-06 13:08:02Z" end-time="2020-09-06 13:08:03Z" duration="0.966823">
+  <command-line><![CDATA[C:\Users\egormatveev\Sprint_server\data\solutions\2293\Calculator\test_folder\nunit3-console.exe 1.dll]]></command-line>
+  <test-suite type="Assembly" id="0-1004" name="1.dll" fullname="C:\Users\egormatveev\Sprint_server\data\solutions\2293\Calculator\test_folder\1.dll" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2020-09-06 13:08:03Z" end-time="2020-09-06 13:08:03Z" duration="0.046753" total="3" passed="2" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="3">
+    <environment framework-version="3.11.0.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.18362" platform="Win32NT" cwd="C:\Users\egormatveev\Sprint_server\data\solutions\2293\Calculator\test_folder" machine-name="32D2" user="egormatveev" user-domain="32D2" culture="ru-RU" uiculture="ru-RU" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="C:\Users\egormatveev\Sprint_server\data\solutions\2293\Calculator\test_folder" />
+      <setting name="ImageRuntimeVersion" value="4.0.30319" />
+      <setting name="ImageRequiresX86" value="False" />
+      <setting name="ImageRequiresDefaultAppDomainAssemblyResolver" value="False" />
+      <setting name="RuntimeFramework" value="mono-4.0" />
+      <setting name="NumberOfTestWorkers" value="2" />
+    </settings>
+    <properties>
+      <property name="_PID" value="1880" />
+      <property name="_APPDOMAIN" value="domain-" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="TestSuite" id="0-1005" name="TestProject2" fullname="TestProject2" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2020-09-06 13:08:03Z" end-time="2020-09-06 13:08:03Z" duration="0.035605" total="3" passed="2" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="3">
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestFixture" id="0-1000" name="Tests" fullname="TestProject2.Tests" classname="TestProject2.Tests" runstate="Runnable" testcasecount="3" result="Failed" site="Child" start-time="2020-09-06 13:08:03Z" end-time="2020-09-06 13:08:03Z" duration="0.033730" total="3" passed="2" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="3">
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-case id="0-1001" name="Test1" fullname="TestProject2.Tests.Test1" methodname="Test1" classname="TestProject2.Tests" runstate="Runnable" seed="1020968432" result="Passed" start-time="2020-09-06 13:08:03Z" end-time="2020-09-06 13:08:03Z" duration="0.014049" asserts="1" />
+        <test-case id="0-1002" name="Test2" fullname="TestProject2.Tests.Test2" methodname="Test2" classname="TestProject2.Tests" runstate="Runnable" seed="36138573" result="Failed" start-time="2020-09-06 13:08:03Z" end-time="2020-09-06 13:08:03Z" duration="0.010998" asserts="1">
+          <failure>
+            <message><![CDATA[  Expected: 2
+  But was:  3
+]]></message>
+            <stack-trace><![CDATA[  at TestProject2.Tests.Test2 () [0x00008] in <e013c5fd5194438eb01178158a6e44de>:0 
+]]></stack-trace>
+          </failure>
+          <assertions>
+            <assertion result="Failed">
+              <message><![CDATA[  Expected: 2
+  But was:  3
+]]></message>
+              <stack-trace><![CDATA[  at TestProject2.Tests.Test2 () [0x00000] in <e013c5fd5194438eb01178158a6e44de>:0 
+]]></stack-trace>
+            </assertion>
+          </assertions>
+        </test-case>
+        <test-case id="0-1003" name="Test3" fullname="TestProject2.Tests.Test3" methodname="Test3" classname="TestProject2.Tests" runstate="Runnable" seed="1174403491" result="Passed" start-time="2020-09-06 13:08:03Z" end-time="2020-09-06 13:08:03Z" duration="0.000184" asserts="1" />
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
