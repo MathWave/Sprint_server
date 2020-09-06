@@ -9,7 +9,8 @@
             const group = document.getElementById('group').value;
             const last_solution = document.getElementById('last_solution').checked;
             const best_result = document.getElementById('best_result').checked;
-            if (!task && !user && !group && !last_solution && !best_result) {
+            const only_students = document.getElementById('only_students').checked;
+            if (!task && !user && !group && !last_solution && !best_result && !only_students) {
                 document.querySelector('#control').innerText = 'Сбросить'
             } else {
                 document.querySelector('#control').innerText = 'Применить'
@@ -21,6 +22,7 @@
             const group = document.getElementById('group').value;
             const last_solution = document.getElementById('last_solution').checked;
             const best_result = document.getElementById('best_result').checked;
+            const only_students = document.getElementById('only_students').checked;
             var req = '';
             if (task) {
                 req += '&task_name=' + task;
@@ -36,6 +38,9 @@
             }
             if (best_result) {
                 req += '&best_result=' + best_result;
+            }
+            if (only_students) {
+                req += '&only_students=' + only_students;
             }
             window.location.href = '/admin/solutions?block_id={{ Block.id }}' + req;
         }
@@ -72,6 +77,10 @@
             <tr>
                 <td>Лучший результат</td>
                 <td><input type="checkbox" id="best_result" name="best_result" onchange="change()"></td>
+            </tr>
+            <tr>
+                <td>Только студенты</td>
+                <td><input type="checkbox" id="only_students" name="only_students" onchange="change()"></td>
             </tr>
         </table>
         <button type="button" class="btn btn-dark" id="control" onclick="filter()" style="margin-top: 20px;">Сбросить</button><br>
