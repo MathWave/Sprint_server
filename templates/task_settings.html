@@ -141,88 +141,71 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="vertical-align: top; padding-top: 10px;">
                         Дополнительные файлы
                     </td>
-                    <td>
-                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#filesModalLong">
-                          Управлять
-                        </button>
+                    <td style="vertical-align: top;">
+                        <table>
+                            {% for file in task.files %}
+                                <tr>
+                                    <td>
+                                        <button type="submit" class="close" name="delete" value="{{ file.id }}">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <img width="14px" height="14px" src="https://image.flaticon.com/icons/svg/876/876755.svg">
+                                    </td>
+                                    <td>
+                                        {% if file.readable %}
+                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#filesModalLong{{ file.id }}">
+                                              {{ file.filename }}
+                                            </button>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="filesModalLong" tabindex="-1" role="dialog" aria-labelledby="filesModalLongTitle" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="filesModalLongTitle">Дополнительные файлы к таску {{ task.name }}</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-                              <div class="modal-body">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <table>
-                                                {% for file in task.files %}
-                                                    <tr>
-                                                        <td class="my_td">
-                                                            <img width="14px" height="14px" style="margin-right: 5px;" src="https://image.flaticon.com/icons/svg/876/876755.svg">
-                                                        </td>
-                                                        <td class="my_td">
-                                                            {% if file.readable %}
-                                                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#filesModalLong{{ file.id }}">
-                                                                  {{ file.filename }}
-                                                                </button>
-
-                                                                <!-- Modal -->
-                                                                <div class="modal fade" id="filesModalLong{{ file.id }}" tabindex="-1" role="dialog" aria-labelledby="filesModalLongTitle{{ file.id }}" aria-hidden="true">
-                                                                  <div class="modal-dialog" role="document">
-                                                                    <div class="modal-content">
-                                                                      <div class="modal-header">
-                                                                        <h5 class="modal-title" id="filesModalLongTitle{{ file.id }}">{{ file.filename }}</h5>
-                                                                      </div>
-                                                                      <div class="modal-body">
-                                                                        <div class="container-fluid">
-                                                                            <div class="row">
-                                                                                <div class="col-12">
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="filesModalLong{{ file.id }}" tabindex="-1" role="dialog" aria-labelledby="filesModalLongTitle{{ file.id }}" aria-hidden="true">
+                                              <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title" id="filesModalLongTitle{{ file.id }}">{{ file.filename }}</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-12">
 <pre>
 {{ file.text }}
 </pre>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                      </div>
-                                                                    </div>
-                                                                  </div>
-                                                                </div>
-                                                            {% else %}
-                                                                <button type="button" class="btn btn-link" style="color: red;">
-                                                                  {{ file.filename }}
-                                                                </button>
-                                                            {% endif %}
-                                                            
-                                                        </td>
-                                                    </tr>
-                                                {% endfor %}
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <label for="files" class="btn btn-primary">
-                                    Загрузить файл
-                                </label>
-                                <form method="POST">
-                                    <input type="file" class="btn form-control-file" id="files" value="Выбрать файл" name="file" onchange="uploaded1()">
-                                    <button type="submit" class="btn btn-success" style="display: none;" id="send">Отправить</button>
-                                </form>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                        {% else %}
+                                            <button type="button" class="btn btn-link" style="color: red;">
+                                              {{ file.filename }}
+                                            </button>
+                                        {% endif %}
+                                        
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <label for="files" class="btn btn-primary">
+                            Загрузить файл
+                        </label>
+                        <form method="POST">
+                            <input type="file" class="btn form-control-file" id="files" value="Выбрать файл" name="file" onchange="uploaded1()">
+                            <button type="submit" class="btn btn-success" style="display: none;" id="send">Отправить</button>
+                        </form>
                     </td>
                 </tr>
             </table>
