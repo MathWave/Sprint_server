@@ -15,14 +15,21 @@ from os.path import exists
 from json import load
 from .Tester import Tester, shell
 from .main import solutions_filter, check_admin_on_course, re_test, check_admin, check_teacher, random_string, \
-    send_email, check_permission_block, is_integer, check_god, notificate, blocks_available, check_login, \
-    get_restore_hash
+    send_email, check_permission_block, is_integer, check_god, blocks_available, check_login, \
+    get_restore_hash, block_solutions_info
 from .models import System, Solution, Block, Subscribe, Course, UserInfo, Task, Restore, ExtraFile
 from os.path import sep, join, exists, isfile
 from shutil import rmtree
+from Sprint.settings import MEDIA_ROOT
 
 
 base_dir = 'data'
+
+
+def docs(request):
+    if not check_admin(request.user):
+        return HttpResponseRedirect('/main')
+    return render(request, "docs.html", context={'is_teacher': check_teacher(request.user)})
 
 
 def set_result(request):
@@ -117,13 +124,14 @@ def solutions(request):
                 return HttpResponseRedirect('/main')
     except ObjectDoesNotExist:
         return HttpResponseRedirect('/main')
-    
     req = ''
     for key in request.GET.keys():
         req += '&{}={}'.format(key, request.GET[key])
     return render(request, 'solutions.html', context={'Block': current_block,
                                                       'filter': req,
-                                                      'solutions': solutions_filter(request.GET)})
+                                                      'solutions': solutions_filter(request.GET),
+                                                      'options': {key: request.GET[key] for key in request.GET.keys()},
+                                                      'solutions_info': block_solutions_info(current_block)})
 
 
 def users_settings(request):
@@ -193,7 +201,8 @@ def task(request):
     user = request.user
     if not check_permission_block(user, current_task.block):
         return HttpResponseRedirect('/main')
-    can_send = len(Solution.objects.filter(user=request.user, task=current_task)) < current_task.max_solutions_count
+    administrator = check_admin(user)
+    can_send = len(Solution.objects.filter(user=request.user, task=current_task)) < current_task.max_solutions_count or administrator
     if request.method == 'POST':
         if 'file' in request.FILES.keys() and can_send:
             current_solution = Solution.objects.create(
@@ -219,7 +228,7 @@ def task(request):
                 #Tester(current_solution, request.META['HTTP_HOST']).push()
                 Thread(target=lambda: Tester(current_solution, request.META['HTTP_HOST']).push()).start()
             return HttpResponseRedirect('/task?id=' + str(current_task.id))
-    return render(request, 'task.html', context={'is_admin': check_admin(user),
+    return render(request, 'task.html', context={'is_admin': administrator,
                                                  'task': current_task,
                                                  'solutions': reversed(Solution.objects.filter(task=current_task, user=user)),
                                                  'can_send': can_send,
@@ -275,12 +284,11 @@ def task_settings(request):
             block_id = t.block.id
             t.delete()
             return HttpResponseRedirect('/admin/block?id=' + str(block_id))
-        if 'test_id' in request.POST.keys():
+        elif 'test_id' in request.POST.keys():
             current_task = Task.objects.get(id=request.POST['test_id'])
             if exists(current_task.tests_path()):
                 remove(current_task.tests_path())
-            return HttpResponseRedirect('/admin/task?id=' + str(current_task.id))
-        if 'file' in request.FILES.keys():
+        elif 'file' in request.FILES.keys():
             if request.FILES['file'].name.endswith('.zip'):
                 try:
                     wdir = join(base_dir, 'extra_files', str(current_task.id))
@@ -295,49 +303,57 @@ def task_settings(request):
                     remove(join(wdir, 'file.zip'))
                     for file in listdir(wdir):
                         if isfile(join(wdir, file)):
-                            ExtraFile.objects.create(file=File(open(join(wdir, file), 'rb')), filename=file, task=current_task)
+                            ef = ExtraFile.objects.create(filename=file, task=current_task)
+                            ef.write(open(join(wdir, file), 'rb').read())
                     rmtree(wdir)
                 except BadZipFile:
                     pass
             else:
-                ExtraFile.objects.create(file=request.FILES['file'], filename=request.FILES['file'].name, task=current_task)
-            return HttpResponseRedirect('/admin/task?id=' + str(current_task.id))
-        if 'delete' in request.POST.keys():
+                ef = ExtraFile.objects.create(filename=request.FILES['file'].name, task=current_task)
+                with open(ef.path, 'wb') as fs:
+                    for chunk in request.FILES['file'].chunks():
+                        fs.write(chunk)
+        elif 'delete' in request.POST.keys():
             ExtraFile.objects.get(id=request.POST['delete']).delete()
-        if 'test_file_save' in request.POST.keys():
+        elif 'test_file_save' in request.POST.keys():
             tt = request.POST['tests_text']
             cs_file = current_task.tests_path()
             with open(cs_file, 'wb') as fs:
                 fs.write(bytes(tt, encoding='utf-8'))
-        if 'extra_file_save' in request.POST.keys():
+        elif 'extra_file_save' in request.POST.keys():
             file_id = request.POST['extra_file_save']
             tt = request.POST['extra_file_text_' + file_id]
-            with open(ExtraFile.objects.get(id=file_id).file.path, 'wb') as fs:
-                fs.write(bytes(tt, encoding='utf-8'))
-        current_task.legend, current_task.input, current_task.output, current_task.specifications = \
-            request.POST['legend'],  request.POST['input'], request.POST['output'], request.POST['specifications']
-        current_task.time_limit = int(request.POST['time_limit']) if is_integer(request.POST['time_limit']) else 10000
-        try:
-            current_task.weight = float(request.POST['weight'].replace(',', '.'))
-        except ValueError:
-            current_task.weight = 1.0
-        try:
-            current_task.max_mark = int(request.POST['max_mark'])
-            if current_task.max_mark == 0:
-                raise ValueError
-        except ValueError:
-            current_task.max_mark = 10
-        try:
-            current_task.max_solutions_count = int(request.POST['max_solutions_count'])
-        except ValueError:
-            current_task.max_solutions_count = 10
-        if 'tests' in request.FILES.keys():
-            file = request.FILES['tests']
-            cs_file = current_task.tests_path()
-            with open(cs_file, 'wb') as fs:
-                for chunk in file.chunks():
-                    fs.write(chunk)
-        current_task.save()
+            ExtraFile.objects.get(id=file_id).write(bytes(tt, encoding='utf-8'))
+        elif 'newfile_name' in request.POST.keys():
+            ef = ExtraFile.objects.create(task=current_task, filename=request.POST['newfile_name'])
+            f = open(join(MEDIA_ROOT, 'extra_files', str(ef.id)), 'w')
+            f.close()
+        else:
+            current_task.legend, current_task.input, current_task.output, current_task.specifications = \
+                request.POST['legend'],  request.POST['input'], request.POST['output'], request.POST['specifications']
+            current_task.time_limit = int(request.POST['time_limit']) if is_integer(request.POST['time_limit']) else 10000
+            current_task.show_details = 1 if 'show_details' in request.POST.keys() else 0
+            try:
+                current_task.weight = float(request.POST['weight'].replace(',', '.'))
+            except ValueError:
+                current_task.weight = 1.0
+            try:
+                current_task.max_mark = int(request.POST['max_mark'])
+                if current_task.max_mark == 0:
+                    raise ValueError
+            except ValueError:
+                current_task.max_mark = 10
+            try:
+                current_task.max_solutions_count = int(request.POST['max_solutions_count'])
+            except ValueError:
+                current_task.max_solutions_count = 10
+            if 'tests' in request.FILES.keys():
+                file = request.FILES['tests']
+                cs_file = current_task.tests_path()
+                with open(cs_file, 'wb') as fs:
+                    for chunk in file.chunks():
+                        fs.write(chunk)
+            current_task.save()
         return HttpResponseRedirect('/admin/task?id=' + str(current_task.id))
     return render(request, 'task_settings.html', context={'task': current_task,
                                                           'tests': TestsForm(),
@@ -394,8 +410,8 @@ def admin(request):
                                              opened=0,
                                              time_start=timezone.now(),
                                              time_end=timezone.now())
-        Thread(target=lambda: notificate(current_block, request.META['HTTP_HOST'])).start()
         return HttpResponseRedirect('/admin/block?id=' + str(current_block.id))
+    print(blocks_available(request.user))
     return render(request, "admin.html", context={"blocks": blocks_available(request.user),
                                                   'is_superuser': check_god(request.user),
                                                   'is_teacher': check_teacher(request.user)})

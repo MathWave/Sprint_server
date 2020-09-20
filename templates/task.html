@@ -86,7 +86,7 @@
                         {{ solution.time_sent }}
                     </td>
                     <td>
-                        {% if can_edit %}
+                        {% if can_edit or task.showable %}
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#resultModalLong{{ solution.id }}">
                                   {{ solution.result }}
@@ -106,9 +106,9 @@
                                         <div class="container-fluid">
                                             <div class="row">
                                                 <div class="col-12">
-<pre>
+{% autoescape off %}
 {{ solution.details }}
-</pre>
+{% endautoescape %}
                                                 </div>
                                             </div>
                                         </div>

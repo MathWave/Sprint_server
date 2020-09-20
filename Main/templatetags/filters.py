@@ -48,3 +48,8 @@ def mark_color(mark):
         return '#F1948A'
     else:
         return '#FFFFFF'
+
+
+@register.filter('in_dict')
+def in_dict(value, dict):
+    return value in dict.keys()

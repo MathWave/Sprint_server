@@ -1,0 +1,2 @@
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\i\Tests\Debug\netcoreapp3.1\Tests.AssemblyInfoInputs.cache
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\i\Tests\Debug\netcoreapp3.1\Tests.AssemblyInfo.cs

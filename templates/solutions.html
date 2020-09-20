@@ -1,29 +1,27 @@
 {% extends 'base_admin.html' %}
 
+{% load filters %}
+
 {% block title %}{{ Block.name }}|решения{% endblock %}
 
 {% block scripts %}
-        function change() {
-            const task = document.getElementById('task_name').value;
-            const user = document.getElementById('user').value;
-            const group = document.getElementById('group').value;
-            const last_solution = document.getElementById('last_solution').checked;
-            const best_result = document.getElementById('best_result').checked;
-            const only_students = document.getElementById('only_students').checked;
-            if (!task && !user && !group && !last_solution && !best_result && !only_students) {
-                document.querySelector('#control').innerText = 'Сбросить'
-            } else {
-                document.querySelector('#control').innerText = 'Применить'
-            }
-        }
         function filter() {
+            console.log("id got");
+            const idi = document.getElementById('idi').value;
             const task = document.getElementById('task_name').value;
             const user = document.getElementById('user').value;
             const group = document.getElementById('group').value;
             const last_solution = document.getElementById('last_solution').checked;
             const best_result = document.getElementById('best_result').checked;
             const only_students = document.getElementById('only_students').checked;
+            const not_seen = document.getElementById('not_seen').checked;
             var req = '';
+            if (idi) {
+                req += '&solution_id=' + idi;
+            }
+            if (not_seen) {
+                req += '&not_seen=' + not_seen;
+            }
             if (task) {
                 req += '&task_name=' + task;
             }
@@ -59,31 +57,41 @@
         <h2>Фильтр</h2>
         <table>
             <tr>
+                <td>Id</td>
+                <td><input type="text" placeholder="Id" id="idi" name="idi" value="{{ options.solution_id }}"></td>
+            </tr>
+            <tr>
                 <td>Таск</td>
-                <td><input type="text" placeholder="Таск" id="task_name" name="task_name" onchange="change()"></td>
+                <td><input type="text" placeholder="Таск" id="task_name" name="task_name123" value="{{ options.task_name }}"></td>
             </tr>
             <tr>
                 <td>Пользователь</td>
-                <td><input type="text" placeholder="Пользователь" id="user" name="user" onchange="change()"></td>
+                <td><input type="text" placeholder="Пользователь" id="user" name="user" value="{{ options.user }}"></td>
             </tr>
             <tr>
                 <td>Группа</td>
-                <td><input type="text" placeholder="Группа" id="group" name="group" onchange="change()"></td>
+                <td><input type="text" placeholder="Группа" id="group" name="group" value="{{ options.group }}"></td>
             </tr>
             <tr>
                 <td>Последнее решение</td>
-                <td><input type="checkbox" id="last_solution" name="last_solution" onchange="change()"></td>
+                <td><input type="checkbox" id="last_solution" name="last_solution" {% if options.last_solution %}checked{% endif %}>{{ option.last_solution }}</td>
             </tr>
             <tr>
                 <td>Лучший результат</td>
-                <td><input type="checkbox" id="best_result" name="best_result" onchange="change()"></td>
+                <td><input type="checkbox" id="best_result" name="best_result" {% if options.best_result %}checked{% endif %}></td>
             </tr>
             <tr>
                 <td>Только студенты</td>
-                <td><input type="checkbox" id="only_students" name="only_students" onchange="change()"></td>
+                <td><input type="checkbox" id="only_students" name="only_students" {% if options.only_students %}checked{% endif %}></td>
+            </tr>
+            <tr>
+                <td>Еще не проверено</td>
+                <td><input type="checkbox" id="not_seen" name="not_seen" {% if options.not_seen %}checked{% endif %}></td>
             </tr>
         </table>
-        <button type="button" class="btn btn-dark" id="control" onclick="filter()" style="margin-top: 20px;">Сбросить</button><br>
+        
+        <button type="button" class="btn btn-dark" id="control" onclick="filter()" style="margin-top: 20px;">Применить</button><br>
+        <button type="button" class="btn btn-dark" id="control" onclick="window.location.href='/admin/solutions?block_id={{ Block.id }}'" style="margin-top: 10px;">Сбросить</button><br>
         <button style="margin-top: 10px;" class="btn btn-dark" onclick="window.location.href='/admin/download?{{ filter }}'">Скачать решения</button><br>
         <button style="margin-top: 10px;" class="btn btn-dark" onclick="retest()">Перетест</button>
         <hr>
@@ -139,9 +147,9 @@
                                         <div class="container-fluid">
                                             <div class="row">
                                                 <div class="col-12">
-<pre>
+{% autoescape off %}
 {{ solution.details }}
-</pre>
+{% endautoescape %}
                                                 </div>
                                             </div>
                                         </div>

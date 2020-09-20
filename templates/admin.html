@@ -10,11 +10,11 @@
             <a href="/admin/block?id={{ block.id }}">{{ block.name }}</a><br>
         {% endfor %}
         {% if is_teacher %}
-            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#example" style="margin-top: 20px;">
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#example_{{ key.id }}" style="margin-top: 20px;">
                 Новый блок
             </button>
             <!-- Modal -->
-                                <div class="modal fade" id="example" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                <div class="modal fade" id="example_{{ key.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                   <div class="modal-dialog" role="document">
                                   <form method="POST">
                                     <div class="modal-content">
@@ -53,4 +53,7 @@
         </center>
     </div>
     {% endif %}
+    <center>
+      <button class="btn btn-dark" style="margin-top: 20px;" onclick="window.location.href='/admin/docs'">Методичка</button>
+    </center>
 {% endblock %}

@@ -1,0 +1,10 @@
+C:\Users\egormatveev\source\repos\Numbers\.vs\Numbers\v16\lut\0\b\ConsoleApp1\Debug\netcoreapp3.1\ConsoleApp1.exe
+C:\Users\egormatveev\source\repos\Numbers\.vs\Numbers\v16\lut\0\b\ConsoleApp1\Debug\netcoreapp3.1\ConsoleApp1.deps.json
+C:\Users\egormatveev\source\repos\Numbers\.vs\Numbers\v16\lut\0\b\ConsoleApp1\Debug\netcoreapp3.1\ConsoleApp1.runtimeconfig.json
+C:\Users\egormatveev\source\repos\Numbers\.vs\Numbers\v16\lut\0\b\ConsoleApp1\Debug\netcoreapp3.1\ConsoleApp1.runtimeconfig.dev.json
+C:\Users\egormatveev\source\repos\Numbers\.vs\Numbers\v16\lut\0\b\ConsoleApp1\Debug\netcoreapp3.1\ConsoleApp1.dll
+C:\Users\egormatveev\source\repos\Numbers\.vs\Numbers\v16\lut\0\i\ConsoleApp1\Debug\netcoreapp3.1\ConsoleApp1.AssemblyInfoInputs.cache
+C:\Users\egormatveev\source\repos\Numbers\.vs\Numbers\v16\lut\0\i\ConsoleApp1\Debug\netcoreapp3.1\ConsoleApp1.AssemblyInfo.cs
+C:\Users\egormatveev\source\repos\Numbers\.vs\Numbers\v16\lut\0\i\ConsoleApp1\Debug\netcoreapp3.1\ConsoleApp1.csproj.CopyComplete
+C:\Users\egormatveev\source\repos\Numbers\.vs\Numbers\v16\lut\0\i\ConsoleApp1\Debug\netcoreapp3.1\ConsoleApp1.dll
+C:\Users\egormatveev\source\repos\Numbers\.vs\Numbers\v16\lut\0\i\ConsoleApp1\Debug\netcoreapp3.1\ConsoleApp1.genruntimeconfig.cache

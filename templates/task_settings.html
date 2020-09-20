@@ -16,50 +16,53 @@
         input[type="file"] {
             display: none;
         }
+        input[name="new_file"] {
+            display: none;
+        }
         .my_td { 
             vertical-align: middle;
             height: 20px;
         }
+        .params {
+            margin-top: 20px;
+        }
 {% endblock %}
-    <script>
-
-    </script>
 {% block content %}
     <h3><a href="/admin/block?id={{ task.block.id }}">{{ task.block.name }}</a></h3>
     <h5>{{ task.name }}</h5>
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <table>
-                <tr>
+                <tr class="params">
                     <td>
                         Легенда
                     </td>
                     <td>
-                        <textarea rows="10" cols="50" style="resize: none;" name="legend">{{ task.legend }}</textarea>
+                        <textarea rows="15" cols="100" style="resize: none;" name="legend">{{ task.legend }}</textarea>
                     </td>
                 </tr>
-                <tr>
+                <tr class="params">
                     <td>
                         Формат входных данных
                     </td>
                     <td>
-                        <textarea rows="10" cols="50" style="resize: none;" name="input">{{ task.input }}</textarea>
+                        <textarea rows="15" cols="100" style="resize: none;" name="input">{{ task.input }}</textarea>
                     </td>
                 </tr>
-                <tr>
+                <tr class="params">
                     <td>
                         Формат выходных данных
                     </td>
                     <td>
-                        <textarea rows="10" cols="50" style="resize: none;" name="output">{{ task.output }}</textarea>
+                        <textarea rows="15" cols="100" style="resize: none;" name="output">{{ task.output }}</textarea>
                     </td>
                 </tr>
-                <tr>
+                <tr class="params">
                     <td>
                         Спецификации
                     </td>
                     <td>
-                        <textarea rows="10" cols="50" style="resize: none;" name="specifications">{{ task.specifications }}</textarea>
+                        <textarea rows="15" cols="100" style="resize: none;" name="specifications">{{ task.specifications }}</textarea>
                     </td>
                 </tr>
                 <tr>
@@ -92,6 +95,14 @@
                     </td>
                     <td>
                         <input type="text" name="max_solutions_count" value="{{ task.max_solutions_count }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Показывать детали тестирования
+                    </td>
+                    <td>
+                        <input type="checkbox" name="show_details" {{ task.showable }}>
                     </td>
                 </tr>
                 <tr>
@@ -206,7 +217,39 @@
                         </label>
                         <form method="POST">
                             <input type="file" class="btn form-control-file" id="files" value="Выбрать файл" name="file" onchange="uploaded1()">
-                            <button type="submit" class="btn btn-success" style="display: none;" id="send">Отправить</button>
+                        </form>
+                        <label for="add_file" class="btn btn-success">
+                            +
+                        </label>
+                        <input type="button" class="btn btn-success" id="add_file" value="Создать файл" name="new_file"  data-toggle="modal" data-target="#exampleModalLongnewfile">
+                        <button type="submit" class="btn btn-success" style="display: none;" id="send">Отправить</button>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="modal fade" id="exampleModalLongnewfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitlenewfile" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitlenewfile">Создать новый файл</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <input type="text" placeholder="Имя файла" name="newfile_name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Create</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
                         </form>
                     </td>
                 </tr>

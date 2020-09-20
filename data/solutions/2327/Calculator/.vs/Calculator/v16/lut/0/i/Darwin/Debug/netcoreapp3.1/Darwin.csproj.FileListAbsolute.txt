@@ -1,0 +1,6 @@
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\b\Darwin\Debug\netcoreapp3.1\Darwin.deps.json
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\b\Darwin\Debug\netcoreapp3.1\Darwin.dll
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\i\Darwin\Debug\netcoreapp3.1\Darwin.AssemblyInfoInputs.cache
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\i\Darwin\Debug\netcoreapp3.1\Darwin.AssemblyInfo.cs
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\i\Darwin\Debug\netcoreapp3.1\Darwin.csproj.CopyComplete
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\i\Darwin\Debug\netcoreapp3.1\Darwin.dll

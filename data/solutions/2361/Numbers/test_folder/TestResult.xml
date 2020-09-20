@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="0" runstate="Runnable" testcasecount="10" result="Passed" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="10" engine-version="3.11.1.0" clr-version="4.0.30319.42000" start-time="2020-09-19 18:21:34Z" end-time="2020-09-19 18:21:36Z" duration="1.387094">
+  <command-line><![CDATA[C:\Users\egormatveev\Sprint_server\data\solutions\2361\Numbers\test_folder\nunit3-console.exe 7.dll]]></command-line>
+  <test-suite type="Assembly" id="0-1011" name="7.dll" fullname="C:\Users\egormatveev\Sprint_server\data\solutions\2361\Numbers\test_folder\7.dll" runstate="Runnable" testcasecount="10" result="Passed" start-time="2020-09-19 18:21:35Z" end-time="2020-09-19 18:21:36Z" duration="0.166018" total="10" passed="10" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="10">
+    <environment framework-version="3.11.0.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.18362" platform="Win32NT" cwd="C:\Users\egormatveev\Sprint_server\data\solutions\2361\Numbers\test_folder" machine-name="32D2" user="egormatveev" user-domain="32D2" culture="ru-RU" uiculture="ru-RU" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="C:\Users\egormatveev\Sprint_server\data\solutions\2361\Numbers\test_folder" />
+      <setting name="ImageRuntimeVersion" value="4.0.30319" />
+      <setting name="ImageRequiresX86" value="False" />
+      <setting name="ImageRequiresDefaultAppDomainAssemblyResolver" value="False" />
+      <setting name="RuntimeFramework" value="mono-4.0" />
+      <setting name="NumberOfTestWorkers" value="2" />
+    </settings>
+    <properties>
+      <property name="_PID" value="576" />
+      <property name="_APPDOMAIN" value="domain-" />
+    </properties>
+    <test-suite type="TestSuite" id="0-1012" name="TestsProject" fullname="TestsProject" runstate="Runnable" testcasecount="10" result="Passed" start-time="2020-09-19 18:21:35Z" end-time="2020-09-19 18:21:36Z" duration="0.151977" total="10" passed="10" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="10">
+      <test-suite type="TestFixture" id="0-1000" name="Tests" fullname="TestsProject.Tests" classname="TestsProject.Tests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2020-09-19 18:21:35Z" end-time="2020-09-19 18:21:36Z" duration="0.145568" total="10" passed="10" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="10">
+        <test-case id="0-1001" name="Test1" fullname="TestsProject.Tests.Test1" methodname="Test1" classname="TestsProject.Tests" runstate="Runnable" seed="1779544924" result="Passed" start-time="2020-09-19 18:21:36Z" end-time="2020-09-19 18:21:36Z" duration="0.057931" asserts="1" />
+        <test-case id="0-1010" name="Test10" fullname="TestsProject.Tests.Test10" methodname="Test10" classname="TestsProject.Tests" runstate="Runnable" seed="326485584" result="Passed" start-time="2020-09-19 18:21:36Z" end-time="2020-09-19 18:21:36Z" duration="0.005875" asserts="1" />
+        <test-case id="0-1002" name="Test2" fullname="TestsProject.Tests.Test2" methodname="Test2" classname="TestsProject.Tests" runstate="Runnable" seed="730246470" result="Passed" start-time="2020-09-19 18:21:36Z" end-time="2020-09-19 18:21:36Z" duration="0.005957" asserts="1" />
+        <test-case id="0-1003" name="Test3" fullname="TestsProject.Tests.Test3" methodname="Test3" classname="TestsProject.Tests" runstate="Runnable" seed="1860745472" result="Passed" start-time="2020-09-19 18:21:36Z" end-time="2020-09-19 18:21:36Z" duration="0.005565" asserts="1" />
+        <test-case id="0-1004" name="Test4" fullname="TestsProject.Tests.Test4" methodname="Test4" classname="TestsProject.Tests" runstate="Runnable" seed="2084239965" result="Passed" start-time="2020-09-19 18:21:36Z" end-time="2020-09-19 18:21:36Z" duration="0.003132" asserts="1" />
+        <test-case id="0-1005" name="Test5" fullname="TestsProject.Tests.Test5" methodname="Test5" classname="TestsProject.Tests" runstate="Runnable" seed="1069159113" result="Passed" start-time="2020-09-19 18:21:36Z" end-time="2020-09-19 18:21:36Z" duration="0.003713" asserts="1" />
+        <test-case id="0-1006" name="Test6" fullname="TestsProject.Tests.Test6" methodname="Test6" classname="TestsProject.Tests" runstate="Runnable" seed="1613593209" result="Passed" start-time="2020-09-19 18:21:36Z" end-time="2020-09-19 18:21:36Z" duration="0.003617" asserts="1" />
+        <test-case id="0-1007" name="Test7" fullname="TestsProject.Tests.Test7" methodname="Test7" classname="TestsProject.Tests" runstate="Runnable" seed="291021801" result="Passed" start-time="2020-09-19 18:21:36Z" end-time="2020-09-19 18:21:36Z" duration="0.003918" asserts="1" />
+        <test-case id="0-1008" name="Test8" fullname="TestsProject.Tests.Test8" methodname="Test8" classname="TestsProject.Tests" runstate="Runnable" seed="1654689635" result="Passed" start-time="2020-09-19 18:21:36Z" end-time="2020-09-19 18:21:36Z" duration="0.004293" asserts="1" />
+        <test-case id="0-1009" name="Test9" fullname="TestsProject.Tests.Test9" methodname="Test9" classname="TestsProject.Tests" runstate="Runnable" seed="2373437" result="Passed" start-time="2020-09-19 18:21:36Z" end-time="2020-09-19 18:21:36Z" duration="0.003365" asserts="1" />
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

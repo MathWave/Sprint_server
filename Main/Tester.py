@@ -67,7 +67,10 @@ class Tester:
         for file in listdir(join(path, 'bin', 'Debug')):
             if exists(join(path, 'bin', 'Debug', file)):
                 new_file = join(working_dir, basename(file))
-                copyfile(join(path, 'bin', 'Debug', file), new_file)
+                try:
+                    copyfile(join(path, 'bin', 'Debug', file), new_file)
+                except:
+                    pass
             else:
                 return False
         return True
@@ -127,7 +130,16 @@ class Tester:
                 res = passed + '/' + total
             self.solution.details = ''
             for el in doc.getElementsByTagName('test-case'):
-                self.solution.details += el.getAttribute('methodname') + ': ' + el.getAttribute('result') + '\n'
+                self.solution.details += '<h5>' + el.getAttribute('methodname') + '</h5>'
+                r = el.getAttribute('result')
+                if r == 'Passed':
+                    self.solution.details += '<div style="color: green;">Passed</div>'
+                else:
+                    self.solution.details += '<div style="color: red;">Failed</div>'
+                    mes = el.getElementsByTagName('failure')[0]
+                    print('failes got')
+                    mes = mes.getElementsByTagName('message')[0].firstChild.nodeValue
+                    self.solution.details += '<pre>{}</pre>'.format(mes)
         except:
             res = 'TEST ERROR'
         self.solution.result = res
@@ -148,8 +160,7 @@ class Tester:
         mkdir(working_dir)
         for project in listdir(sln_path):
             project = join(sln_path, project)
-            
-            if isdir(project) and is_project(project):
+            if isdir(project) and is_project(project) and basename(project) != 'TestsProject':
                 if not self.build_and_copy(project, working_dir):
                     solution.result = 'Compilation error'
                     solution.save()
@@ -157,26 +168,31 @@ class Tester:
                     start_new(self.host)
                     return
         dll_path = solution.task.tests_path()
-        copyfile(dll_path, join(working_dir, str(solution.task.id) + '.dll'))
+        copyfile(dll_path, join(working_dir, str(solution.task.id) + '.cs'))
         for file in listdir('nunit_console'):
             try:
                 copyfile(join('nunit_console', file), join(working_dir, file))
             except:
                 pass
         self.working_dir = working_dir
-        build_tests_cmd = 'csc -out:{} -t:library /r:{} /r:{} '.format(join(self.working_dir, str(self.solution.task.id) + '.dll'), join(self.working_dir, 'nunit.framework.dll'), join(working_dir, 'System.Runtime.dll'))
+        build_tests_cmd = 'csc -out:{} -t:library /r:{} /r:{} /r:{} '.format(join(self.working_dir, str(self.solution.task.id) + '.dll'), join(self.working_dir, 'nunit.framework.dll'), join(working_dir, 'System.Runtime.dll'), join(working_dir, 'DObject.dll'))
         for file in self.files:
             build_tests_cmd += '/r:{}.dll '.format(join(self.working_dir, file))
         build_tests_cmd += self.solution.task.tests_path()
         print(build_tests_cmd)
+        if exists(join(self.working_dir, str(self.solution.task.id) + '.dll')):
+            remove(join(self.working_dir, str(self.solution.task.id) + '.dll'))
         shell(build_tests_cmd)
-        for file in ExtraFile.objects.filter(task=self.solution.task):
-            copyfile(file.file.path, join(working_dir, file.filename))
-        thread = Thread(target=self.nunit_testing)
-        thread.start()
-        thread.join(solution.task.time_limit / 1000)
-        if solution.result == 'TESTING':
-            solution.result = 'Time limit'
+        if exists(join(self.working_dir, str(self.solution.task.id) + '.dll')):
+            for file in ExtraFile.objects.filter(task=self.solution.task):
+                copyfile(file.path, join(working_dir, file.filename))
+            thread = Thread(target=self.nunit_testing)
+            thread.start()
+            thread.join(solution.task.time_limit / 1000)
+            if solution.result == 'TESTING':
+                solution.result = 'Time limit'
+        else:
+            solution.result = 'TEST ERROR'
         solution.save()
-        # self.delete_everything()
+        self.delete_everything()
         start_new(self.host)

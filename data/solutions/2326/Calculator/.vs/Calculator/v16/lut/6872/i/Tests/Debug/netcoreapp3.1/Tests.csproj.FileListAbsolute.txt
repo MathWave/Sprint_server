@@ -1,0 +1,15 @@
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\i\Tests\Debug\netcoreapp3.1\Tests.AssemblyInfoInputs.cache
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\i\Tests\Debug\netcoreapp3.1\Tests.AssemblyInfo.cs
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\b\Tests\Debug\netcoreapp3.1\Calculator.exe
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\b\Tests\Debug\netcoreapp3.1\NUnit3.TestAdapter.dll
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\b\Tests\Debug\netcoreapp3.1\NUnit3.TestAdapter.pdb
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\b\Tests\Debug\netcoreapp3.1\nunit.engine.dll
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\b\Tests\Debug\netcoreapp3.1\nunit.engine.api.dll
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\b\Tests\Debug\netcoreapp3.1\Tests.deps.json
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\b\Tests\Debug\netcoreapp3.1\Tests.runtimeconfig.json
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\b\Tests\Debug\netcoreapp3.1\Tests.runtimeconfig.dev.json
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\b\Tests\Debug\netcoreapp3.1\Tests.dll
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\i\Tests\Debug\netcoreapp3.1\Tests.csprojAssemblyReference.cache
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\i\Tests\Debug\netcoreapp3.1\Tests.csproj.CopyComplete
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\i\Tests\Debug\netcoreapp3.1\Tests.dll
+C:\Users\egormatveev\source\Calculator\.vs\Calculator\v16\lut\0\i\Tests\Debug\netcoreapp3.1\Tests.genruntimeconfig.cache

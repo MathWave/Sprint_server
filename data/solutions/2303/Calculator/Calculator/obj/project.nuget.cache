@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "TuLMIY5NLmzpt+Wzt+tAOt3SrinRAZG6ZNEVjRPmK2e9A9iD4V0JXmGvbuiJfL2NY9U//j8slStvocQqvIHMng==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\egormatveev\\Sprint_server\\data\\solutions\\2303\\Calculator\\Calculator\\Calculator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\egormatveev\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
+    "C:\\Users\\egormatveev\\.nuget\\packages\\nunit\\3.12.0\\nunit.3.12.0.nupkg.sha512"
+  ],
+  "logs": []
+}

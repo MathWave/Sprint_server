@@ -2,8 +2,9 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_delete
-from os.path import sep, join
+from os.path import sep, join, exists
 from os import remove
+from Sprint.settings import MEDIA_ROOT
 
 
 base_dir = 'data'
@@ -22,7 +23,7 @@ class Course(models.Model):
 
     @property
     def subscribes(self):
-        return Subscribe.objects.filter(course=self)
+        return sorted(Subscribe.objects.filter(course=self), key=lambda s: s.user.email)
 
     def __str__(self):
         return self.name
@@ -103,6 +104,18 @@ class Task(models.Model):
     weight = models.FloatField(default=1.0)
     max_mark = models.IntegerField(default=10)
     max_solutions_count = models.IntegerField(default=10)
+    show_details = models.IntegerField(default=1)
+
+    def __eq__(self, obj):
+        return self.id == obj.id
+
+    def __hash__(self):
+        return self.id
+
+    @property
+    def showable(self):
+        return 'checked' if bool(self.show_details) else ''
+    
 
     def __str__(self):
         return self.name
@@ -133,6 +146,12 @@ class UserInfo(models.Model):
     new_block_notification = models.IntegerField(default=0)
     mark_notification = models.IntegerField(default=0)
 
+    def __eq__(self, obj):
+        return str(self) == str(obj)
+
+    def __hash__(self):
+        return self.id
+
     def __str__(self):
         return "{} {} {}".format(self.surname, self.name, self.middle_name)
 
@@ -147,7 +166,7 @@ class Solution(models.Model):
     comment = models.TextField(default='')
 
     def __str__(self):
-        return self.task.name + '|'+ self.user.username
+        return str(self.id)
 
     def path(self):
         return join(base_dir, 'solutions', str(self.id))
@@ -184,7 +203,7 @@ class Solution(models.Model):
         from os.path import isfile, join
         files_dict = {}
         for file in listdir(path):
-            if file.startswith('.') or file == '__MACOSX' or file == 'test_folder' or file == 'bin' or file == 'obj':
+            if file == '__MACOSX' or file == 'test_folder' or file == 'bin' or file == 'obj':
                 continue
             current_file = join(path, file)
             if isfile(current_file):
@@ -213,24 +232,39 @@ class System(models.Model):
 
 class ExtraFile(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    file = models.FileField(upload_to=join(base_dir, 'extra_files'))
     filename = models.TextField()
+
+
+    def save(self, *args, **kwargs):
+        self.write(b'')
+        super(ExtraFile, self).save(*args, **kwargs)
+
+    @property
+    def path(self):
+        return join(MEDIA_ROOT, 'extra_files', str(self.id))
+    
 
     @property
     def readable(self):
         try:
-            open(self.file.path, 'rb').read().decode('UTF-8')
+            open(self.path, 'rb').read().decode('UTF-8')
             return True
         except UnicodeDecodeError:
             return False
 
     @property
     def text(self):
-        return open(self.file.path, 'r').read()
+        return open(self.path, 'rb').read().decode('UTF-8')
     
 
     def __str__(self):
         return self.filename
+
+
+    def write(self, data):
+        with open(self.path, 'wb') as fs:
+            fs.write(data)
+
 
 
 @receiver(post_delete, sender=Task)
@@ -251,4 +285,8 @@ def delete_solution_hook(sender, instance, using, **kwargs):
 
 @receiver(post_delete, sender=ExtraFile)
 def delete_file_hook(sender, instance, using, **kwargs):
-    remove(instance.file.path)
+    try:
+        if exists(instance.path):
+            remove(instance.path)
+    except ValueError:
+        pass
