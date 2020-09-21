@@ -10,29 +10,30 @@ def mark_for_task(task, user):
     try:
         return int(list(Solution.objects.filter(task=task, user=user, mark__isnull=False))[-1].mark * 10 / task.max_mark)
     except IndexError:
-        return None
+        return -1
 
 
 @register.filter('mark_for_block')
 def mark_for_block(block, user):
     tasks = Task.objects.filter(block=block)
     if len(tasks) == 0:
-        return None
+        return -1
     mark = 0
     flag = False
     for task in tasks:
         mft = mark_for_task(task, user)
-        if mft:
+        if mft >= 0:
             flag = True
             mark += mft * task.weight
     if flag:
         return round(mark)
-    return None
+    return -1
 
 
 @register.filter('marked')
 def marked(mark):
-    return bool(mark)
+    print(mark)
+    return mark != -1
 
 
 @register.filter('mark_color')

@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sprint|{{ solution.task.name }}|решение</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href={% static "css/styles.css" %}>
-    <script type="text/javascript" src={% static "js/scripts.js" %}></script>
-</head>
-<body>
-    <div class="main_div">
-    <header class="mt-2 mb-2" role="banner">
+{% extends 'base.html' %}
+
+{% block title %}{{ solution.task.name }}|решение{% endblock %}
+
+{% block header %}
         {% if is_admin %}
                 <div class="row no-gutters top-buffer">
                     {% if from_admin %}
@@ -54,7 +46,8 @@
                     </div>
                 </div>
             {% endif %}
-        </header>
+{% endblock %}
+{% block content %}
         <div class="row">
             <div class="col-6">
                 <h5>
@@ -104,21 +97,44 @@
                                     Результат
                                 </td>
                                 <td>
-                                    {{ solution.result }}
-                                </td>
-                            </tr>
-                            {% if can_edit %}
-                                <tr>
-                                    <td>
-                                        Подробнее
-                                    </td>
-                                    <td>
+                                {% if can_edit or solution.task.showable %}
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#resultModalLong{{ solution.id }}">
+                                  {{ solution.result }}
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="resultModalLong{{ solution.id }}" tabindex="-1" role="dialog" aria-labelledby="resultModalLongTitle{{ solution.id }}" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="resultModalLongTitle{{ solution.id }}">Подробная информация о тестировании {{ solution.id }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-12">
 {% autoescape off %}
 {{ solution.details }}
 {% endautoescape %}
-                                    </td>
-                                </tr>
-                            {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                        {% else %}
+                                {{ solution.result }}
+                        {% endif %}
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     Оценка
@@ -172,7 +188,4 @@
         </div>
         <hr>
     {% endfor %}
-</div>
-
-</body>
-</html>
+{% endblock %}
