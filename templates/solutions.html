@@ -62,15 +62,36 @@
             </tr>
             <tr>
                 <td>Таск</td>
-                <td><input type="text" placeholder="Таск" id="task_name" name="task_name123" value="{{ options.task_name }}"></td>
+                <td>
+                    <select id="task_name" name="task_name">
+                        <option value="">Все</option>
+                        {% for task in solutions_info.tasks %}
+                            <option value="{{ task.name }}" {% if options.task_name == task.name %}selected{% endif %}>{{ task.name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td>Пользователь</td>
-                <td><input type="text" placeholder="Пользователь" id="user" name="user" value="{{ options.user }}"></td>
+                <td>
+                    <select id="user" name="user">
+                        <option value="">Все</option>
+                        {% for u in solutions_info.users %}
+                            <option value="{{ u }}" {% if options.user == u %}selected{% endif %}>{{ u }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td>Группа</td>
-                <td><input type="text" placeholder="Группа" id="group" name="group" value="{{ options.group }}"></td>
+                <td>
+                    <select id="group" name="group">
+                        <option value="">Все</option>
+                        {% for group in solutions_info.groups %}
+                            <option value="{{ group }}" {% if options.group == group %}selected{% endif %}>{{ group }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td>Последнее решение</td>
