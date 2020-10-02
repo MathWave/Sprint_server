@@ -203,7 +203,7 @@ class Solution(models.Model):
         from os.path import isfile, join
         files_dict = {}
         for file in listdir(path):
-            if file == '__MACOSX' or file == 'test_folder' or file == 'bin' or file == 'obj':
+            if file == '__MACOSX' or file == 'test_folder' or file == 'bin' or file == 'obj' or file == '.vs':
                 continue
             current_file = join(path, file)
             if isfile(current_file):

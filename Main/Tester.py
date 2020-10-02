@@ -90,6 +90,9 @@ class Tester:
         sln_path = join(ssp, '.idea')
         if exists(sln_path):
             rmtree(sln_path)
+        sln_path = join(ssp, '.vs')
+        if exists(sln_path):
+            rmtree(sln_path)
         sln_path = ssp
         for p in listdir(sln_path):
             if isdir(join(sln_path, p)):
@@ -97,8 +100,10 @@ class Tester:
                     rmtree(join(sln_path, p, 'bin'))
                 if exists(join(sln_path, p, 'obj')):
                     rmtree(join(sln_path, p, 'obj'))
-        rmtree(self.working_dir)
-        remove(join(self.solution.path(), 'solution.zip'))
+        if exists(self.working_dir):
+            rmtree(self.working_dir)
+        if exists(join(self.solution.path(), 'solution.zip')):
+            remove(join(self.solution.path(), 'solution.zip'))
         if exists(join(self.solution.path(), '__MACOSX')):
             rmtree(join(self.solution.path(), '__MACOSX'))
         if exists(join(sln_path, '.DS_Store')):
@@ -130,7 +135,7 @@ class Tester:
                 res = passed + '/' + total
             self.solution.details = ''
             for el in doc.getElementsByTagName('test-case'):
-                self.solution.details += '<h5>' + el.getAttribute('methodname') + '</h5>'
+                self.solution.details += '<h5><b>' + el.getAttribute('methodname') + '</b></h5>'
                 r = el.getAttribute('result')
                 if r == 'Passed':
                     self.solution.details += '<div style="color: green;">Passed</div>'

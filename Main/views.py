@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, FileResponse
 from django.shortcuts import render
 from django.core.files import File
 from .forms import *
@@ -16,14 +16,34 @@ from json import load
 from .Tester import Tester, shell
 from .main import solutions_filter, check_admin_on_course, re_test, check_admin, check_teacher, random_string, \
     send_email, check_permission_block, is_integer, check_god, blocks_available, check_login, \
-    get_restore_hash, block_solutions_info
+    get_restore_hash, block_solutions_info, delete_folder
 from .models import System, Solution, Block, Subscribe, Course, UserInfo, Task, Restore, ExtraFile
-from os.path import sep, join, exists, isfile
-from shutil import rmtree
+from os.path import sep, join, exists, isfile, dirname
+from shutil import rmtree, copytree, make_archive
 from Sprint.settings import MEDIA_ROOT
 
 
 base_dir = 'data'
+
+
+def download(request):
+    sols = solutions_filter(request.GET)
+    if len(sols) == 0:
+        return HttpResponseRedirect('/admin/solutions?block_id=' + request.GET['block_id'])
+    new_folder = join(MEDIA_ROOT, request.user.username)
+    if exists(new_folder):
+        rmtree(new_folder)
+    mkdir(new_folder)
+    cur_folder = join(new_folder, 'solutions')
+    mkdir(cur_folder)
+    for sol in sols:
+        copytree(join(MEDIA_ROOT, 'solutions', str(sol.id)), join(cur_folder, str(sol.id)))
+    zip_folder = join(dirname(cur_folder), 'solutions')
+    make_archive(zip_folder, 'zip', cur_folder)
+    response = HttpResponse(open(zip_folder + '.zip', 'rb').read(), content_type='application/force-download')
+    response['Content-Disposition'] = 'inline; filename=solutions.zip'
+    rmtree(dirname(cur_folder))
+    return response
 
 
 def docs(request):
@@ -212,6 +232,8 @@ def task(request):
                 time_sent=timezone.now()
             )
             solution_dir = current_solution.path() + sep
+            if exists(solution_dir):
+                rmtree(solution_dir)
             mkdir(solution_dir)
             with open(solution_dir + 'solution.zip', 'wb') as fs:
                 for chunk in request.FILES['file'].chunks():
@@ -411,7 +433,6 @@ def admin(request):
                                              time_start=timezone.now(),
                                              time_end=timezone.now())
         return HttpResponseRedirect('/admin/block?id=' + str(current_block.id))
-    print(blocks_available(request.user))
     return render(request, "admin.html", context={"blocks": blocks_available(request.user),
                                                   'is_superuser': check_god(request.user),
                                                   'is_teacher': check_teacher(request.user)})

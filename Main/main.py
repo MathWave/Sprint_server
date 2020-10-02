@@ -216,3 +216,13 @@ def block_solutions_info(block):
         'users': sorted(list(set(all_users)), key=lambda x: str(x)),
         'groups': sorted(list(set([userinfo.group for userinfo in all_users])), key=lambda x: str(x))
     }
+
+
+def delete_folder(path):
+    flag = True
+    while flag:
+        try:
+            rmtree(dirname(cur_folder))
+            flag = False
+        except:
+            pass

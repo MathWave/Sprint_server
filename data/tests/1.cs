@@ -18,7 +18,7 @@ namespace TestProject2
         [Test]
         public void Test2()
         {
-            Assert.AreEqual(Calc.Sum(1, 1), 3);
+            Assert.AreEqual(Calc.Sum(1, 1), 2);
         }
        
         [Test]
@@ -30,5 +30,6 @@ Assert.AreEqual((int)d.InvokeMethod("A"), 6);
 
     }
 }
+
 
 

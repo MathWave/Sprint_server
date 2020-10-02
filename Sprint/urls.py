@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/main', views.admin),
     path('admin/solutions', views.solutions),
     path('admin/users_settings', views.users_settings),
-    # path('admin/download', views.download),
+    path('admin/download', views.download),
     path('set_result', views.set_result),
     path('task_test', views.task_test),
 
