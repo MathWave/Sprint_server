@@ -18,7 +18,6 @@ urlpatterns = [
     path('admin/solution', views.solution),
     path('admin/retest', views.retest),
     path('admin/docs', views.docs),
-
     path('admin/block', views.block_settings),
     path('admin/task', views.task_settings),
     path('admin/main', views.admin),

@@ -32,7 +32,6 @@ def mark_for_block(block, user):
 
 @register.filter('marked')
 def marked(mark):
-    print(mark)
     return mark != -1
 
 

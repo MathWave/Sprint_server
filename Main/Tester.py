@@ -116,7 +116,6 @@ class Tester:
         #            str(self.solution.task.id) + '.dll)'
         #Windows
         test_cmd = 'cd {} && mono {} '.format(self.working_dir, 'nunit3-console.exe') + str(self.solution.task.id) + '.dll'
-        print('test cmd: ', test_cmd)
         shell(test_cmd)
         with open('log1.txt', 'w') as fs:
             fs.write(test_cmd)
@@ -142,7 +141,6 @@ class Tester:
                 else:
                     self.solution.details += '<div style="color: red;">Failed</div>'
                     mes = el.getElementsByTagName('failure')[0]
-                    print('failes got')
                     mes = mes.getElementsByTagName('message')[0].firstChild.nodeValue
                     self.solution.details += '<pre>{}</pre>'.format(mes)
         except:
@@ -184,7 +182,6 @@ class Tester:
         for file in self.files:
             build_tests_cmd += '/r:{}.dll '.format(join(self.working_dir, file))
         build_tests_cmd += self.solution.task.tests_path()
-        print(build_tests_cmd)
         if exists(join(self.working_dir, str(self.solution.task.id) + '.dll')):
             remove(join(self.working_dir, str(self.solution.task.id) + '.dll'))
         shell(build_tests_cmd)

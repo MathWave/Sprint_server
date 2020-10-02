@@ -1,1 +1,1 @@
-cd data\solutions\2369\Calculator\test_folder && mono nunit3-console.exe 1.dll
+cd data\solutions\2370\Calculator\test_folder && mono nunit3-console.exe 1.dll
