@@ -23,9 +23,6 @@ from shutil import rmtree, copytree, make_archive
 from Sprint.settings import MEDIA_ROOT
 
 
-base_dir = 'data'
-
-
 def download(request):
     sols = solutions_filter(request.GET)
     if len(sols) == 0:
@@ -243,7 +240,7 @@ def task(request):
                 with ZipFile(solution_dir + 'solution.zip') as obj:
                     obj.extractall(solution_dir)
             except BadZipFile:
-                current_solution.result = 'TEST ERROR'
+                current_solution.result = 'SOLUTION ERROR'
                 current_solution.save()
                 flag = False
             if flag:
@@ -313,7 +310,7 @@ def task_settings(request):
         elif 'file' in request.FILES.keys():
             if request.FILES['file'].name.endswith('.zip'):
                 try:
-                    wdir = join(base_dir, 'extra_files', str(current_task.id))
+                    wdir = join(MEDIA_ROOT, 'extra_files', str(current_task.id))
                     if exists(wdir):
                         rmtree(wdir)
                     mkdir(wdir)

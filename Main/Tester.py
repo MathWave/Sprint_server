@@ -77,7 +77,7 @@ class Tester:
 
     def push(self):
         solution = self.solution
-        if solution.result == 'TEST ERROR':
+        if solution.result == 'SOLUTION ERROR':
             return
         solution.result = 'IN QUEUE'
         solution.save()
@@ -159,7 +159,15 @@ class Tester:
             start_new(self.host)
             return
         sln_path = solution_path(join(base_dir, 'solutions', str(solution.id)))
+        if sln_path == '':
+            solution.result = 'TEST ERROR'
+            solution.save()
+            self.delete_everything()
+            start_new(self.host)
+            return
         working_dir = join(sln_path, 'test_folder')
+        if exists(working_dir):
+            rmtree(working_dir)
         mkdir(working_dir)
         for project in listdir(sln_path):
             project = join(sln_path, project)

@@ -147,7 +147,7 @@ def comparer(value1, value2):
 
 
 def result_comparer(result1, result2):
-    verdicts = ['IN QUEUE', 'TESTING', 'TEST ERROR', 'Compilation error', 'Time limit']
+    verdicts = ['IN QUEUE', 'TESTING', 'TEST ERROR', 'SOLUTION ERROR', 'Compilation error', 'Time limit']
     if result1 in verdicts and result2 in verdicts:
         return comparer(verdicts.index(result1), verdicts.index(result2))
     if result1 in verdicts and result2 not in verdicts:
