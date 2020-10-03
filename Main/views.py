@@ -85,6 +85,7 @@ def solution(request):
     if not is_admin:
         if current_solution.user != request.user:
             return HttpResponseRedirect('/main')
+    solutions_request = solutions_filter(request.GET)
     if request.path == '/admin/solution':
         from_admin = True
     else:
@@ -100,7 +101,6 @@ def solution(request):
         current_solution.save()
     has_prev, has_next = False, False
     _prev, _next = 0, 0
-    solutions_request = solutions_filter(request.GET)
     pos = -1
     for p in range(len(solutions_request)):
         if solutions_request[p].id == current_solution.id:
