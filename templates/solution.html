@@ -2,6 +2,51 @@
 
 {% block title %}{{ solution.task.name }}|решение{% endblock %}
 
+{% block scripts %}
+{% if can_edit %}
+    function findGetParameter(parameterName) {
+        var result = null,
+            tmp = [];
+        location.search
+            .substr(1)
+            .split("&")
+            .forEach(function (item) {
+              tmp = item.split("=");
+              if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+            });
+        return result;
+    }
+    function next() {
+        const solutions_request = findGetParameter('solutions');
+        const solutions = solutions_request.split(' ');
+        const current = findGetParameter('id');
+        const current_index = solutions.findIndex((element) => element == current);
+        if (current_index != solutions.length - 1) {
+            var next_element = document.getElementById('next');
+            next_element.setAttribute('href', '/admin/solution?id=' + solutions[current_index + 1] + '&solutions=' + solutions_request);
+            next_element.innerHTML = '->';
+        }
+    }
+    function previous() {
+        const solutions_request = findGetParameter('solutions');
+        const solutions = solutions_request.split(' ');
+        const current = findGetParameter('id');
+        const current_index = solutions.findIndex((element) => element == current);
+        if (current_index != 0) {
+            var next_element = document.getElementById('previous');
+            next_element.setAttribute('href', '/admin/solution?id=' + solutions[current_index - 1] + '&solutions=' + solutions_request);
+            next_element.innerHTML = '<-';
+        }
+    }
+    function fillContent() {
+        next();
+        previous();
+    }
+{% endif %}
+{% endblock %}
+
+{% if can_edit %}{% block onload %}fillContent(){% endblock %}{% endif %}
+
 {% block header %}
         {% if is_admin %}
                 <div class="row no-gutters top-buffer">
@@ -83,13 +128,14 @@
                                 </td>
                                 <td>
                                 <div style="text-align: center;"></div>
-                                    {% if has_prev and can_edit %}
-                                        <a href="/admin/solution?id={{ prev }}{{ req }}"><-</a>
+                                    {% if can_edit %}
+                                        <a id="previous"></a>
                                     {% endif %}
                                     {{ solution.id }}
-                                    {% if has_next and can_edit %}
-                                        <a href="/admin/solution?id={{ next }}{{ req }}">-></a>
+                                    {% if can_edit %}
+                                        <a id="next"></a>
                                     {% endif %}
+                                </div>
                                 </td>
                             </tr>
                             <tr>

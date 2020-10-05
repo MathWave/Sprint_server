@@ -140,7 +140,7 @@
                 {% for solution in solutions %}
                      <tr>
                         <th scope="row">
-                            <a href="/admin/solution?id={{ solution.id }}{{ filter }}">{{ solution.id }}</a>
+                            <a href="/admin/solution?id={{ solution.id }}&solutions={{ filter }}">{{ solution.id }}</a>
                         </th>
                         <td>
                             <a href="/admin/task?id={{ solution.task.id }}">{{ solution.task.name }}</a>

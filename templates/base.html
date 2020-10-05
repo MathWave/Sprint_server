@@ -28,7 +28,7 @@
             {% block scripts %}{% endblock %}
         </script>
 	</head>
-	<body>
+	<body onload="{% block onload %}{% endblock %}">
 		<div class="main_div">
             <header class="mt-2 mb-2" role="banner">
             {% block header %}{% endblock %}

@@ -142,11 +142,12 @@ def solutions(request):
     except ObjectDoesNotExist:
         return HttpResponseRedirect('/main')
     req = ''
+    sols = solutions_filter(request.GET)
     for key in request.GET.keys():
         req += '&{}={}'.format(key, request.GET[key])
     return render(request, 'solutions.html', context={'Block': current_block,
-                                                      'filter': req,
-                                                      'solutions': solutions_filter(request.GET),
+                                                      'filter': ' '.join([str(sol.id) for sol in sols]),
+                                                      'solutions': sols,
                                                       'options': {key: request.GET[key] for key in request.GET.keys()},
                                                       'solutions_info': block_solutions_info(current_block)})
 
