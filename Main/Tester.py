@@ -6,9 +6,7 @@ from subprocess import Popen
 import subprocess
 from threading import Thread
 from xml.dom.minidom import parse
-
-
-base_dir = 'data'
+from Sprint.settings import MEDIA_ROOT
 
 
 def shell(cmd):
@@ -119,9 +117,6 @@ class Tester:
         shell(test_cmd)
         with open('log1.txt', 'w') as fs:
             fs.write(test_cmd)
-       # p = Popen(test_cmd, shell=True)
-       # p.wait(self.solution.task.time_limit)
-       # p.kill()
         if not exists(join(self.working_dir, 'TestResult.xml')):
             return
         try:
@@ -152,56 +147,59 @@ class Tester:
         solution = self.solution
         solution.result = 'TESTING'
         solution.save()
-        if not exists(self.solution.task.tests_path()):
-            solution.result = 'TEST ERROR'
-            solution.save()
-            self.delete_everything()
-            start_new(self.host)
-            return
-        sln_path = solution_path(join(base_dir, 'solutions', str(solution.id)))
-        if sln_path == '':
-            solution.result = 'TEST ERROR'
-            solution.save()
-            self.delete_everything()
-            start_new(self.host)
-            return
-        working_dir = join(sln_path, 'test_folder')
-        if exists(working_dir):
-            rmtree(working_dir)
-        mkdir(working_dir)
-        for project in listdir(sln_path):
-            project = join(sln_path, project)
-            if isdir(project) and is_project(project) and basename(project) != 'TestsProject':
-                if not self.build_and_copy(project, working_dir):
-                    solution.result = 'Compilation error'
-                    solution.save()
-                    self.delete_everything()
-                    start_new(self.host)
-                    return
-        dll_path = solution.task.tests_path()
-        copyfile(dll_path, join(working_dir, str(solution.task.id) + '.cs'))
-        for file in listdir('nunit_console'):
-            try:
-                copyfile(join('nunit_console', file), join(working_dir, file))
-            except:
-                pass
-        self.working_dir = working_dir
-        build_tests_cmd = 'csc -out:{} -t:library /r:{} /r:{} /r:{} '.format(join(self.working_dir, str(self.solution.task.id) + '.dll'), join(self.working_dir, 'nunit.framework.dll'), join(working_dir, 'System.Runtime.dll'), join(working_dir, 'DObject.dll'))
-        for file in self.files:
-            build_tests_cmd += '/r:{}.dll '.format(join(self.working_dir, file))
-        build_tests_cmd += self.solution.task.tests_path()
-        if exists(join(self.working_dir, str(self.solution.task.id) + '.dll')):
-            remove(join(self.working_dir, str(self.solution.task.id) + '.dll'))
-        shell(build_tests_cmd)
-        if exists(join(self.working_dir, str(self.solution.task.id) + '.dll')):
-            for file in ExtraFile.objects.filter(task=self.solution.task):
-                copyfile(file.path, join(working_dir, file.filename))
-            thread = Thread(target=self.nunit_testing)
-            thread.start()
-            thread.join(solution.task.time_limit / 1000)
-            if solution.result == 'TESTING':
-                solution.result = 'Time limit'
-        else:
+        try:
+            if not exists(self.solution.task.tests_path()):
+                solution.result = 'TEST ERROR'
+                solution.save()
+                self.delete_everything()
+                start_new(self.host)
+                return
+            sln_path = solution_path(join(MEDIA_ROOT, 'solutions', str(solution.id)))
+            if sln_path == '':
+                solution.result = 'TEST ERROR'
+                solution.save()
+                self.delete_everything()
+                start_new(self.host)
+                return
+            working_dir = join(sln_path, 'test_folder')
+            if exists(working_dir):
+                rmtree(working_dir)
+            mkdir(working_dir)
+            for project in listdir(sln_path):
+                project = join(sln_path, project)
+                if isdir(project) and is_project(project) and basename(project) != 'TestsProject':
+                    if not self.build_and_copy(project, working_dir):
+                        solution.result = 'Compilation error'
+                        solution.save()
+                        self.delete_everything()
+                        start_new(self.host)
+                        return
+            dll_path = solution.task.tests_path()
+            copyfile(dll_path, join(working_dir, str(solution.task.id) + '.cs'))
+            for file in listdir('nunit_console'):
+                try:
+                    copyfile(join('nunit_console', file), join(working_dir, file))
+                except:
+                    pass
+            self.working_dir = working_dir
+            build_tests_cmd = 'csc -out:{} -t:library /r:{} /r:{} /r:{} '.format(join(self.working_dir, str(self.solution.task.id) + '.dll'), join(self.working_dir, 'nunit.framework.dll'), join(working_dir, 'System.Runtime.dll'), join(working_dir, 'DObject.dll'))
+            for file in self.files:
+                build_tests_cmd += '/r:{}.dll '.format(join(self.working_dir, file))
+            build_tests_cmd += self.solution.task.tests_path()
+            if exists(join(self.working_dir, str(self.solution.task.id) + '.dll')):
+                remove(join(self.working_dir, str(self.solution.task.id) + '.dll'))
+            shell(build_tests_cmd)
+            if exists(join(self.working_dir, str(self.solution.task.id) + '.dll')):
+                for file in ExtraFile.objects.filter(task=self.solution.task):
+                    copyfile(file.path, join(working_dir, file.filename))
+                thread = Thread(target=self.nunit_testing)
+                thread.start()
+                thread.join(solution.task.time_limit / 1000)
+                if solution.result == 'TESTING':
+                    solution.result = 'Time limit'
+            else:
+                solution.result = 'TEST ERROR'
+        except:
             solution.result = 'TEST ERROR'
         solution.save()
         self.delete_everything()
