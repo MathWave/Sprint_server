@@ -247,6 +247,7 @@ def task(request):
                 solution_created = True
                 copytree('SampleSolution', join(solution_dir, 'Solution'))
                 copyfile(join(solution_dir, 'solution.zip'), join(solution_dir, 'Solution', 'SampleProject', request.FILES['file'].name))
+                remove(join(solution_dir, 'solution.zip'))
             sln_path = solution_path(solution_dir)
             if sln_path == '':
                 solution_created = True
@@ -257,6 +258,13 @@ def task(request):
                     cur_file = join(solution_dir, file)
                     if isfile(cur_file):
                         copyfile(cur_file, join(solution_dir, 'Solution', 'SampleProject', file))
+                for file in listdir(solution_dir):
+                    if file != 'Solution':
+                        cf = join(solution_dir, file)
+                        if isfile(cf):
+                            remove(cf)
+                        else:
+                            rmtree(cf)
             if solution_created:
                 for file in current_task.files:
                     copyfile(file.path, join(solution_dir, 'Solution', 'SampleProject', file.filename))
