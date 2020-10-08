@@ -16,10 +16,10 @@ from json import load
 from .Tester import Tester, shell
 from .main import solutions_filter, check_admin_on_course, re_test, check_admin, check_teacher, random_string, \
     send_email, check_permission_block, is_integer, check_god, blocks_available, check_login, \
-    get_restore_hash, block_solutions_info, delete_folder
+    get_restore_hash, block_solutions_info, delete_folder, solution_path
 from .models import System, Solution, Block, Subscribe, Course, UserInfo, Task, Restore, ExtraFile
 from os.path import sep, join, exists, isfile, dirname
-from shutil import rmtree, copytree, make_archive
+from shutil import rmtree, copytree, make_archive, copyfile
 from Sprint.settings import MEDIA_ROOT
 
 
@@ -236,17 +236,32 @@ def task(request):
             with open(solution_dir + 'solution.zip', 'wb') as fs:
                 for chunk in request.FILES['file'].chunks():
                     fs.write(chunk)
-            flag = True
+            flag = False
+            solution_created = False
             try:
                 with ZipFile(solution_dir + 'solution.zip') as obj:
                     obj.extractall(solution_dir)
             except BadZipFile:
-                current_solution.result = 'SOLUTION ERROR'
-                current_solution.save()
-                flag = False
+                flag = not flag
             if flag:
-                #Tester(current_solution, request.META['HTTP_HOST']).push()
-                Thread(target=lambda: Tester(current_solution, request.META['HTTP_HOST']).push()).start()
+                solution_created = True
+                copytree('SampleSolution', join(solution_dir, 'Solution'))
+                copyfile(join(solution_dir, 'solution.zip'), join(solution_dir, 'Solution', 'SampleProject', request.FILES['file'].name))
+            sln_path = solution_path(solution_dir)
+            if sln_path == '':
+                solution_created = True
+                copytree('SampleSolution', join(solution_dir, 'Solution'))
+                for file in listdir(solution_dir):
+                    if file == 'solution.zip':
+                        continue
+                    cur_file = join(solution_dir, file)
+                    if isfile(cur_file):
+                        copyfile(cur_file, join(solution_dir, 'Solution', 'SampleProject', file))
+            if solution_created:
+                for file in current_task.files:
+                    copyfile(file.path, join(solution_dir, 'Solution', 'SampleProject', file.filename))
+            #Tester(current_solution, request.META['HTTP_HOST']).push()
+            Thread(target=lambda: Tester(current_solution, request.META['HTTP_HOST']).push()).start()
             return HttpResponseRedirect('/task?id=' + str(current_task.id))
     return render(request, 'task.html', context={'is_admin': administrator,
                                                  'task': current_task,

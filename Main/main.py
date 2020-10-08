@@ -9,6 +9,8 @@ from string import ascii_letters
 import smtplib
 from threading import Thread
 from time import sleep
+from os import listdir
+from os.path import isdir
 
 
 base_dir = 'data'
@@ -226,3 +228,10 @@ def delete_folder(path):
             flag = False
         except:
             pass
+
+
+def solution_path(path):
+    files = [x for x in listdir(path) if x.endswith('.sln') and not x.startswith('.')]
+    if files:
+        return path
+    return ''.join([solution_path(join(path, file)) for file in listdir(path) if isdir(join(path, file))])

@@ -7,6 +7,7 @@ import subprocess
 from threading import Thread
 from xml.dom.minidom import parse
 from Sprint.settings import MEDIA_ROOT
+from .main import solution_path
 
 
 def shell(cmd):
@@ -19,13 +20,6 @@ def start_new(host):
     in_queue = list(Solution.objects.filter(result='IN QUEUE'))
     if in_queue:
         Tester(in_queue[0], host).test()
-
-
-def solution_path(path):
-    files = [x for x in listdir(path) if '.sln' in x and not x.startswith('.')]
-    if files:
-        return path
-    return ''.join([solution_path(join(path, file)) for file in listdir(path) if isdir(join(path, file))])
 
 
 def is_project(path):
