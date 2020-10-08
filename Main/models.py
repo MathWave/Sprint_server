@@ -209,7 +209,7 @@ class Solution(models.Model):
             if isfile(current_file):
                 if not current_file.endswith('.csproj') and not current_file.endswith('.sln'):
                     try:
-                        files_dict[sep.join(current_file.split(sep)[6:])] \
+                        files_dict[sep.join(current_file.split('solutions' + sep)[1].split(sep)[1:])] \
                             = open(current_file, 'rb').read().decode('UTF-8')
                     except UnicodeDecodeError:
                         pass
