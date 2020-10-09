@@ -1,1 +1,1 @@
-cd C:\Users\egormatveev\Sprint_server\data\solutions\2399\Solution\test_folder && mono nunit3-console.exe 3.dll
+cd C:\Users\egormatveev\Sprint_server\data\solutions\2404\Solution\test_folder && mono nunit3-console.exe 2.dll

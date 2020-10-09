@@ -53,7 +53,7 @@ class Tester:
             rmtree(join(path, 'bin', 'Debug'))
         build(path)
         name = basename(path)
-        if not exists(join(path, 'bin', 'Debug')):
+        if not any(x.endswith('.exe') for x in listdir(join(path, 'bin', 'Debug'))):
             return False
         self.files.append(basename(path))
         for file in listdir(join(path, 'bin', 'Debug')):
@@ -100,6 +100,8 @@ class Tester:
             rmtree(join(self.solution.path(), '__MACOSX'))
         if exists(join(sln_path, '.DS_Store')):
             remove(join(sln_path, '.DS_Store'))
+        if exists(join(sln_path, 'test_folder')):
+            rmtree(join(sln_path, 'test_folder'))
 
     def nunit_testing(self):
         # UNIX
@@ -109,8 +111,6 @@ class Tester:
         #Windows
         test_cmd = 'cd {} && mono {} '.format(self.working_dir, 'nunit3-console.exe') + str(self.solution.task.id) + '.dll'
         shell(test_cmd)
-        with open('log1.txt', 'w') as fs:
-            fs.write(test_cmd)
         if not exists(join(self.working_dir, 'TestResult.xml')):
             return
         try:
