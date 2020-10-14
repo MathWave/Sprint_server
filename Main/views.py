@@ -64,11 +64,12 @@ def retest(request):
     if not check_admin_on_course(request.user, Block.objects.get(id=request.GET['block_id']).course):
         return HttpResponseRedirect('/main')
     req = '?block_id=' + str(request.GET['block_id'])
+    print(request.GET.keys())
     for key in request.GET.keys():
         if key != 'block_id':
             req += '&{}={}'.format(key, request.GET[key])
     Thread(target=lambda: re_test(solutions_request, request)).start()
-    return HttpResponseRedirect('/admin/solutions' + req)
+    return HttpResponseRedirect('/admin/solutions%s' % req)
 
 
 def solution(request):
@@ -96,24 +97,6 @@ def solution(request):
             current_solution.mark = current_solution.task.max_mark
         current_solution.comment = request.POST['comment']
         current_solution.save()
-    has_prev, has_next = False, False
-    _prev, _next = 0, 0
-    pos = -1
-    for p in range(len(solutions_request)):
-        if solutions_request[p].id == current_solution.id:
-            pos = p
-            break
-    if pos == -1:
-        raise ValueError()
-    if pos == 0 and pos != len(solutions_request) - 1:
-        has_next = True
-        _next = pos + 1
-    elif pos != 0 and pos == len(solutions_request) - 1:
-        has_prev = True
-        _prev = pos - 1
-    else:
-        has_prev, has_next = True, True
-        _prev, _next = pos - 1, pos + 1
     req = ''
     for key in request.GET.keys():
         if key != 'id':
@@ -148,6 +131,7 @@ def solutions(request):
     return render(request, 'solutions.html', context={'Block': current_block,
                                                       'filter': ' '.join([str(sol.id) for sol in sols]),
                                                       'solutions': sols,
+                                                      'req': req,
                                                       'options': {key: request.GET[key] for key in request.GET.keys()},
                                                       'solutions_info': block_solutions_info(current_block)})
 

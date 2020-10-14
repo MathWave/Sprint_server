@@ -6,7 +6,6 @@
 
 {% block scripts %}
         function filter() {
-            console.log("id got");
             const idi = document.getElementById('idi').value;
             const task = document.getElementById('task_name').value;
             const user = document.getElementById('user').value;
@@ -45,7 +44,13 @@
         function retest() {
             let del = confirm("Подтвердите перетест");
 	        if (del)
-                window.location.href = '/admin/retest?block_id={{ Block.id }}{{ filter }}'
+                window.location.href = '/admin/retest?block_id={{ Block.id }}{% autoescape off %}{{ req }}{% endautoescape %}';
+        }
+        function download() {
+            let del = confirm("Подтвердите скачивание");
+            if (del) {
+                window.location.href = '/admin/download?block_id={{ Block.id }}{% autoescape off %}{{ req }}{% endautoescape %}';
+            }
         }
 {% endblock %}
 
@@ -119,7 +124,7 @@
         
         <button type="button" class="btn btn-dark" id="control" onclick="filter()" style="margin-top: 20px;">Применить</button><br>
         <button type="button" class="btn btn-dark" id="control" onclick="window.location.href='/admin/solutions?block_id={{ Block.id }}'" style="margin-top: 10px;">Сбросить</button><br>
-        <button style="margin-top: 10px;" class="btn btn-dark" onclick="window.location.href='/admin/download?{{ filter }}'">Скачать решения</button><br>
+        <button style="margin-top: 10px;" class="btn btn-dark" onclick="download()">Скачать решения</button><br>
         <button style="margin-top: 10px;" class="btn btn-dark" onclick="retest()">Перетест</button>
         <hr>
         <h5>Решения</h5>
