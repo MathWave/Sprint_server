@@ -1,4 +1,0 @@
-C:\Users\egormatveev\Sprint_server\data\solutions\2412\Solution\SampleProject\obj\Debug\netcoreapp3.1\SampleProject.csprojAssemblyReference.cache
-C:\Users\egormatveev\Sprint_server\data\solutions\2412\Solution\SampleProject\obj\Debug\netcoreapp3.1\SampleProject.csproj.CoreCompileInputs.cache
-C:\Users\egormatveev\Sprint_server\data\solutions\2412\Solution\SampleProject\obj\Debug\netcoreapp3.1\SampleProject.AssemblyInfoInputs.cache
-C:\Users\egormatveev\Sprint_server\data\solutions\2412\Solution\SampleProject\obj\Debug\netcoreapp3.1\SampleProject.AssemblyInfo.cs

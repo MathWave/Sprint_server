@@ -105,6 +105,7 @@ class Task(models.Model):
     max_mark = models.IntegerField(default=10)
     max_solutions_count = models.IntegerField(default=10)
     show_details = models.IntegerField(default=1)
+    full_solution = models.IntegerField(default=0)
 
     def __eq__(self, obj):
         return self.id == obj.id
@@ -136,6 +137,10 @@ class Task(models.Model):
     def files(self):
         return ExtraFile.objects.filter(task=self)
 
+    @property
+    def is_full_solution(self):
+        return 'checked' if bool(self.full_solution) else ''
+    
 
 class UserInfo(models.Model):
     surname = models.TextField()

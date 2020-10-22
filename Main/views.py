@@ -10,7 +10,7 @@ from datetime import datetime
 from django.utils.timezone import make_aware
 from zipfile import ZipFile, BadZipFile
 from threading import Thread
-from os import remove, mkdir, listdir
+from os import remove, mkdir, listdir, rename
 from os.path import exists
 from json import load
 from .Tester import Tester, shell
@@ -226,30 +226,24 @@ def task(request):
                 with ZipFile(solution_dir + 'solution.zip') as obj:
                     obj.extractall(solution_dir)
             except BadZipFile:
-                flag = not flag
-            if flag:
-                solution_created = True
-                copytree('SampleSolution', join(solution_dir, 'Solution'))
-                copyfile(join(solution_dir, 'solution.zip'), join(solution_dir, 'Solution', 'SampleProject', request.FILES['file'].name))
-                remove(join(solution_dir, 'solution.zip'))
+                rename(solution_dir + 'solution.zip', solution_dir + request.FILES['file'].name)
             sln_path = solution_path(solution_dir)
-            if sln_path == '':
-                solution_created = True
+            if current_task.full_solution != bool(sln_path):
+                current_solution.result = 'TEST ERROR'
+                current_solution.save()
+                return HttpResponseRedirect('/task?id=' + str(current_task.id))
+            if not bool(sln_path):
                 copytree('SampleSolution', join(solution_dir, 'Solution'))
                 for file in listdir(solution_dir):
-                    if file == 'solution.zip':
+                    if file == 'solution.zip' or file == 'Solution':
                         continue
                     cur_file = join(solution_dir, file)
                     if isfile(cur_file):
                         copyfile(cur_file, join(solution_dir, 'Solution', 'SampleProject', file))
-                for file in listdir(solution_dir):
-                    if file != 'Solution':
-                        cf = join(solution_dir, file)
-                        if isfile(cf):
-                            remove(cf)
-                        else:
-                            rmtree(cf)
-            if solution_created:
+                        remove(cur_file)
+                    else:
+                        rmtree(cur_file)
+            if not current_task.full_solution:
                 for file in current_task.files:
                     copyfile(file.path, join(solution_dir, 'Solution', 'SampleProject', file.filename))
             #Tester(current_solution, request.META['HTTP_HOST']).push()
@@ -360,6 +354,7 @@ def task_settings(request):
                 request.POST['legend'],  request.POST['input'], request.POST['output'], request.POST['specifications']
             current_task.time_limit = int(request.POST['time_limit']) if is_integer(request.POST['time_limit']) else 10000
             current_task.show_details = 1 if 'show_details' in request.POST.keys() else 0
+            current_task.full_solution = 1 if 'full_solution' in request.POST.keys() else 0
             try:
                 current_task.weight = float(request.POST['weight'].replace(',', '.'))
             except ValueError:
@@ -467,34 +462,24 @@ def settings(request):
     if not check_login(request.user):
         return HttpResponseRedirect('/enter')
     context = {'is_admin': check_admin(request.user), 'form': ChangePasswordForm()}
-    current_user = UserInfo.objects.get(user=request.user)
     if request.method == 'POST':
-        if 'old' in request.POST.keys() and 'new' in request.POST.keys() and 'again' in request.POST.keys():
-            old = request.POST['old']
-            new = request.POST['new']
-            again = request.POST['again']
-            username = request.user.username
-            user = authenticate(username=username, password=old)
-            if user is None:
-                context['error'] = 'Неверный пароль'
-            elif new != again:
-                context['error'] = 'Пароли не совпадают'
-            else:
-                user.set_password(new)
-                user.save()
-                context['error'] = 'Пароль успешно изменен'
-                user = authenticate(username=username, password=new)
-                if user is not None and user.is_active:
-                    login(request, user)
-                    request.session['is_auth_ok'] = '1'
+        old = request.POST['old']
+        new = request.POST['new']
+        again = request.POST['again']
+        username = request.user.username
+        user = authenticate(username=username, password=old)
+        if user is None:
+            context['error'] = 'Неверный пароль'
+        elif new != again:
+            context['error'] = 'Пароли не совпадают'
         else:
-            new_block_notification = 1 if 'new_block' in request.POST.keys() else 0
-            marked = 1 if 'marked' in request.POST.keys() else 0
-            current_user.new_block_notification = new_block_notification
-            current_user.mark_notification = marked
-            current_user.save()
-    context['new_block'] = 'checked' if current_user.new_block_notification else ''
-    context['marked'] = 'checked' if current_user.mark_notification else ''
+            user.set_password(new)
+            user.save()
+            context['error'] = 'Пароль успешно изменен'
+            user = authenticate(username=username, password=new)
+            if user is not None and user.is_active:
+                login(request, user)
+                request.session['is_auth_ok'] = '1'
     return render(request, 'settings.html', context=context)
 
 
