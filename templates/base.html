@@ -31,7 +31,12 @@
 	<body onload="{% block onload %}{% endblock %}">
 		<div class="main_div">
             <header class="mt-2 mb-2" role="banner">
-            {% block header %}{% endblock %}
+                <div class="row no-gutters top-buffer">
+                    {% block header %}{% endblock %}
+                    <div class="col" style="min-width: 100px;">
+                        <button type="button" class="btn btn-light btn-block top-button" onclick="logout()">Выход</button>
+                    </div>
+                </div>
             </header>
             {% block content %}{% endblock %}
         </div>
