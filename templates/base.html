@@ -32,8 +32,20 @@
 		<div class="main_div">
             <header class="mt-2 mb-2" role="banner">
                 <div class="row no-gutters top-buffer">
-                    {% block header %}{% endblock %}
-                    <div class="col" style="min-width: 100px;"></div>
+                    <div class="col" style="min-width: 100px;">
+                        <button type="button" class="btn {% if current_page == 'main' %}btn-dark{% else %}btn-light{% endif %} btn-block top-button" onclick="main()">Sprint</button>
+                    </div>
+                    {% if is_admin %}
+                    <div class="col" style="min-width: 100px;">
+                        <button type="button" class="btn {% if current_page == 'admin' %}btn-dark{% else %}btn-light{% endif %} btn-block top-button" onclick="admin()">Админка</button>
+                    </div>
+                    {% endif %}
+                    <div class="col" style="min-width: 100px;">
+                        <button type="button" class="btn {% if current_page == 'settings' %}btn-dark{% else %}btn-light{% endif %} btn-block top-button"  onclick="settings()">Настройки</button>
+                    </div>
+                    <div class="col-{% if is_admin %}8{% else %}9{% endif %}">
+
+                    </div>
                     <div class="col" style="min-width: 100px;">
                         <button type="button" class="btn btn-light btn-block top-button" onclick="logout()">Выход</button>
                     </div>
