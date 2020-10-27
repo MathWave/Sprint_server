@@ -52,7 +52,7 @@ def send(subject, to_addr, body_text):
         body_text
     ))
 
-    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server = smtplib.SMTP('SMTP.Office365.com', 587)
     server.starttls()
     server.login(System.objects.get(key='email_address').value, System.objects.get(key='email_password').value)
     server.sendmail(from_addr, [to_addr], body)

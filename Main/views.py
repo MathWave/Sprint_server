@@ -512,15 +512,17 @@ def restore(request):
             user = User.objects.get(email=email)
         except ObjectDoesNotExist:
             return HttpResponseRedirect('/enter')
+        h = get_restore_hash()
         try:
-            Restore.objects.get(user__email=email)
+            r = Restore.objects.get(user__email=email)
+            r.code = h
+            r.save()
         except ObjectDoesNotExist:
-            h = get_restore_hash()
             Restore.objects.create(user=user, code=h)
-            send_email('Reset password',
-                       email,
-                       'Restore your password using this link:\nhttp://{}/reset_password?code={}'
-                       .format(request.META['HTTP_HOST'], h))
+        send_email('Reset password',
+                   email,
+                   'Restore your password using this link:\nhttp://{}/reset_password?code={}'
+                   .format(request.META['HTTP_HOST'], h))
         return HttpResponseRedirect('/enter')
 
 
