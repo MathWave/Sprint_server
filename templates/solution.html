@@ -47,51 +47,6 @@
 
 {% if can_edit %}{% block onload %}fillContent(){% endblock %}{% endif %}
 
-{% block header %}
-        {% if is_admin %}
-                <div class="row no-gutters top-buffer">
-                    {% if from_admin %}
-                        <div class="col">
-                            <button type="button" class="btn btn-light btn-block top-button" onclick="main()">Sprint</button>
-                        </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-dark btn-block top-button" onclick="admin()">Админка</button>
-                        </div>
-                    {% else %}
-                        <div class="col">
-                            <button type="button" class="btn btn-dark btn-block top-button" onclick="main()">Sprint</button>
-                        </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-light btn-block top-button" onclick="admin()">Админка</button>
-                        </div>
-                    {% endif %}
-                    <div class="col">
-                        <button type="button" class="btn btn-light btn-block top-button"  onclick="settings()">Настройки</button>
-                    </div>
-                    <div class="col-8">
-
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-light btn-block top-button" onclick="logout()">Выход</button>
-                    </div>
-                </div>
-            {% else %}
-                <div class="row no-gutters top-buffer">
-                    <div class="col">
-                        <button type="button" class="btn btn-dark btn-block top-button" onclick="main()">Sprint</button>
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-light btn-block top-button"  onclick="settings()">Настройки</button>
-                    </div>
-                    <div class="col-9">
-
-                    </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-light btn-block top-button" onclick="logout()">Выход</button>
-                    </div>
-                </div>
-            {% endif %}
-{% endblock %}
 {% block content %}
         <div class="row">
             <div class="col-6">
@@ -103,7 +58,7 @@
                                     Блок
                                 </td>
                                 <td>
-                                    <a href="{% if from_admin %}/admin{% endif %}/block?id={{ solution.task.block.id }}">{{ solution.task.block.name }}</a>
+                                    <a href="{% if current_page == 'admin' %}/admin{% endif %}/block?id={{ solution.task.block.id }}">{{ solution.task.block.name }}</a>
                                 </td>
                             </tr>
                             <tr>
@@ -111,7 +66,7 @@
                                     Таск
                                 </td>
                                 <td>
-                                    <a href="{% if from_admin %}/admin{% endif %}/task?id={{ solution.task.id }}">{{ solution.task.name }}</a>
+                                    <a href="{% if current_page == 'admin' %}/admin{% endif %}/task?id={{ solution.task.id }}">{{ solution.task.name }}</a>
                                 </td>
                             </tr>
                             <tr>

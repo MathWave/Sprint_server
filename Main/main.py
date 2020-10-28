@@ -206,6 +206,8 @@ def solutions_filter(request):
 def re_test(solutions_request, request):
     from .Tester import Tester
     for sol in solutions_request:
+        sol.details = ''
+        sol.save()
         Thread(target=lambda: Tester(sol, request.META['HTTP_HOST']).push()).start()
         sleep(.1)
 

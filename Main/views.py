@@ -261,28 +261,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def task_test(request):
-    current_task = Task.objects.get(id=request.GET['id'])
-    current_solution = Solution.objects.create(
-        task=current_task,
-        user=User.objects.get(username='emmtvv@icloud.com'),
-        result='IN QUEUE',
-        time_sent=timezone.now()
-    )
-    solution_dir = current_solution.path() + '/'
-    mkdir(solution_dir)
-    with open(solution_dir + 'solution.zip', 'wb') as fs:
-        for chunk in request.FILES['file'].chunks():
-            fs.write(chunk)
-    flag = True
-    try:
-        with ZipFile(solution_dir + 'solution.zip') as obj:
-            obj.extractall(solution_dir)
-    except BadZipFile:
-        current_solution.result = 'TEST ERROR'
-        current_solution.save()
-        flag = False
-    if flag:
-        Thread(target=lambda: Tester(current_solution, request.META['HTTP_HOST']).push()).start()
     return HttpResponse('ok')
 
 
