@@ -35,6 +35,7 @@ class Block(models.Model):
     time_start = models.DateTimeField()
     time_end = models.DateTimeField()
     opened = models.IntegerField()
+    
 
     def __str__(self):
         return self.name
@@ -135,7 +136,12 @@ class Task(models.Model):
 
     @property
     def files(self):
-        return ExtraFile.objects.filter(task=self)
+        return ExtraFile.objects.filter(task=self).order_by('filename')
+
+    @property
+    def files_for_compilation(self):
+        return ExtraFile.objects.filter(task=self, for_compilation=1)
+    
 
     @property
     def is_full_solution(self):
@@ -238,11 +244,17 @@ class System(models.Model):
 class ExtraFile(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     filename = models.TextField()
+    for_compilation = models.IntegerField(default=0)
 
 
     def save(self, *args, **kwargs):
         self.write(b'')
         super(ExtraFile, self).save(*args, **kwargs)
+
+    @property
+    def is_for_compilation(self):
+        return 'checked' if bool(self.for_compilation) else ''
+    
 
     @property
     def path(self):

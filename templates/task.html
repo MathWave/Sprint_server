@@ -8,10 +8,26 @@
     }
 {% endblock %}
 
+{% block onload %}doPoll(){% endblock %}
+
 {% block scripts %}
     function uploaded() {
         document.getElementById('is_uploaded').style.display = 'block';
         document.getElementById('is_uploaded').nodeValue = document.getElementById('file-upload').nodeValue;
+    }
+    function doPoll() {
+        jQuery.get('/solutions_table?id={{ task.id }}', function(data) {
+            if (data == 'done') {
+                return
+            }
+            else {
+                document.getElementById('solutions').innerHTML = data;
+                setTimeout(function() {doPoll()}, 500);
+            }
+        })
+        jQuery.get('/solutions_table?id={{ task.id }}&render=true', function(data) {
+            document.getElementById('solutions').innerHTML = data;
+        })
     }
 {% endblock %}
 
@@ -76,64 +92,8 @@
                     <th scope="col">Комментарий</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for solution in solutions %}
-                <tr>
-                    <th scope="row">
-                        <a href="/solution?id={{ solution.id }}">{{ solution.id }}</a>
-                    </th>
-                    <td>
-                        {{ solution.time_sent }}
-                    </td>
-                    <td>
-                        {% if can_edit or task.showable %}
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#resultModalLong{{ solution.id }}">
-                                  {{ solution.result }}
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="resultModalLong{{ solution.id }}" tabindex="-1" role="dialog" aria-labelledby="resultModalLongTitle{{ solution.id }}" aria-hidden="true">
-                                  <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="resultModalLongTitle{{ solution.id }}">Подробная информация о тестировании {{ solution.id }}</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-12">
-{% autoescape off %}
-{{ solution.details }}
-{% endautoescape %}
-                                                </div>
-                                            </div>
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                        {% else %}
-                                {{ solution.result }}
-                        {% endif %}
-                        
-                    </td>
-                    <td>
-                        {{ solution.mark_property }}
-                    </td>
-                    <td>
-<pre>
-{{ solution.comment_property }}
-</pre>
-                    </td>
-                </tr>
-            {% endfor %}
+            <tbody id="solutions">
+                {% include 'solutions_table.html' %}
             </tbody>
         </table>
 {% endblock %}

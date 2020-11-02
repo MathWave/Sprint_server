@@ -244,7 +244,7 @@ def task(request):
                     else:
                         rmtree(cur_file)
             if not current_task.full_solution:
-                for file in current_task.files:
+                for file in current_task.files_for_compilation:
                     copyfile(file.path, join(solution_dir, 'Solution', 'SampleProject', file.filename))
             #Tester(current_solution, request.META['HTTP_HOST']).push()
             Thread(target=lambda: Tester(current_solution, request.META['HTTP_HOST']).push()).start()
@@ -290,7 +290,7 @@ def task_settings(request):
         elif 'file' in request.FILES.keys():
             if request.FILES['file'].name.endswith('.zip'):
                 try:
-                    wdir = join(MEDIA_ROOT, 'extra_files', str(current_task.id))
+                    wdir = join(MEDIA_ROOT, 'extra_files', 'files' + str(current_task.id))
                     if exists(wdir):
                         rmtree(wdir)
                     mkdir(wdir)
@@ -322,7 +322,10 @@ def task_settings(request):
         elif 'extra_file_save' in request.POST.keys():
             file_id = request.POST['extra_file_save']
             tt = request.POST['extra_file_text_' + file_id]
-            ExtraFile.objects.get(id=file_id).write(bytes(tt, encoding='utf-8'))
+            ef = ExtraFile.objects.get(id=file_id)
+            ef.write(bytes(tt, encoding='utf-8'))
+            ef.for_compilation = 1 if str(ef.id) + '_for_compilation' in request.POST.keys() else 0
+            ef.save()
         elif 'newfile_name' in request.POST.keys():
             ef = ExtraFile.objects.create(task=current_task, filename=request.POST['newfile_name'])
             f = open(join(MEDIA_ROOT, 'extra_files', str(ef.id)), 'w')
@@ -390,6 +393,22 @@ def block_settings(request):
             current_block.save()
     return render(request, 'block_settings.html', context={'is_superuser': check_teacher(request.user),
                                                            'Block': current_block})
+
+
+def solutions_table(request):
+    current_task = Task.objects.get(id=request.GET['id'])
+    user = request.user
+    print(task, user)
+    if not check_permission_block(user, current_task.block):
+        return HttpResponse("done")
+    sols = Solution.objects.filter(task=current_task, user=user)
+    if any(sol.result == 'TESTING' or sol.result == 'IN QUEUE' for sol in sols) or 'render' in request.GET.keys():
+        return render(request, 'solutions_table.html', context={ 
+            'solutions': reversed(Solution.objects.filter(task=current_task, user=user)),
+            'can_edit': check_admin_on_course(request.user, current_task.block.course)})
+    return HttpResponse('done')
+    
+
 
 
 def admin(request):

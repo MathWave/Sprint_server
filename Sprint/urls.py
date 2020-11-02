@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/download', views.download),
     path('set_result', views.set_result),
     path('task_test', views.task_test),
+    path('solutions_table', views.solutions_table),
 
     re_path('^', views.redirect)
 ]
