@@ -53,3 +53,8 @@ def mark_color(mark):
 @register.filter('in_dict')
 def in_dict(value, dict):
     return value in dict.keys()
+
+
+@register.filter('last_attempts')
+def last_attempts(user, task):
+    return task.max_solutions_count - len(Solution.objects.filter(task=task, user=user))

@@ -398,7 +398,6 @@ def block_settings(request):
 def solutions_table(request):
     current_task = Task.objects.get(id=request.GET['id'])
     user = request.user
-    print(task, user)
     if not check_permission_block(user, current_task.block):
         return HttpResponse("done")
     sols = Solution.objects.filter(task=current_task, user=user)

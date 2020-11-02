@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load filters %}
+
 {% block title %}{{ task.name }}{% endblock %}
 
 {% block styles %}
@@ -22,7 +24,7 @@
             }
             else {
                 document.getElementById('solutions').innerHTML = data;
-                setTimeout(function() {doPoll()}, 500);
+                setTimeout(function() {doPoll()}, 2000);
             }
         })
         jQuery.get('/solutions_table?id={{ task.id }}&render=true', function(data) {
@@ -80,6 +82,9 @@
                 <input type="file" class="btn form-control-file" id="file-upload" value="Выбрать файл" name="file" onchange="uploaded()">
                 <br><input type="submit" value="Отправить" class="btn btn-outline-dark">
             </form>
+        {% endif %}
+        {% if not can_edit %}
+        Осталось попыток: {{ user|last_attempts:task }}
         {% endif %}
         <h2 style="margin-top: 20px;">Решения</h2>
         <table class="table">
