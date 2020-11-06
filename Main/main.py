@@ -73,7 +73,7 @@ def check_admin(user):
     if not check_login(user):
         return False
     try:
-        Subscribe.objects.get(user=user, is_assistant=1)
+        Subscribe.objects.get(user=user, is_assistant=True)
         return True
     except ObjectDoesNotExist:
         return False
@@ -105,7 +105,7 @@ def blocks_available(user):
             )
         else:
             blocks[course] = Block.objects.filter(
-                opened=1,
+                opened=True,
                 time_start__lte=timezone.now(),
                 time_end__gte=timezone.now(),
                 course=course

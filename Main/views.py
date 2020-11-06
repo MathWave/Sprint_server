@@ -64,7 +64,6 @@ def retest(request):
     if not check_admin_on_course(request.user, Block.objects.get(id=request.GET['block_id']).course):
         return HttpResponseRedirect('/main')
     req = '?block_id=' + str(request.GET['block_id'])
-    print(request.GET.keys())
     for key in request.GET.keys():
         if key != 'block_id':
             req += '&{}={}'.format(key, request.GET[key])
@@ -187,13 +186,13 @@ def users_settings(request):
                         group=u['group'],
                         user=user
                     )
-                    Subscribe.objects.create(user=user, course=current_course, is_assistant=0)
+                    Subscribe.objects.create(user=user, course=current_course, is_assistant=False)
                     send_email('You have been registered in Sprint!', u['email'],
                                'Your password is: {}\nPlease change it after login in settings!'.format(password))
         else:
             username = request.POST['user']
             s = Subscribe.objects.get(user__email=username, course=current_course)
-            s.is_assistant = 1 - s.is_assistant
+            s.is_assistant = not s.is_assistant
             s.save()
     return render(request, 'users_settings.html', context={'course': current_course})
 
@@ -279,8 +278,6 @@ def task_settings(request):
     current_task = Task.objects.get(id=request.GET['id'])
     if request.method == 'POST':
         action = request.POST['ACTION']
-        for k in request.POST.keys():
-            print(k + ':', request.POST[k])
         if action == 'DELETE':
             t = Task.objects.get(id=request.POST['task_id'])
             block_id = t.block.id
@@ -295,12 +292,10 @@ def task_settings(request):
             current_task.legend, current_task.input, current_task.output, current_task.specifications = \
             request.POST['legend'],  request.POST['input'], request.POST['output'], request.POST['specifications']
             current_task.time_limit = int(request.POST['time_limit']) if is_integer(request.POST['time_limit']) else 10000
-            current_task.show_details = 1 if 'show_details' in request.POST.keys() else 0
+            current_task.show_details = 'show_details' in request.POST.keys()
+            current_task.full_solution = 'full_solution' in request.POST.keys()
             for ef in ExtraFile.objects.filter(task=current_task):
-                if 'sample_' + str(ef.id) in request.POST.keys():
-                    ef.sample = 1
-                else:
-                    ef.sample = 0
+                ef.sample = 'sample_' + str(ef.id) in request.POST.keys()
                 ef.save()
             try:
                 current_task.weight = float(request.POST['weight'].replace(',', '.'))
@@ -364,7 +359,7 @@ def task_settings(request):
                 fs.write(bytes(tt, encoding='utf-8'))
             for ef in ExtraFile.objects.filter(task=current_task):
                 ef.write(bytes(request.POST['extra_file_text_{}'.format(ef.id)], encoding='utf-8'))
-                ef.for_compilation = 1 if str(ef.id) + '_for_compilation' in request.POST.keys() else 0
+                ef.for_compilation = str(ef.id) + '_for_compilation' in request.POST.keys()
                 ef.save()
         else:
             raise NotImplementedError()
@@ -398,10 +393,9 @@ def block_settings(request):
             Block.objects.get(id=request.POST['block_delete']).delete()
             return HttpResponseRedirect('/admin/main')
         else:
-            opened = 1 if 'opened' in request.POST.keys() else 0
             time_start = make_aware(datetime.strptime(request.POST['time_start'], "%Y-%m-%dT%H:%M"))
             time_end = make_aware(datetime.strptime(request.POST['time_end'], "%Y-%m-%dT%H:%M"))
-            current_block.opened = opened
+            current_block.opened = 'opened' in request.POST.keys()
             current_block.time_start = time_start
             current_block.time_end = time_end
             current_block.save()
@@ -439,7 +433,7 @@ def admin(request):
         name = request.POST['name']
         current_block = Block.objects.create(name=name,
                                              course=course,
-                                             opened=0,
+                                             opened=False,
                                              time_start=timezone.now(),
                                              time_end=timezone.now())
         return HttpResponseRedirect('/admin/block?id=' + str(current_block.id))

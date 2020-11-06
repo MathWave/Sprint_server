@@ -35,7 +35,7 @@ class Block(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     time_start = models.DateTimeField()
     time_end = models.DateTimeField()
-    opened = models.IntegerField()
+    opened = models.BooleanField(default=False)
     
 
     def __str__(self):
@@ -77,7 +77,7 @@ class Restore(models.Model):
 class Subscribe(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    is_assistant = models.IntegerField(default=0)
+    is_assistant = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username + '|' + self.course.name
@@ -92,7 +92,7 @@ class Subscribe(models.Model):
             return 'Администратор'
         if self.user.is_staff:
             return 'Преподаватель'
-        return 'Ассистент' if bool(self.is_assistant) else 'Студент'
+        return 'Ассистент' if self.is_assistant else 'Студент'
 
 
 class Task(models.Model):
@@ -106,15 +106,15 @@ class Task(models.Model):
     weight = models.FloatField(default=1.0)
     max_mark = models.IntegerField(default=10)
     max_solutions_count = models.IntegerField(default=10)
-    show_details = models.IntegerField(default=1)
-    full_solution = models.IntegerField(default=0)
+    show_details = models.BooleanField(default=False)
+    full_solution = models.BooleanField(default=False)
 
     @property
     def samples(self):
         return [{
                 'input': file,
                 'output': file.answer
-            } for file in ExtraFile.objects.filter(task=self, sample=1).order_by('filename')]
+            } for file in ExtraFile.objects.filter(task=self, sample=True).order_by('filename')]
     
 
     def __eq__(self, obj):
@@ -125,7 +125,7 @@ class Task(models.Model):
 
     @property
     def showable(self):
-        return 'checked' if bool(self.show_details) else ''
+        return 'checked' if self.show_details else ''
     
 
     def __str__(self):
@@ -149,12 +149,12 @@ class Task(models.Model):
 
     @property
     def files_for_compilation(self):
-        return ExtraFile.objects.filter(task=self, for_compilation=1)
+        return ExtraFile.objects.filter(task=self, for_compilation=True)
     
 
     @property
     def is_full_solution(self):
-        return 'checked' if bool(self.full_solution) else ''
+        return 'checked' if self.full_solution else ''
     
 
 class UserInfo(models.Model):
@@ -163,8 +163,6 @@ class UserInfo(models.Model):
     middle_name = models.TextField()
     group = models.TextField()
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    new_block_notification = models.IntegerField(default=0)
-    mark_notification = models.IntegerField(default=0)
 
     def __eq__(self, obj):
         return str(self) == str(obj)
@@ -253,8 +251,8 @@ class System(models.Model):
 class ExtraFile(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     filename = models.TextField()
-    for_compilation = models.IntegerField(default=0)
-    sample = models.IntegerField(default=0)
+    for_compilation = models.BooleanField(default=False)
+    sample = models.BooleanField(default=False)
 
     @property
     def answer(self):
@@ -272,11 +270,11 @@ class ExtraFile(models.Model):
 
     @property
     def is_for_compilation(self):
-        return 'checked' if bool(self.for_compilation) else ''
+        return 'checked' if self.for_compilation else ''
 
     @property
     def is_sample(self):
-        return 'checked' if bool(self.sample) else ''
+        return 'checked' if self.sample else ''
     
     @property
     def can_be_sample(self):
@@ -347,5 +345,5 @@ def delete_file_hook(sender, instance, using, **kwargs):
             t = ExtraFile.objects.get(task=instance.task, filename=instance.filename[:-2])
         except ObjectDoesNotExist:
             return
-        t.sample = 0
+        t.sample = False
         t.save()
