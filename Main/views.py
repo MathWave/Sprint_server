@@ -278,64 +278,30 @@ def task_settings(request):
         return HttpResponseRedirect('/main')
     current_task = Task.objects.get(id=request.GET['id'])
     if request.method == 'POST':
-        if 'task_id' in request.POST.keys():
+        action = request.POST['ACTION']
+        for k in request.POST.keys():
+            print(k + ':', request.POST[k])
+        if action == 'DELETE':
             t = Task.objects.get(id=request.POST['task_id'])
             block_id = t.block.id
             t.delete()
             return HttpResponseRedirect('/admin/block?id=' + str(block_id))
-        elif 'test_id' in request.POST.keys():
-            current_task = Task.objects.get(id=request.POST['test_id'])
-            if exists(current_task.tests_path()):
-                remove(current_task.tests_path())
-        elif 'file' in request.FILES.keys():
-            if request.FILES['file'].name.endswith('.zip'):
-                try:
-                    wdir = join(MEDIA_ROOT, 'extra_files', 'files' + str(current_task.id))
-                    if exists(wdir):
-                        rmtree(wdir)
-                    mkdir(wdir)
-                    with open(join(wdir, 'file.zip'), 'wb') as fs:
-                        for chunk in request.FILES['file'].chunks():
-                            fs.write(chunk)
-                    with ZipFile(join(wdir, 'file.zip')) as obj:
-                        obj.extractall(wdir)
-                    remove(join(wdir, 'file.zip'))
-                    for file in listdir(wdir):
-                        if isfile(join(wdir, file)):
-                            ef = ExtraFile.objects.create(filename=file, task=current_task)
-                            ef.write(open(join(wdir, file), 'rb').read())
-                    rmtree(wdir)
-                except BadZipFile:
-                    pass
-            else:
-                ef = ExtraFile.objects.create(filename=request.FILES['file'].name, task=current_task)
-                with open(ef.path, 'wb') as fs:
-                    for chunk in request.FILES['file'].chunks():
-                        fs.write(chunk)
-        elif 'delete' in request.POST.keys():
-            ExtraFile.objects.get(id=request.POST['delete']).delete()
-        elif 'test_file_save' in request.POST.keys():
-            tt = request.POST['tests_text']
-            cs_file = current_task.tests_path()
-            with open(cs_file, 'wb') as fs:
-                fs.write(bytes(tt, encoding='utf-8'))
-        elif 'extra_file_save' in request.POST.keys():
-            file_id = request.POST['extra_file_save']
-            tt = request.POST['extra_file_text_' + file_id]
-            ef = ExtraFile.objects.get(id=file_id)
-            ef.write(bytes(tt, encoding='utf-8'))
-            ef.for_compilation = 1 if str(ef.id) + '_for_compilation' in request.POST.keys() else 0
-            ef.save()
-        elif 'newfile_name' in request.POST.keys():
-            ef = ExtraFile.objects.create(task=current_task, filename=request.POST['newfile_name'])
-            f = open(join(MEDIA_ROOT, 'extra_files', str(ef.id)), 'w')
-            f.close()
-        else:
+        elif action.startswith('SAVE_EXTRA_FILE_'):
+            i = action.split('_')[-1]
+            ef = ExtraFile.objects.get(id=int(i))
+            with open(ef.path, 'wb') as fs:
+                fs.write(bytes(request.POST['extra_file_text_' + i], encoding='utf-8'))
+        elif action == 'SAVE':
             current_task.legend, current_task.input, current_task.output, current_task.specifications = \
-                request.POST['legend'],  request.POST['input'], request.POST['output'], request.POST['specifications']
+            request.POST['legend'],  request.POST['input'], request.POST['output'], request.POST['specifications']
             current_task.time_limit = int(request.POST['time_limit']) if is_integer(request.POST['time_limit']) else 10000
             current_task.show_details = 1 if 'show_details' in request.POST.keys() else 0
-            current_task.full_solution = 1 if 'full_solution' in request.POST.keys() else 0
+            for ef in ExtraFile.objects.filter(task=current_task):
+                if 'sample_' + str(ef.id) in request.POST.keys():
+                    ef.sample = 1
+                else:
+                    ef.sample = 0
+                ef.save()
             try:
                 current_task.weight = float(request.POST['weight'].replace(',', '.'))
             except ValueError:
@@ -350,13 +316,59 @@ def task_settings(request):
                 current_task.max_solutions_count = int(request.POST['max_solutions_count'])
             except ValueError:
                 current_task.max_solutions_count = 10
-            if 'tests' in request.FILES.keys():
-                file = request.FILES['tests']
-                cs_file = current_task.tests_path()
-                with open(cs_file, 'wb') as fs:
-                    for chunk in file.chunks():
+
+        elif action == 'UPLOAD_EXTRA_FILE':
+            if request.FILES['file'].name.endswith('.zip'):
+                try:
+                    wdir = join(MEDIA_ROOT, 'extra_files', 'files' + str(current_task.id))
+                    if exists(wdir):
+                        rmtree(wdir)
+                    mkdir(wdir)
+                    with open(join(wdir, 'file.zip'), 'wb') as fs:
+                        for chunk in request.FILES['file'].chunks():
+                            fs.write(chunk)
+                    with ZipFile(join(wdir, 'file.zip')) as obj:
+                        obj.extractall(wdir)
+                    remove(join(wdir, 'file.zip'))
+                    for file in listdir(wdir):
+                        if isfile(join(wdir, file)):
+                            try:
+                                ef = ExtraFile.objects.get(filename=file, task=current_task)
+                            except ObjectDoesNotExist:
+                                ef = ExtraFile.objects.create(filename=file, task=current_task)
+                            ef.write(open(join(wdir, file), 'rb').read())
+                    rmtree(wdir)
+                except BadZipFile:
+                    pass
+            else:
+                try:
+                    ef = ExtraFile.objects.get(filename=request.FILES['file'].name, task=current_task)
+                except ObjectDoesNotExist:
+                    ef = ExtraFile.objects.create(filename=request.FILES['file'].name, task=current_task)
+                with open(ef.path, 'wb') as fs:
+                    for chunk in request.FILES['file'].chunks():
                         fs.write(chunk)
-            current_task.save()
+        elif action == 'CREATE_EXTRA_FILE':
+            try:
+                ExtraFile.objects.get(task=current_task, filename=request.POST['newfile_name'])
+            except ObjectDoesNotExist:
+                ef = ExtraFile.objects.create(task=current_task, filename=request.POST['newfile_name'])
+                f = open(join(MEDIA_ROOT, 'extra_files', str(ef.id)), 'w')
+                f.close()
+        elif action.startswith('DELETE_FILE_'):
+            ExtraFile.objects.get(id=int(action.split('_')[-1])).delete()
+        elif action == 'SAVE_TESTS':
+            tt = request.POST['tests_text']
+            cs_file = current_task.tests_path()
+            with open(cs_file, 'wb') as fs:
+                fs.write(bytes(tt, encoding='utf-8'))
+            for ef in ExtraFile.objects.filter(task=current_task):
+                ef.write(bytes(request.POST['extra_file_text_{}'.format(ef.id)], encoding='utf-8'))
+                ef.for_compilation = 1 if str(ef.id) + '_for_compilation' in request.POST.keys() else 0
+                ef.save()
+        else:
+            raise NotImplementedError()
+        current_task.save()
         return HttpResponseRedirect('/admin/task?id=' + str(current_task.id))
     return render(request, 'task_settings.html', context={'task': current_task,
                                                           'tests': TestsForm(),
@@ -379,6 +391,8 @@ def block_settings(request):
                 name=task_name,
                 block=current_block
             )
+            with open(current_task.tests_path(), 'w') as fs:
+                pass
             return HttpResponseRedirect('/admin/task?id=' + str(current_task.id))
         if 'block_delete' in request.POST.keys():
             Block.objects.get(id=request.POST['block_delete']).delete()
@@ -403,7 +417,7 @@ def solutions_table(request):
     sols = Solution.objects.filter(task=current_task, user=user)
     if any(sol.result == 'TESTING' or sol.result == 'IN QUEUE' for sol in sols) or 'render' in request.GET.keys():
         return render(request, 'solutions_table.html', context={ 
-            'solutions': reversed(Solution.objects.filter(task=current_task, user=user)),
+            'solutions': reversed(sols),
             'can_edit': check_admin_on_course(request.user, current_task.block.course)})
     return HttpResponse('done')
     

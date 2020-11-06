@@ -45,31 +45,64 @@
             {{ task.name }}
         </h2>
         <hr>
-        <h5>Легенда</h5>
+        <h3>Легенда</h3>
         {% autoescape off %}
             {{ task.legend }}
         {% endautoescape %}
         <hr>
-        <h5>Формат входных данных</h5>
+        <h3>Формат входных данных</h3>
             {% autoescape off %}
 
             {{ task.input }}
             {% endautoescape %}
 
         <hr>
-        <h5>Формат выходных данных</h5>
+        <h3>Формат выходных данных</h3>
             {% autoescape off %}
 
             {{ task.output }}
             {% endautoescape %}
 
         <hr>
-        <h5>Спецификации</h5>
+        <h3>Спецификации</h3>
             {% autoescape off %}
 
             {{ task.specifications }}
             {% endautoescape %}
 
+        <hr>
+        <h3>Самплы</h3>
+            {% for sample in task.samples %}
+                <h5>Пример {{ sample.input.num }}</h5><br>
+                <b>
+                    <table style="width: 100%">
+                        <tr>
+                            <td>
+                                Входные данные
+                            </td>
+                            <td>
+                                Выходные данные
+                            </td>
+                        </tr>
+                    </table>
+                </b>
+                <hr>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 50%; vertical-align: top;">
+<pre>
+{{ sample.input.text }}
+</pre>
+                        </td>
+                        <td style="width: 50%; vertical-align: top;">
+<pre>
+{{ sample.output.text }}
+</pre>
+                        </td>
+                    </tr>
+                </table>
+                <hr>
+            {% endfor %}
         <hr>
         {% if can_send or can_edit %}
             <h2>Отправить решение</h2>
@@ -98,7 +131,7 @@
                 </tr>
             </thead>
             <tbody id="solutions">
-                {% include 'solutions_table.html' %}
+                
             </tbody>
         </table>
 {% endblock %}

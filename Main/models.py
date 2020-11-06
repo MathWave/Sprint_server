@@ -5,6 +5,7 @@ from django.db.models.signals import post_delete
 from os.path import sep, join, exists
 from os import remove
 from Sprint.settings import MEDIA_ROOT
+from django.core.exceptions import ObjectDoesNotExist
 
 
 base_dir = 'data'
@@ -107,6 +108,14 @@ class Task(models.Model):
     max_solutions_count = models.IntegerField(default=10)
     show_details = models.IntegerField(default=1)
     full_solution = models.IntegerField(default=0)
+
+    @property
+    def samples(self):
+        return [{
+                'input': file,
+                'output': file.answer
+            } for file in ExtraFile.objects.filter(task=self, sample=1).order_by('filename')]
+    
 
     def __eq__(self, obj):
         return self.id == obj.id
@@ -245,15 +254,41 @@ class ExtraFile(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     filename = models.TextField()
     for_compilation = models.IntegerField(default=0)
+    sample = models.IntegerField(default=0)
 
+    @property
+    def answer(self):
+        try:
+            return ExtraFile.objects.get(task=self.task, filename=self.filename + '.a')
+        except ObjectDoesNotExist:
+            return None
 
-    def save(self, *args, **kwargs):
-        self.write(b'')
-        super(ExtraFile, self).save(*args, **kwargs)
+    @property
+    def num(self):
+        try:
+            return int(self.filename.split('.')[0])
+        except ValueError:
+            return ''
 
     @property
     def is_for_compilation(self):
         return 'checked' if bool(self.for_compilation) else ''
+
+    @property
+    def is_sample(self):
+        return 'checked' if bool(self.sample) else ''
+    
+    @property
+    def can_be_sample(self):
+        try:
+            int(self.filename)
+        except:
+            return False
+        try:
+            ans = ExtraFile.objects.get(task=self.task, filename=self.filename + '.a')
+        except ObjectDoesNotExist:
+            return False
+        return self.readable and ans.readable
     
 
     @property
@@ -307,3 +342,10 @@ def delete_file_hook(sender, instance, using, **kwargs):
             remove(instance.path)
     except ValueError:
         pass
+    if instance.filename.endswith('.a'):
+        try:
+            t = ExtraFile.objects.get(task=instance.task, filename=instance.filename[:-2])
+        except ObjectDoesNotExist:
+            return
+        t.sample = 0
+        t.save()

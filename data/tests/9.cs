@@ -2,7 +2,7 @@ using NUnit.Framework;
 using Darwin;
 using System.IO;
 using System;
-using SampleProject;
+using TaskA;
 using System.Reflection;
 
 namespace TestsProject
@@ -21,7 +21,7 @@ new Program();
             sw = new StringWriter();
             sr = new StringReader("");
             Console.SetOut(sw);
-            prog = new DObject("SampleProject.Program");
+            prog = new DObject("TaskA.Program");
         }
 
         [Test]
@@ -51,6 +51,10 @@ new Program();
         }
     }
 }
+
+
+
+
 
 
 

@@ -30,7 +30,7 @@
 {% block content %}
     <h3><a href="/admin/block?id={{ task.block.id }}">{{ task.block.name }}</a></h3>
     <h5>{{ task.name }}</h5>
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="" method="POST" id="main_form" enctype="multipart/form-data">
             {% csrf_token %}
             <table>
                 <tr class="params">
@@ -38,7 +38,7 @@
                         Легенда
                     </td>
                     <td>
-                        <textarea rows="15" cols="100" style="resize: none;" name="legend">{{ task.legend }}</textarea>
+                        <textarea form="main_form" rows="15" cols="100" style="resize: none;" name="legend">{{ task.legend }}</textarea>
                     </td>
                 </tr>
                 <tr class="params">
@@ -46,7 +46,7 @@
                         Формат входных данных
                     </td>
                     <td>
-                        <textarea rows="15" cols="100" style="resize: none;" name="input">{{ task.input }}</textarea>
+                        <textarea form="main_form" rows="15" cols="100" style="resize: none;" name="input">{{ task.input }}</textarea>
                     </td>
                 </tr>
                 <tr class="params">
@@ -54,7 +54,7 @@
                         Формат выходных данных
                     </td>
                     <td>
-                        <textarea rows="15" cols="100" style="resize: none;" name="output">{{ task.output }}</textarea>
+                        <textarea form="main_form" rows="15" cols="100" style="resize: none;" name="output">{{ task.output }}</textarea>
                     </td>
                 </tr>
                 <tr class="params">
@@ -62,7 +62,7 @@
                         Спецификации
                     </td>
                     <td>
-                        <textarea rows="15" cols="100" style="resize: none;" name="specifications">{{ task.specifications }}</textarea>
+                        <textarea form="main_form" rows="15" cols="100" style="resize: none;" name="specifications">{{ task.specifications }}</textarea>
                     </td>
                 </tr>
                 <tr>
@@ -70,7 +70,7 @@
                         Ограничения по времени
                     </td>
                     <td>
-                        <input type="text" name="time_limit" value="{{ task.time_limit }}">
+                        <input form="main_form" type="text" name="time_limit" value="{{ task.time_limit }}">
                     </td>
                 </tr>
                 <tr>
@@ -78,7 +78,7 @@
                         Вес задачи
                     </td>
                     <td>
-                        <input type="text" name="weight" value="{{ task.weight }}">
+                        <input form="main_form" type="text" name="weight" value="{{ task.weight }}">
                     </td>
                 </tr>
                 <tr>
@@ -86,7 +86,7 @@
                         Максимальная оценка
                     </td>
                     <td>
-                        <input type="text" name="max_mark" value="{{ task.max_mark }}">
+                        <input form="main_form" type="text" name="max_mark" value="{{ task.max_mark }}">
                     </td>
                 </tr>
                 <tr>
@@ -94,7 +94,7 @@
                         Максимум решений
                     </td>
                     <td>
-                        <input type="text" name="max_solutions_count" value="{{ task.max_solutions_count }}">
+                        <input form="main_form" type="text" name="max_solutions_count" value="{{ task.max_solutions_count }}">
                     </td>
                 </tr>
                 <tr>
@@ -102,7 +102,7 @@
                         Сдается полное решение
                     </td>
                     <td>
-                        <input type="checkbox" name="full_solution" {{ task.is_full_solution }}>
+                        <input form="main_form" type="checkbox" name="full_solution" {{ task.is_full_solution }}>
                     </td>
                 </tr>
                 <tr>
@@ -110,20 +110,18 @@
                         Показывать детали тестирования
                     </td>
                     <td>
-                        <input type="checkbox" name="show_details" {{ task.showable }}>
+                        <input form="main_form" type="checkbox" name="show_details" {{ task.showable }}>
                     </td>
                 </tr>
+
+
+
+
                 <tr>
                     <td>
                         Тесты
                     </td>
                     <td>
-                        <label for="tests" class="btn btn-dark" style="margin-top: 20px;">
-                            Загрузить файл
-                        </label><br>
-                        <span id="is_uploaded" style="display: none;">Тесты выбраны</span>
-                        <input type="file" class="btn form-control-file" id="tests" value="Выбрать файл" name="tests" onchange="uploaded()">
-                        {% if task.tests_uploaded %}
                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalLong">
                                   Посмотреть
@@ -152,24 +150,32 @@
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" name="test_file_save" value="test_file_save">Save</button>
+                                        <button type="submit" class="btn btn-primary" name="ACTION" value="SAVE_TESTS">Save</button>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                        {% endif %}
                     </td>
                 </tr>
+
+
+
+
                 <tr>
                     <td style="vertical-align: top; padding-top: 10px;">
-                        Дополнительные файлы
+                        Дополнительные файлы и самплы
                     </td>
                     <td style="vertical-align: top;">
                         <table>
                             {% for file in task.files %}
                                 <tr>
                                     <td>
-                                        <button type="submit" class="close" name="delete" value="{{ file.id }}">
+                                        {% if file.can_be_sample %}
+                                        <input form="main_form" type="checkbox" name="sample_{{ file.id }}" {{ file.is_sample }}>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <button type="submit" class="close" name="ACTION" value="DELETE_FILE_{{ file.id }}">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </td>
@@ -206,7 +212,7 @@
                                                   <div class="modal-footer">
                                                     Файл для компиляции <input type="checkbox" name="{{ file.id }}_for_compilation" {{ file.is_for_compilation }}>
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary" name="extra_file_save" value="{{ file.id }}">Save</button>
+                                                    <button type="submit" class="btn btn-primary" name="ACTION" value="SAVE_EXTRA_FILE_{{ file.id }}">Save</button>
                                                   </div>
                                                 </div>
                                               </div>
@@ -231,7 +237,7 @@
                             +
                         </label>
                         <input type="button" class="btn btn-success" id="add_file" value="Создать файл" name="new_file"  data-toggle="modal" data-target="#exampleModalLongnewfile">
-                        <button type="submit" class="btn btn-success" style="display: none;" id="send">Отправить</button>
+                        <button name="ACTION" value="UPLOAD_EXTRA_FILE" type="submit" class="btn btn-success" style="display: none;" id="send">Отправить</button>
                         <form method="POST">
                             {% csrf_token %}
                             <div class="modal fade" id="exampleModalLongnewfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitlenewfile" aria-hidden="true">
@@ -254,7 +260,7 @@
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Create</button>
+                                        <button name="ACTION" value="CREATE_EXTRA_FILE" type="submit" class="btn btn-primary">Create</button>
                                       </div>
                                     </div>
                                   </div>
@@ -264,18 +270,9 @@
                 </tr>
             </table>
             <hr>
-            <input type="submit" value="Сохранить" class="btn btn-dark">
+            <button type="submit" name="ACTION" value="SAVE" class="btn btn-dark">Сохранить</button>
+            {% if is_superuser %}
+            <button type="submit" name="ACTION" value="DELETE" class="btn btn-dark">Удалить таск</button>
+            {% endif %}
         </form>
-        <form method="POST" onsubmit="return confirm('Точно удаляем?');">
-            {% csrf_token %}
-            <input type="hidden" name="test_id" value="{{ task.id }}">
-            <input type="submit" value="Очистить тесты" class="btn btn-dark" style="margin-top: 10px;">
-        </form>
-    {% if is_superuser %}
-        <form method="POST" onsubmit="return confirm('Точно удаляем?');">
-            {% csrf_token %}
-            <input type="hidden" name="task_id" value="{{ task.id }}">
-            <input type="submit" value="Удалить таск" class="btn btn-dark" style="margin-top: 10px;">
-        </form>
-    {% endif %}
 {% endblock %}
