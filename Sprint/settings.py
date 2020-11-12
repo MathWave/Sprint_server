@@ -25,6 +25,9 @@ SECRET_KEY = '-w#*mn6*fa8a=(-c0@klx&$vl%hpiy&l(u*3%0a#2)wdt##(z2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+SECURE_SSL_REDIRECT = False
+
+
 ALLOWED_HOSTS = [
     'mathwave.pythonanywhere.com',
     '127.0.0.1',

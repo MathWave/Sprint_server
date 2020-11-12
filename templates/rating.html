@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load filters %}
+
+{% block title %}Рейтинг{% endblock %}
+
+{% block content %}
+	<table border="1px solid black">
+		<thead>
+			<tr>
+				<th scope="col">Студент</th>
+				{% for task in Block.tasks %}
+					<th>{{ task.id }}</th>	
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for sub in Block.course.subscribes %}
+					<tr>
+						<th scope="row">{{ sub.user.username }}</th>
+						{% for task in Block.tasks %}
+							<th>{{ sub.user|mark_status:task }}</th>
+						{% endfor %}
+					</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

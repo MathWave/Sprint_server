@@ -7,7 +7,7 @@
           {{ solution.time_sent }}
       </td>
       <td>
-          {% if can_edit or task.showable %}
+          {% if can_edit or task.show_details %}
                   <!-- Button trigger modal -->
                   <button type="button" class="btn btn-link" data-toggle="modal" data-target="#resultModalLong{{ solution.id }}">
                     {{ solution.result }}

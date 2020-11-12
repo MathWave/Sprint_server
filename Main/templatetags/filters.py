@@ -1,5 +1,5 @@
 from django import template
-from Main.models import Solution, Task
+from Main.models import Solution, Task, UserInfo
 
 
 register = template.Library()
@@ -58,3 +58,14 @@ def in_dict(value, dict):
 @register.filter('last_attempts')
 def last_attempts(user, task):
     return task.max_solutions_count - len(Solution.objects.filter(task=task, user=user))
+
+@register.filter('userinfo_by_user')
+def userinfo_by_user(user):
+    return UserInfo.objects.get(user=user)
+
+@register.filter('mark_status')
+def mark_status(user, task):
+    sols = Solution.objects.filter(user=user, task=task)
+    if len(sols) == 0:
+        return '-'
+    return sols.last().result

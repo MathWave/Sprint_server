@@ -72,11 +72,7 @@ def check_admin(user):
         return True
     if not check_login(user):
         return False
-    try:
-        Subscribe.objects.get(user=user, is_assistant=True)
-        return True
-    except ObjectDoesNotExist:
-        return False
+    return len(Subscribe.objects.filter(user=user, is_assistant=True)) > 0
 
 
 def check_teacher(user):
@@ -107,10 +103,21 @@ def blocks_available(user):
             blocks[course] = Block.objects.filter(
                 opened=True,
                 time_start__lte=timezone.now(),
-                time_end__gte=timezone.now(),
                 course=course
             )
     return blocks
+
+
+def can_send_solution(user, task):
+    if user.is_superuser:
+        return True
+    try:
+        s = Subscribe.objects.get(course=task.block.course, user=user)
+    except ObjectDoesNotExist:
+        return False
+    if s.is_assistant:
+        return True
+    return task.block.time_start <= timezone.now() <= task.block.time_end and task.max_solutions_count > len(Solution.objects.filter(user=user, task=task)) and task.block.opened
 
 
 def check_permission_block(user, block):

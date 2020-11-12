@@ -52,6 +52,16 @@
                 window.location.href = '/admin/download?block_id={{ Block.id }}{% autoescape off %}{{ req }}{% endautoescape %}';
             }
         }
+        function showHideTests(id) {
+            var text = document.getElementById(id + '_tests');
+            var button = document.getElementById(id + '_button');
+            text.hidden = !text.hidden;
+            if (text.hidden) {
+                button.textContent = 'Показать тесты';
+            } else {
+                button.textContent = 'Скрыть тесты';
+            }
+        }
 {% endblock %}
 
 {% block styles %}
@@ -181,12 +191,17 @@
                                                 <div class="col-12">
 {% autoescape off %}
 {{ solution.details }}
+<hr>
+<pre id="{{ solution.id }}_tests" hidden>
+{{ solution.task.tests_text }}
+</pre>
 {% endautoescape %}
                                                 </div>
                                             </div>
                                         </div>
                                       </div>
                                       <div class="modal-footer">
+                                        <button type="button" id="{{ solution.id }}_button" class="btn btn-primary" onclick="showHideTests('{{ solution.id }}')">Показать тесты</button>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                       </div>
                                     </div>

@@ -27,6 +27,7 @@ urlpatterns = [
     path('set_result', views.set_result),
     path('task_test', views.task_test),
     path('solutions_table', views.solutions_table),
+    # path('rating', views.rating),
 
     re_path('^', views.redirect)
 ]

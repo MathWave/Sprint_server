@@ -107,9 +107,9 @@ class Tester:
         # UNIX
         # test_cmd = '(cd ' + self.working_dir + ' && ' + \
         #            'mono {} '.format(nunit_path(self.working_dir)) + \
-        #            str(self.solution.task.id) + '.dll)'
+        #            str(self.solution.task.id) + '.dll)' dotnet exec --runtimeconfig config.json
         #Windows
-        test_cmd = 'cd {} && dotnet exec --runtimeconfig config.txt {} '.format(self.working_dir, 'nunit3-console.exe') + str(self.solution.task.id) + '.dll'
+        test_cmd = 'cd {} && mono {} '.format(self.working_dir, 'nunit3-console.exe') + str(self.solution.task.id) + '.dll'
         shell(test_cmd)
         if not exists(join(self.working_dir, 'TestResult.xml')):
             return

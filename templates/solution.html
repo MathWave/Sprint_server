@@ -59,6 +59,9 @@
                                 </td>
                                 <td>
                                     <a href="{% if current_page == 'admin' %}/admin{% endif %}/block?id={{ solution.task.block.id }}">{{ solution.task.block.name }}</a>
+                                    {% if current_page == 'admin' %}
+                                         | <a style="margin-top: 15px;" href="/admin/solutions?block_id={{ solution.task.block.id }}">К посылкам</a>
+                                    {% endif %}
                                 </td>
                             </tr>
                             <tr>
@@ -98,7 +101,7 @@
                                     Результат
                                 </td>
                                 <td>
-                                {% if can_edit or solution.task.showable %}
+                                {% if can_edit or solution.task.show_details %}
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-link" data-toggle="modal" data-target="#resultModalLong{{ solution.id }}">
                                   {{ solution.result }}

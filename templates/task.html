@@ -116,7 +116,7 @@
                 <br><input type="submit" value="Отправить" class="btn btn-outline-dark">
             </form>
         {% endif %}
-        {% if not can_edit %}
+        {% if not can_edit and can_send %}
         Осталось попыток: {{ user|last_attempts:task }}
         {% endif %}
         <h2 style="margin-top: 20px;">Решения</h2>

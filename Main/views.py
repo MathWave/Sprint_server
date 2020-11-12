@@ -7,6 +7,7 @@ from .forms import *
 from django.contrib.auth import login, authenticate, logout
 from django.utils import timezone
 from datetime import datetime
+import datetime as dt
 from django.utils.timezone import make_aware
 from zipfile import ZipFile, BadZipFile
 from threading import Thread
@@ -16,7 +17,7 @@ from json import load
 from .Tester import Tester, shell
 from .main import solutions_filter, check_admin_on_course, re_test, check_admin, check_teacher, random_string, \
     send_email, check_permission_block, is_integer, check_god, blocks_available, check_login, \
-    get_restore_hash, block_solutions_info, delete_folder, solution_path
+    get_restore_hash, block_solutions_info, delete_folder, solution_path, can_send_solution
 from .models import System, Solution, Block, Subscribe, Course, UserInfo, Task, Restore, ExtraFile
 from os.path import sep, join, exists, isfile, dirname
 from shutil import rmtree, copytree, make_archive, copyfile
@@ -24,6 +25,8 @@ from Sprint.settings import MEDIA_ROOT
 
 
 def download(request):
+    if not check_admin(request.user) or not check_admin_on_course(request.user, Block.objects.get(id=request.GET['id']).course):
+        return HttpResponseRedirect('/main')
     sols = solutions_filter(request.GET)
     if len(sols) == 0:
         return HttpResponseRedirect('/admin/solutions?block_id=' + request.GET['block_id'])
@@ -78,8 +81,7 @@ def solution(request):
     except ObjectDoesNotExist:
         if not request.user.is_superuser:
             return HttpResponseRedirect('/main')
-    is_admin = check_admin(request.user)
-    if not is_admin:
+    if not check_admin(request.user):
         if current_solution.user != request.user:
             return HttpResponseRedirect('/main')
     solutions_request = solutions_filter(request.GET)
@@ -96,22 +98,12 @@ def solution(request):
             current_solution.mark = current_solution.task.max_mark
         current_solution.comment = request.POST['comment']
         current_solution.save()
-    req = ''
-    for key in request.GET.keys():
-        if key != 'id':
-            req += '&{}={}'.format(key, request.GET[key])
-    if len(solutions_request) == 1:
-        has_next, has_prev, _next, _prev = False, False, 0, 0
+    can_edit = check_admin_on_course(request.user, current_solution.task.block.course)
+    print('can_edit', can_edit)
+    print('show', current_solution.task.show_details)
     return render(request, 'solution.html', context={'solution': current_solution,
-                                                     'is_admin': is_admin,
                                                      'from_admin': from_admin,
-                                                     'can_edit': check_admin_on_course(request.user, current_solution
-                                                                                       .task.block.course),
-                                                     'has_prev': has_prev,
-                                                     'has_next': has_next,
-                                                     'prev': solutions_request[_prev].id,
-                                                     'next': solutions_request[_next].id,
-                                                     'req': req})
+                                                     'can_edit': can_edit})
 
 
 def solutions(request):
@@ -202,8 +194,8 @@ def task(request):
     user = request.user
     if not check_permission_block(user, current_task.block):
         return HttpResponseRedirect('/main')
-    administrator = check_admin(user)
-    can_send = len(Solution.objects.filter(user=request.user, task=current_task)) < current_task.max_solutions_count or administrator
+    can_send = can_send_solution(user, current_task)
+    print(can_send)
     if request.method == 'POST':
         if 'file' in request.FILES.keys() and can_send:
             current_solution = Solution.objects.create(
@@ -248,8 +240,7 @@ def task(request):
             #Tester(current_solution, request.META['HTTP_HOST']).push()
             Thread(target=lambda: Tester(current_solution, request.META['HTTP_HOST']).push()).start()
             return HttpResponseRedirect('/task?id=' + str(current_task.id))
-    return render(request, 'task.html', context={'is_admin': administrator,
-                                                 'task': current_task,
+    return render(request, 'task.html', context={'task': current_task,
                                                  'solutions': reversed(Solution.objects.filter(task=current_task, user=user)),
                                                  'can_send': can_send,
                                                  'can_edit': check_admin_on_course(request.user, current_task.block.course)})
@@ -393,12 +384,13 @@ def block_settings(request):
             Block.objects.get(id=request.POST['block_delete']).delete()
             return HttpResponseRedirect('/admin/main')
         else:
-            time_start = make_aware(datetime.strptime(request.POST['time_start'], "%Y-%m-%dT%H:%M"))
-            time_end = make_aware(datetime.strptime(request.POST['time_end'], "%Y-%m-%dT%H:%M"))
+            time_start = make_aware(datetime.strptime(request.POST['time_start'], "%Y-%m-%dT%H:%M") + dt.timedelta(hours=3))
+            time_end = make_aware(datetime.strptime(request.POST['time_end'], "%Y-%m-%dT%H:%M") + dt.timedelta(hours=3))
             current_block.opened = 'opened' in request.POST.keys()
             current_block.time_start = time_start
             current_block.time_end = time_end
             current_block.save()
+            return HttpResponseRedirect('/admin/block?id={}'.format(current_block.id))
     return render(request, 'block_settings.html', context={'is_superuser': check_teacher(request.user),
                                                            'Block': current_block})
 
@@ -409,13 +401,18 @@ def solutions_table(request):
     if not check_permission_block(user, current_task.block):
         return HttpResponse("done")
     sols = Solution.objects.filter(task=current_task, user=user)
+    can_edit = check_admin_on_course(request.user, current_task.block.course)
+    print('can_edit', can_edit)
     if any(sol.result == 'TESTING' or sol.result == 'IN QUEUE' for sol in sols) or 'render' in request.GET.keys():
         return render(request, 'solutions_table.html', context={ 
             'solutions': reversed(sols),
-            'can_edit': check_admin_on_course(request.user, current_task.block.course)})
+            'can_edit': can_edit,
+            'task': current_task})
     return HttpResponse('done')
-    
 
+    
+def rating(request):
+    return render(request, 'rating.html', context={'Block': Block.objects.get(id=request.GET['block_id'])})
 
 
 def admin(request):
@@ -476,6 +473,8 @@ def settings(request):
             context['error'] = 'Неверный пароль'
         elif new != again:
             context['error'] = 'Пароли не совпадают'
+        elif new == '' or new.replace(' ', '') == '':
+            context['error'] = 'Некорректный пароль'
         else:
             user.set_password(new)
             user.save()
