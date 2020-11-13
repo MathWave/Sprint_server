@@ -488,7 +488,6 @@ def settings(request):
 
 def exit(request):
     logout(request)
-    request.session['is_auth_ok'] = '0'
     return HttpResponseRedirect('/enter')
 
 
@@ -536,9 +535,6 @@ def enter(request):
         user = authenticate(username=request.POST['email'].strip(), password=request.POST['password'])
         if user is not None:
             login(request, user)
-            request.session["is_auth_ok"] = '1'
-            return HttpResponseRedirect('/main')
-        else:
-            return HttpResponseRedirect('/enter')
+        return HttpResponseRedirect('/enter')
     else:
         return render(request, "enter.html", context={"form": LoginForm()})
