@@ -52,15 +52,34 @@
                 window.location.href = '/admin/download?block_id={{ Block.id }}{% autoescape off %}{{ req }}{% endautoescape %}';
             }
         }
-        function showHideTests(id) {
-            var text = document.getElementById(id + '_tests');
-            var button = document.getElementById(id + '_button');
+        function showHideTests() {
+            var text = document.getElementById('tests_text');
+            var button = document.getElementById('tests_button');
             text.hidden = !text.hidden;
             if (text.hidden) {
                 button.textContent = 'Показать тесты';
             } else {
                 button.textContent = 'Скрыть тесты';
             }
+        }
+        function fillModalResults(id) {
+            jQuery.get('/get_result_data?id=' + id, function(data) {
+                const response = JSON.parse(data);
+                if (response['success'] == true) {
+                    document.getElementById('resultModalLongTitle').innerHTML = 'Подробная информация о тестировании ' + id;
+                    document.getElementById('results_text').innerHTML = response['results_text'];
+                    document.getElementById('tests_text').innerHTML = response['tests_text'];
+                }
+            });
+        }
+        function fillModalComments(id) {
+            jQuery.get('/get_comment_data?id=' + id, function(data) {
+                const response = JSON.parse(data);
+                if (response['success'] == true) {
+                    document.getElementById('commentModalLongTitle').innerHTML = 'Комментарий к решению ' + id;
+                    document.getElementById('comment_text').innerHTML = response['comment_text'];
+                }
+            });
         }
 {% endblock %}
 
@@ -71,6 +90,59 @@
 {% endblock %}
 
 {% block content %}
+        <!-- Modal -->
+        <div class="modal fade" id="resultModalLong" tabindex="-1" role="dialog" aria-labelledby="resultModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="resultModalLongTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+<div id="results_text"></div>
+<hr>
+<pre id="tests_text" hidden></pre>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="tests_button" class="btn btn-primary" onclick="showHideTests()">Показать тесты</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="commentModalLong" tabindex="-1" role="dialog" aria-labelledby="commentModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLongTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+<pre id="comment_text"></pre>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <h3><a href="/admin/block?id={{ Block.id }}">Обратно к настройкам блока</a></h3>
         <h5>
             {{ Block.name }}
@@ -171,42 +243,9 @@
                         </td>
                         <td>
                             <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#resultModalLong{{ solution.id }}">
+                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#resultModalLong" onclick="fillModalResults({{ solution.id }})">
                                   {{ solution.result }}
                                 </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="resultModalLong{{ solution.id }}" tabindex="-1" role="dialog" aria-labelledby="resultModalLongTitle{{ solution.id }}" aria-hidden="true">
-                                  <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="resultModalLongTitle{{ solution.id }}">Подробная информация о тестировании {{ solution.id }}</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-12">
-{% autoescape off %}
-{{ solution.details }}
-<hr>
-<pre id="{{ solution.id }}_tests" hidden>
-{{ solution.task.tests_text }}
-</pre>
-{% endautoescape %}
-                                                </div>
-                                            </div>
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" id="{{ solution.id }}_button" class="btn btn-primary" onclick="showHideTests('{{ solution.id }}')">Показать тесты</button>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
                         </td>
                         <td>
                             {{ solution.mark_property }}
@@ -214,37 +253,9 @@
                         <td>
                             {% if solution.comment %}
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModalLong{{ solution.id }}">
+                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#commentModalLong" onclick="fillModalComments({{ solution.id }})">
                                   Посмотреть
                                 </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="exampleModalLong{{ solution.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle{{ solution.id }}" aria-hidden="true">
-                                  <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle{{ solution.id }}">Комментарий к решению {{ solution.id }}</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class="modal-body">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-12">
-<pre>
-{{ solution.comment }}
-</pre>
-                                                </div>
-                                            </div>
-                                        </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
                             {% else %}
                                 <p>Нет комментария</p>
                             {% endif %}

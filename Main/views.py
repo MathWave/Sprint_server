@@ -13,7 +13,7 @@ from zipfile import ZipFile, BadZipFile
 from threading import Thread
 from os import remove, mkdir, listdir, rename
 from os.path import exists
-from json import load
+from json import load, dumps
 from .Tester import Tester, shell
 from .main import solutions_filter, check_admin_on_course, re_test, check_admin, check_teacher, random_string, \
     send_email, check_permission_block, is_integer, check_god, blocks_available, check_login, \
@@ -81,7 +81,8 @@ def solution(request):
     except ObjectDoesNotExist:
         if not request.user.is_superuser:
             return HttpResponseRedirect('/main')
-    if not check_admin(request.user):
+    can_edit = check_admin_on_course(request.user, current_solution.task.block.course)
+    if not can_edit:
         if current_solution.user != request.user:
             return HttpResponseRedirect('/main')
     solutions_request = solutions_filter(request.GET)
@@ -89,7 +90,7 @@ def solution(request):
         from_admin = True
     else:
         from_admin = False
-    if request.method == 'POST' and is_admin:
+    if request.method == 'POST' and can_edit:
         if request.POST['action'] == 'Зачесть':
             current_solution.mark = None if request.POST['mark'] == 'нет оценки' else int(request.POST['mark'])
         elif request.POST['action'] == 'Незачесть':
@@ -98,9 +99,6 @@ def solution(request):
             current_solution.mark = current_solution.task.max_mark
         current_solution.comment = request.POST['comment']
         current_solution.save()
-    can_edit = check_admin_on_course(request.user, current_solution.task.block.course)
-    print('can_edit', can_edit)
-    print('show', current_solution.task.show_details)
     return render(request, 'solution.html', context={'solution': current_solution,
                                                      'from_admin': from_admin,
                                                      'can_edit': can_edit})
@@ -410,6 +408,27 @@ def solutions_table(request):
             'task': current_task})
     return HttpResponse('done')
 
+
+def get_result_data(request):
+    solution = Solution.objects.get(id=request.GET['id'])
+    if not check_admin_on_course(request.user, solution.task.block.course):
+        return HttpResponse(dumps({'success': False}))
+    return HttpResponse(dumps({
+        'success': True,
+        'results_text': solution.details,
+        'tests_text': solution.task.tests_text
+    }))
+
+
+def get_comment_data(request):
+    solution = Solution.objects.get(id=request.GET['id'])
+    if not check_admin_on_course(request.user, solution.task.block.course):
+        return HttpResponse(dumps({'success': False}))
+    return HttpResponse(dumps({
+        'success': True,
+        'comment_text': solution.comment
+    }))
+
     
 def rating(request):
     return render(request, 'rating.html', context={'Block': Block.objects.get(id=request.GET['block_id'])})
@@ -482,7 +501,6 @@ def settings(request):
             user = authenticate(username=username, password=new)
             if user is not None and user.is_active:
                 login(request, user)
-                request.session['is_auth_ok'] = '1'
     return render(request, 'settings.html', context=context)
 
 
@@ -498,9 +516,7 @@ def redirect(request):
 def main(request):
     if not check_login(request.user):
         return HttpResponseRedirect('/enter')
-    return render(request, 'main.html', context={'is_admin': check_admin(request.user),
-                                                 'blocks': blocks_available(request.user),
-                                                 'user': request.user})
+    return render(request, 'main.html', context={'blocks': blocks_available(request.user)})
 
 
 def restore(request):
