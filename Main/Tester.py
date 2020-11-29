@@ -26,6 +26,10 @@ def is_project(path):
     return any([x.endswith('.csproj') for x in listdir(path)])
 
 
+def get_node_value(element):
+    return element[0].firstChild.nodeValue
+
+
 # функция компиляции
 def build(path):
     # решение для UNIX
@@ -104,33 +108,28 @@ class Tester:
             rmtree(join(sln_path, 'test_folder'))
 
     def nunit_testing(self):
-        # UNIX
-        # test_cmd = '(cd ' + self.working_dir + ' && ' + \
-        #            'mono {} '.format(nunit_path(self.working_dir)) + \
-        #            str(self.solution.task.id) + '.dll)' dotnet exec --runtimeconfig config.json
-        #Windows
-        test_cmd = 'cd {} && mono {} '.format(self.working_dir, 'nunit3-console.exe') + str(self.solution.task.id) + '.dll'
-        shell(test_cmd)
-        if not exists(join(self.working_dir, 'TestResult.xml')):
+        shell('docker build -t solution_{} {}'.format(self.solution.id, self.working_dir))
+        t = Thread(target=lambda: shell('docker run --name solution_container_{} solution_{}'.format(self.solution.id, self.solution.id)))
+        t.start()
+        t.join(self.solution.task.time_limit / 1000)
+        shell('docker cp solution_container_{}:/usr/src/app/TestResults.xml {}'.format(self.solution.id, self.working_dir))
+        shell('docker rm solution_container_{}'.format(self.solution.id))
+        shell('docker image rm solution_{}'.format(self.solution.id))
+        if not exists(join(self.working_dir, 'TestResults.xml')):
+            self.solution.result = 'Time limit'
             return
         try:
-            doc = parse(join(self.working_dir, 'TestResult.xml'))
-            tag = doc.getElementsByTagName('test-run')[0]
-            passed, total = tag.getAttribute('passed'), tag.getAttribute('total')
-            if not passed or not total:
-                res = 'Time limit'
-            else:
-                res = passed + '/' + total
+            doc = parse(join(self.working_dir, 'TestResults.xml'))
+            res = get_node_value(doc.getElementsByTagName('Passed')) + '/' + get_node_value(doc.getElementsByTagName('Total'))
             self.solution.details = ''
-            for el in doc.getElementsByTagName('test-case'):
-                self.solution.details += '<h5><b>' + el.getAttribute('methodname') + '</b></h5>'
-                r = el.getAttribute('result')
-                if r == 'Passed':
+            for el in doc.getElementsByTagName('Result'):
+                self.solution.details += '<h5><b>' + get_node_value(el.getElementsByTagName('MethodName')) + '</b></h5>'
+                r = get_node_value(el.getElementsByTagName('Successful'))
+                if r == 'true':
                     self.solution.details += '<div style="color: green;">Passed</div>'
                 else:
                     self.solution.details += '<div style="color: red;">Failed</div>'
-                    mes = el.getElementsByTagName('failure')[0]
-                    mes = mes.getElementsByTagName('message')[0].firstChild.nodeValue
+                    mes = get_node_value(el.getElementsByTagName('Message'))
                     self.solution.details += '<pre>{}</pre>'.format(mes)
         except:
             res = 'TEST ERROR'
@@ -170,30 +169,27 @@ class Tester:
                         return
             dll_path = solution.task.tests_path()
             copyfile(dll_path, join(working_dir, str(solution.task.id) + '.cs'))
-            for file in listdir('nunit_console'):
+            for file in listdir('SprintTest'):
                 try:
-                    copyfile(join('nunit_console', file), join(working_dir, file))
+                    copyfile(join('SprintTest', file), join(working_dir, file))
                 except:
                     pass
             self.working_dir = working_dir
-            build_tests_cmd = 'csc -out:{} -t:library /r:{} /r:{} /r:{} '.format(join(self.working_dir, str(self.solution.task.id) + '.dll'), join(self.working_dir, 'nunit.framework.dll'), join(working_dir, 'System.Runtime.dll'), join(working_dir, 'DObject.dll'))
+            build_tests_cmd = 'csc -out:{} -t:library /r:{} /r:{} /r:{} '.format(join(self.working_dir, 'tests.dll'), join(self.working_dir, 'SprintTest.dll'), join(working_dir, 'System.Runtime.dll'), join(working_dir, 'System.Reflection.dll'))
             for file in self.files:
                 build_tests_cmd += '/r:{}.dll '.format(join(self.working_dir, file))
             build_tests_cmd += self.solution.task.tests_path()
-            if exists(join(self.working_dir, str(self.solution.task.id) + '.dll')):
-                remove(join(self.working_dir, str(self.solution.task.id) + '.dll'))
+            if exists(join(self.working_dir, 'tests.dll')):
+                remove(join(self.working_dir, 'tests.dll'))
             shell(build_tests_cmd)
-            if exists(join(self.working_dir, str(self.solution.task.id) + '.dll')):
+            if exists(join(self.working_dir, 'tests.dll')):
                 for file in ExtraFile.objects.filter(task=self.solution.task):
                     copyfile(file.path, join(working_dir, file.filename))
-                thread = Thread(target=self.nunit_testing)
-                thread.start()
-                thread.join(solution.task.time_limit / 1000)
-                if solution.result == 'TESTING':
-                    solution.result = 'Time limit'
+                self.nunit_testing()
             else:
                 solution.result = 'TEST ERROR'
         except:
+            raise
             solution.result = 'TEST ERROR'
         solution.save()
         self.delete_everything()
