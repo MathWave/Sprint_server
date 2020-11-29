@@ -52,16 +52,6 @@ def docs(request):
     return render(request, "docs.html", context={'is_teacher': check_teacher(request.user)})
 
 
-def set_result(request):
-    secret = request.GET['secret']
-    if System.objects.get(key='secret_key').value != secret:
-        return HttpResponse('fail')
-    sol = Solution.objects.get(id=request.GET['id'])
-    sol.result = request.GET['result']
-    sol.save()
-    return HttpResponse('success')
-
-
 def retest(request):
     solutions_request = solutions_filter(request.GET)
     if not check_admin_on_course(request.user, Block.objects.get(id=request.GET['block_id']).course):
@@ -193,7 +183,6 @@ def task(request):
     if not check_permission_block(user, current_task.block):
         return HttpResponseRedirect('/main')
     can_send = can_send_solution(user, current_task)
-    print(can_send)
     if request.method == 'POST':
         if 'file' in request.FILES.keys() and can_send:
             current_solution = Solution.objects.create(
@@ -400,7 +389,6 @@ def solutions_table(request):
         return HttpResponse("done")
     sols = Solution.objects.filter(task=current_task, user=user)
     can_edit = check_admin_on_course(request.user, current_task.block.course)
-    print('can_edit', can_edit)
     if any(sol.result == 'TESTING' or sol.result == 'IN QUEUE' for sol in sols) or 'render' in request.GET.keys():
         return render(request, 'solutions_table.html', context={ 
             'solutions': reversed(sols),

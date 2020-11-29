@@ -113,7 +113,7 @@ class Tester:
         t.start()
         t.join(self.solution.task.time_limit / 1000)
         shell('docker cp solution_container_{}:/usr/src/app/TestResults.xml {}'.format(self.solution.id, self.working_dir))
-        shell('docker rm solution_container_{}'.format(self.solution.id))
+        shell('docker rm --force solution_container_{}'.format(self.solution.id))
         shell('docker image rm solution_{}'.format(self.solution.id))
         if not exists(join(self.working_dir, 'TestResults.xml')):
             self.solution.result = 'Time limit'
