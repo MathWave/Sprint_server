@@ -28,6 +28,10 @@ def lock(key):
         pass
 
 
+def get_in_html_tag(full, tag_name):
+    return full.split('<div class="{}">'.format(tag_name))[1].split('</div>')[0]
+
+
 def random_string():
     letters = ascii_letters
     return ''.join(choice(letters) for _ in range(20))

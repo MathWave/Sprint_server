@@ -2,6 +2,19 @@
 
 {% block title %}{{ Block.name }}|настройки{% endblock %}
 
+{% block styles %}
+    input[type="file"] {
+        display: none;
+    }
+{% endblock %}
+
+{% block scripts %}
+    function uploaded() {
+        document.getElementById('is_uploaded').style.display = 'block';
+        document.getElementById('is_uploaded').nodeValue = document.getElementById('file-upload').nodeValue;
+    }
+{% endblock %}
+
 {% block content %}
     <h3>{{ Block.name }}</h3>
     <h5>Таски</h5>
@@ -35,13 +48,24 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
                     <button type="submit" class="btn btn-success">Создать</button>
                   </div>
                 </div>
               </form>
               </div>
             </div>
+            <hr>
+            <h5>Импортировать задачу из Я.Контест</h5>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="file-upload" class="btn btn-dark" style="margin-top: 20px;">
+                    Загрузить архив
+                </label>
+                <span id="is_uploaded" style="display: none;">Архив загружен</span>
+                <input type="file" class="btn form-control-file" id="file-upload" value="Выбрать файл" name="file" onchange="uploaded()">
+                <br><input type="submit" value="Импортировать" class="btn btn-outline-dark">
+            </form>
     {% endif %}
     <hr>
     {% if is_superuser %}

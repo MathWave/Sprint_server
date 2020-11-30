@@ -13,11 +13,11 @@ from zipfile import ZipFile, BadZipFile
 from threading import Thread
 from os import remove, mkdir, listdir, rename
 from os.path import exists
-from json import load, dumps
+from json import load, dumps, loads
 from .Tester import Tester, shell
 from .main import solutions_filter, check_admin_on_course, re_test, check_admin, check_teacher, random_string, \
     send_email, check_permission_block, is_integer, check_god, blocks_available, check_login, \
-    get_restore_hash, block_solutions_info, delete_folder, solution_path, can_send_solution
+    get_restore_hash, block_solutions_info, delete_folder, solution_path, can_send_solution, get_in_html_tag
 from .models import System, Solution, Block, Subscribe, Course, UserInfo, Task, Restore, ExtraFile
 from os.path import sep, join, exists, isfile, dirname
 from shutil import rmtree, copytree, make_archive, copyfile
@@ -257,7 +257,7 @@ def task_settings(request):
     if request.method == 'POST':
         action = request.POST['ACTION']
         if action == 'DELETE':
-            t = Task.objects.get(id=request.POST['task_id'])
+            t = Task.objects.get(id=request.GET['id'])
             block_id = t.block.id
             t.delete()
             return HttpResponseRedirect('/admin/block?id=' + str(block_id))
@@ -266,6 +266,8 @@ def task_settings(request):
             ef = ExtraFile.objects.get(id=int(i))
             with open(ef.path, 'wb') as fs:
                 fs.write(bytes(request.POST['extra_file_text_' + i], encoding='utf-8'))
+            ef.for_compilation = '{}_for_compilation'.format(ef.id) in request.POST.keys()
+            ef.save()
         elif action == 'SAVE':
             current_task.legend, current_task.input, current_task.output, current_task.specifications = \
             request.POST['legend'],  request.POST['input'], request.POST['output'], request.POST['specifications']
@@ -309,7 +311,7 @@ def task_settings(request):
                                 ef = ExtraFile.objects.get(filename=file, task=current_task)
                             except ObjectDoesNotExist:
                                 ef = ExtraFile.objects.create(filename=file, task=current_task)
-                            ef.write(open(join(wdir, file), 'rb').read())
+                            ef.write(open(join(wdir, file), 'rb').read().strip())
                     rmtree(wdir)
                 except BadZipFile:
                     pass
@@ -367,6 +369,47 @@ def block_settings(request):
             with open(current_task.tests_path(), 'w') as fs:
                 pass
             return HttpResponseRedirect('/admin/task?id=' + str(current_task.id))
+        if 'file' in request.FILES.keys():
+            if exists(request.user.username):
+                rmtree(request.user.username)
+            mkdir(request.user.username)
+            with open(join(request.user.username, 'task.zip'), 'wb') as fs:
+                for chunk in request.FILES['file'].chunks():
+                    fs.write(chunk)
+            try:
+                with ZipFile(join(request.user.username, 'task.zip')) as obj:
+                    obj.extractall(request.user.username)
+            except BadZipFile:
+                rmtree(request.user.username)
+                return HttpResponseRedirect('/admin/block?id={}'.format(current_block.id))
+            task = Task.objects.create(name='Новый таск', block=current_block)
+            root = request.user.username
+            if exists(join(root, 'meta.json')):
+                data = loads(open(join(root, 'meta.json'), 'r', encoding='utf-8').read())
+                task.name = data['localizedNames']['ru']
+                task.time_limit = data['invocationLimits']['idlenessLimitMillis']
+                for f in sorted(listdir(join(root, 'tests'))):
+                    e = ExtraFile.objects.create(
+                        task=task,
+                        filename=f,
+                        for_compilation=False
+                    )
+                    try:
+                        e.sample=data['testSets'][str(int(f.split('.')[0]))]['example'] and not f.endswith('.a')
+                    except KeyError:
+                        e.sample = False
+                    e.save()
+                    copyfile(join(root, 'tests', f), join(MEDIA_ROOT, 'extra_files', str(e.id)))
+                statements = open(join(root, 'statements', 'ru', 'html', 'statement.html'), 'r', encoding='utf-8').read()
+                task.legend = get_in_html_tag(statements, 'legend')
+                task.input = get_in_html_tag(statements, 'input-specification')
+                task.output = get_in_html_tag(statements, 'output-specification')
+                task.specifications = get_in_html_tag(statements, 'notes')
+                task.save()
+                with open(join(MEDIA_ROOT, 'tests', str(task.id) + '.cs'), 'w') as fs:
+                    pass
+                rmtree(root)
+                return HttpResponseRedirect('/admin/task?id={}'.format(task.id))
         if 'block_delete' in request.POST.keys():
             Block.objects.get(id=request.POST['block_delete']).delete()
             return HttpResponseRedirect('/admin/main')

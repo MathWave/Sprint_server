@@ -5,6 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: Django",
+            "type": "python",
+            "request": "launch",
+            "program": ".\\manage.py",
+            "args": [
+                "runserver"
+            ],
+            "django": true
+        },
+        {
             "name": "Python: Текущий файл",
             "type": "python",
             "request": "launch",
@@ -13,16 +23,6 @@
             "args": [
                 "runserver"
             ]
-        },
-        {
-            "name": "Python: Django",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}\\manage.py",
-            "args": [
-                "runserver"
-            ],
-            "django": false
         }
     ]
 }

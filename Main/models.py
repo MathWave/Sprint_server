@@ -115,10 +115,6 @@ class Task(models.Model):
                 'input': file,
                 'output': file.answer
             } for file in ExtraFile.objects.filter(task=self, sample=True).order_by('filename')]
-    
-
-    def __eq__(self, obj):
-        return self.id == obj.id
 
     def __hash__(self):
         return self.id
@@ -136,7 +132,12 @@ class Task(models.Model):
 
     @property
     def tests_text(self):
-        return open(self.tests_path(), 'r').read()
+        try:
+            return open(self.tests_path(), 'r').read()
+        except FileNotFoundError:
+            with open(self.tests_path(), 'w') as fs:
+                pass
+            return ''
 
     @property
     def tests_uploaded(self):
