@@ -1,0 +1,20 @@
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2570\Solution\SampleProject\SampleProject.csproj (за 70 ms).
+  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2570\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:01.18
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+data\tests\9.cs(17,9): error CS0650: Неверный оператор объявления массива. Для объявления управляемого массива спецификатор ранга должен предшествовать идентификатору переменной. Чтобы объявить поле буфера фиксированного размера, перед типом поля используйте ключевое слово fixed.
+data\tests\9.cs(17,10): error CS0270: Размер массива не может быть указан в объявлении переменной (попытайтесь инициализировать его с помощью оператора new).
+data\tests\9.cs(17,16): error CS1002: Требуется ";".
+Failed to compile tests

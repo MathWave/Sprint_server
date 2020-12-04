@@ -1,9 +1,6 @@
-using NUnit.Framework;
-using Darwin;
 using System.IO;
 using System;
-using TaskA;
-using System.Reflection;
+using SprintTest;
 
 namespace TestsProject
 {
@@ -17,11 +14,10 @@ namespace TestsProject
         [SetUp]
         public void Setup()
         {
-new Program();
             sw = new StringWriter();
             sr = new StringReader("");
             Console.SetOut(sw);
-            prog = new DObject("TaskA.Program");
+            prog = new DObject("TaskA.Programm");
         }
 
         [Test]
@@ -51,3 +47,7 @@ new Program();
         }
     }
 }
+
+
+
+

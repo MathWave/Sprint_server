@@ -1,0 +1,16 @@
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2573\Solution\SampleProject\SampleProject.csproj (за 67 ms).
+CSC : error CS5001: Программа не содержит статического метода "Main", подходящего для точки входа. [C:\Users\79175\Desktop\sprint_server\data\solutions\2573\Solution\SampleProject\SampleProject.csproj]
+
+Ошибка сборки.
+
+CSC : error CS5001: Программа не содержит статического метода "Main", подходящего для точки входа. [C:\Users\79175\Desktop\sprint_server\data\solutions\2573\Solution\SampleProject\SampleProject.csproj]
+    Предупреждений: 0
+    Ошибок: 1
+
+Прошло времени 00:00:01.04
+Failed to compile project SampleProject

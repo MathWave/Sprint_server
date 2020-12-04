@@ -1,0 +1,16 @@
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2568\Solution\SampleProject\SampleProject.csproj (за 72 ms).
+C:\Users\79175\Desktop\sprint_server\data\solutions\2568\Solution\SampleProject\Program.cs(13,36): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2568\Solution\SampleProject\SampleProject.csproj]
+
+Ошибка сборки.
+
+C:\Users\79175\Desktop\sprint_server\data\solutions\2568\Solution\SampleProject\Program.cs(13,36): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2568\Solution\SampleProject\SampleProject.csproj]
+    Предупреждений: 0
+    Ошибок: 1
+
+Прошло времени 00:00:01.92
+Failed to compile project SampleProject

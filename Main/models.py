@@ -36,6 +36,7 @@ class Block(models.Model):
     time_start = models.DateTimeField()
     time_end = models.DateTimeField()
     opened = models.BooleanField(default=False)
+    show_rating = models.BooleanField(default=True)
     
 
     def __str__(self):
@@ -189,6 +190,21 @@ class Solution(models.Model):
 
     def path(self):
         return join(base_dir, 'solutions', str(self.id))
+
+    @property
+    def log_file(self):
+        return join(MEDIA_ROOT, 'logs', str(self.id) + '.log')
+
+    @property
+    def log_text(self):
+        try:
+            return open(self.log_file, 'rb').read().decode('cp866')
+        except FileNotFoundError:
+            return ''
+
+    @property
+    def log_fs(self):
+        return open(self.log_file, 'ab')
 
     @property
     def userinfo(self):

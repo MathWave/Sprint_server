@@ -5,21 +5,31 @@
 {% block title %}Рейтинг{% endblock %}
 
 {% block content %}
-	<table border="1px solid black">
+	<h3>Рейтинг (beta)</h3>
+	<h4><a href="/{% if current_page == 'admin' %}admin/{% endif %}block?id={{ Block.id }}">{{ Block.name }}</a></h4>
+	<table border="1px solid black" style="width: 100%;">
 		<thead>
 			<tr>
 				<th scope="col">Студент</th>
 				{% for task in Block.tasks %}
-					<th>{{ task.id }}</th>	
+					<th>{{ task.name }}</th>
 				{% endfor %}
 			</tr>
 		</thead>
 		<tbody>
 			{% for sub in Block.course.subscribes %}
 					<tr>
-						<th scope="row">{{ sub.user.username }}</th>
+						<th scope="row">{{ sub.user|userinfo_by_user }}</th>
 						{% for task in Block.tasks %}
-							<th>{{ sub.user|mark_status:task }}</th>
+							{% with status=sub.user|mark_status:task %}
+								<th style="background-color: {% if status == '-' %}white{% else %}{% if sub.user|fully_marked:task %}lime{% else %}yellow{% endif %}{% endif %};">
+									{% if current_page == 'admin' and status != '-' %}
+										<a style="color: black;" href="/admin/solutions?block_id={{ Block.id }}&user={{ sub.user|userinfo_by_user }}&task_name={{ task.name }}">{{ status }}</a>
+									{% else %}
+										{{ status }}
+									{% endif %}
+								</th>
+							{% endwith %}
 						{% endfor %}
 					</tr>
 			{% endfor %}

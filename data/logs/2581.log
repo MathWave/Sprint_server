@@ -1,0 +1,173 @@
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2581\Solution\SampleProject\SampleProject.csproj (за 70 ms).
+  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2581\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:01.86
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+failed to get console mode for stdout: The handle is invalid.
+[1A[1B[0G[?25l[+] Building 0.0s (0/1)                                                         
+[?25h[1A[0G[?25l[+] Building 0.2s (0/2)                                                         
+ => [internal] load build definition from Dockerfile                       0.2s
+ => [internal] load .dockerignore                                          0.1s
+[?25h[1A[1A[1A[0G[?25l[+] Building 0.3s (0/2)                                                         
+ => [internal] load build definition from Dockerfile                       0.3s
+[34m => => transferring dockerfile: 255B                                       0.0s
+[0m => [internal] load .dockerignore                                          0.3s
+ => => transferring context:                                               0.0s
+[?25h[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.5s (0/2)                                                         
+ => [internal] load build definition from Dockerfile                       0.5s
+[34m => => transferring dockerfile: 255B                                       0.0s
+[0m => [internal] load .dockerignore                                          0.5s
+[34m => => transferring context: 2B                                            0.0s
+[0m[?25h[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.6s (1/2)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.6s
+[0m[34m => => transferring dockerfile: 255B                                       0.0s
+[0m => [internal] load .dockerignore                                          0.6s
+[34m => => transferring context: 2B                                            0.0s
+[0m[?25h[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.7s (1/2)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.6s
+[0m[34m => => transferring dockerfile: 255B                                       0.0s
+[0m => [internal] load .dockerignore                                          0.7s
+[34m => => transferring context: 2B                                            0.0s
+[0m[?25h[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.9s (2/2)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.6s
+[0m[34m => => transferring dockerfile: 255B                                       0.0s
+[0m[34m => [internal] load .dockerignore                                          0.8s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m[?25h[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.0s (4/8)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.6s
+[0m[34m => => transferring dockerfile: 255B                                       0.0s
+[0m[34m => [internal] load .dockerignore                                          0.8s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for mcr.microsoft.com/dotnet/core/sdk:3.1     0.0s
+[0m[34m => [1/4] FROM mcr.microsoft.com/dotnet/core/sdk:3.1                       0.0s
+[0m => [internal] load build context                                          0.1s
+ => => transferring context: 22B                                           0.0s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.2s (4/8)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.6s
+[0m[34m => => transferring dockerfile: 255B                                       0.0s
+[0m[34m => [internal] load .dockerignore                                          0.8s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for mcr.microsoft.com/dotnet/core/sdk:3.1     0.0s
+[0m[34m => [1/4] FROM mcr.microsoft.com/dotnet/core/sdk:3.1                       0.0s
+[0m => [internal] load build context                                          0.3s
+[34m => => transferring context: 264.33kB                                      0.1s
+[0m[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.3s (7/8)                                                         
+[34m => [internal] load .dockerignore                                          0.8s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for mcr.microsoft.com/dotnet/core/sdk:3.1     0.0s
+[0m[34m => [1/4] FROM mcr.microsoft.com/dotnet/core/sdk:3.1                       0.0s
+[0m[34m => [internal] load build context                                          0.4s
+[0m[34m => => transferring context: 264.33kB                                      0.1s
+[0m[34m => CACHED [2/4] RUN mkdir -p /usr/src/app/                                0.0s
+[0m[34m => CACHED [3/4] WORKDIR /usr/src/app/                                     0.0s
+[0m[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.5s (7/8)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for mcr.microsoft.com/dotnet/core/sdk:3.1     0.0s
+[0m[34m => [1/4] FROM mcr.microsoft.com/dotnet/core/sdk:3.1                       0.0s
+[0m[34m => [internal] load build context                                          0.4s
+[0m[34m => => transferring context: 264.33kB                                      0.1s
+[0m[34m => CACHED [2/4] RUN mkdir -p /usr/src/app/                                0.0s
+[0m[34m => CACHED [3/4] WORKDIR /usr/src/app/                                     0.0s
+[0m => [4/4] COPY . /usr/src/app/                                             0.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.6s (7/8)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for mcr.microsoft.com/dotnet/core/sdk:3.1     0.0s
+[0m[34m => [1/4] FROM mcr.microsoft.com/dotnet/core/sdk:3.1                       0.0s
+[0m[34m => [internal] load build context                                          0.4s
+[0m[34m => => transferring context: 264.33kB                                      0.1s
+[0m[34m => CACHED [2/4] RUN mkdir -p /usr/src/app/                                0.0s
+[0m[34m => CACHED [3/4] WORKDIR /usr/src/app/                                     0.0s
+[0m => [4/4] COPY . /usr/src/app/                                             0.3s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.8s (8/8)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for mcr.microsoft.com/dotnet/core/sdk:3.1     0.0s
+[0m[34m => [1/4] FROM mcr.microsoft.com/dotnet/core/sdk:3.1                       0.0s
+[0m[34m => [internal] load build context                                          0.4s
+[0m[34m => => transferring context: 264.33kB                                      0.1s
+[0m[34m => CACHED [2/4] RUN mkdir -p /usr/src/app/                                0.0s
+[0m[34m => CACHED [3/4] WORKDIR /usr/src/app/                                     0.0s
+[0m[34m => [4/4] COPY . /usr/src/app/                                             0.4s
+[0m[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.9s (8/9)                                                         
+[34m => [1/4] FROM mcr.microsoft.com/dotnet/core/sdk:3.1                       0.0s
+[0m[34m => [internal] load build context                                          0.4s
+[0m[34m => => transferring context: 264.33kB                                      0.1s
+[0m[34m => CACHED [2/4] RUN mkdir -p /usr/src/app/                                0.0s
+[0m[34m => CACHED [3/4] WORKDIR /usr/src/app/                                     0.0s
+[0m[34m => [4/4] COPY . /usr/src/app/                                             0.4s
+[0m => exporting to image                                                     0.1s
+ => => exporting layers                                                    0.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 2.1s (8/9)                                                         
+[34m => [1/4] FROM mcr.microsoft.com/dotnet/core/sdk:3.1                       0.0s
+[0m[34m => [internal] load build context                                          0.4s
+[0m[34m => => transferring context: 264.33kB                                      0.1s
+[0m[34m => CACHED [2/4] RUN mkdir -p /usr/src/app/                                0.0s
+[0m[34m => CACHED [3/4] WORKDIR /usr/src/app/                                     0.0s
+[0m[34m => [4/4] COPY . /usr/src/app/                                             0.4s
+[0m => exporting to image                                                     0.2s
+ => => exporting layers                                                    0.2s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 2.2s (8/9)                                                         
+[34m => [1/4] FROM mcr.microsoft.com/dotnet/core/sdk:3.1                       0.0s
+[0m[34m => [internal] load build context                                          0.4s
+[0m[34m => => transferring context: 264.33kB                                      0.1s
+[0m[34m => CACHED [2/4] RUN mkdir -p /usr/src/app/                                0.0s
+[0m[34m => CACHED [3/4] WORKDIR /usr/src/app/                                     0.0s
+[0m[34m => [4/4] COPY . /usr/src/app/                                             0.4s
+[0m => exporting to image                                                     0.4s
+[34m => => exporting layers                                                    0.4s
+[0m[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 2.4s (8/9)                                                         
+[34m => [1/4] FROM mcr.microsoft.com/dotnet/core/sdk:3.1                       0.0s
+[0m[34m => [internal] load build context                                          0.4s
+[0m[34m => => transferring context: 264.33kB                                      0.1s
+[0m[34m => CACHED [2/4] RUN mkdir -p /usr/src/app/                                0.0s
+[0m[34m => CACHED [3/4] WORKDIR /usr/src/app/                                     0.0s
+[0m[34m => [4/4] COPY . /usr/src/app/                                             0.4s
+[0m => exporting to image                                                     0.5s
+[34m => => exporting layers                                                    0.4s
+[0m[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 2.5s (8/9)                                                         
+[34m => [1/4] FROM mcr.microsoft.com/dotnet/core/sdk:3.1                       0.0s
+[0m[34m => [internal] load build context                                          0.4s
+[0m[34m => => transferring context: 264.33kB                                      0.1s
+[0m[34m => CACHED [2/4] RUN mkdir -p /usr/src/app/                                0.0s
+[0m[34m => CACHED [3/4] WORKDIR /usr/src/app/                                     0.0s
+[0m[34m => [4/4] COPY . /usr/src/app/                                             0.4s
+[0m => exporting to image                                                     0.7s
+[34m => => exporting layers                                                    0.4s
+[0m[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 2.6s (8/9)                                                         
+[34m => => transferring context: 264.33kB                                      0.1s
+[0m[34m => CACHED [2/4] RUN mkdir -p /usr/src/app/                                0.0s
+[0m[34m => CACHED [3/4] WORKDIR /usr/src/app/                                     0.0s
+[0m[34m => [4/4] COPY . /usr/src/app/                                             0.4s
+[0m => exporting to image                                                     0.8s
+[34m => => exporting layers                                                    0.4s
+[0m[34m => => writing image sha256:a7d2b5e971e08ffd67638132e1160ab12787f64a61475  0.0s
+[0m => => naming to docker.io/library/solution_2581                           0.0s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 2.8s (9/9) FINISHED                                                
+[34m => [internal] load build definition from Dockerfile                       0.6s
+[0m[34m => => transferring dockerfile: 255B                                       0.0s
+[0m[34m => [internal] load .dockerignore                                          0.8s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for mcr.microsoft.com/dotnet/core/sdk:3.1     0.0s
+[0m[34m => [1/4] FROM mcr.microsoft.com/dotnet/core/sdk:3.1                       0.0s
+[0m[34m => [internal] load build context                                          0.4s
+[0m[34m => => transferring context: 264.33kB                                      0.1s
+[0m[34m => CACHED [2/4] RUN mkdir -p /usr/src/app/                                0.0s
+[0m[34m => CACHED [3/4] WORKDIR /usr/src/app/                                     0.0s
+[0m[34m => [4/4] COPY . /usr/src/app/                                             0.4s
+[0m[34m => exporting to image                                                     0.8s
+[0m[34m => => exporting layers                                                    0.4s
+[0m[34m => => writing image sha256:a7d2b5e971e08ffd67638132e1160ab12787f64a61475  0.0s
+[0m[34m => => naming to docker.io/library/solution_2581                           0.0s
+[0m[?25hsolution_container_2581
+Untagged: solution_2581:latest
+Deleted: sha256:a7d2b5e971e08ffd67638132e1160ab12787f64a614754687dd0a2e8ac7f326b

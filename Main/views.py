@@ -191,6 +191,9 @@ def task(request):
                 result='IN QUEUE',
                 time_sent=timezone.now()
             )
+            log_file_path = current_solution.log_file
+            with open(log_file_path, 'wb') as fs:
+                pass
             solution_dir = current_solution.path() + sep
             if exists(solution_dir):
                 rmtree(solution_dir)
@@ -208,6 +211,8 @@ def task(request):
             sln_path = solution_path(solution_dir)
             if current_task.full_solution != bool(sln_path):
                 current_solution.result = 'TEST ERROR'
+                with open(log_file_path, 'ab') as fs:
+                    fs.write(b'Can\'t find sln file in solution' if current_task.full_solution else b'Sln file in path')                        
                 current_solution.save()
                 return HttpResponseRedirect('/task?id=' + str(current_task.id))
             if not bool(sln_path):
@@ -419,6 +424,7 @@ def block_settings(request):
             current_block.opened = 'opened' in request.POST.keys()
             current_block.time_start = time_start
             current_block.time_end = time_end
+            current_block.show_rating = "rating" in request.POST.keys()
             current_block.save()
             return HttpResponseRedirect('/admin/block?id={}'.format(current_block.id))
     return render(request, 'block_settings.html', context={'is_superuser': check_teacher(request.user),
@@ -447,7 +453,8 @@ def get_result_data(request):
     return HttpResponse(dumps({
         'success': True,
         'results_text': solution.details,
-        'tests_text': solution.task.tests_text
+        'tests_text': solution.task.tests_text,
+        'log_text': solution.log_text
     }))
 
 
@@ -462,6 +469,9 @@ def get_comment_data(request):
 
     
 def rating(request):
+    current_block = Block.objects.get(id=request.GET['block_id'])
+    if not check_admin_on_course(request.user, current_block.course) and not current_block.show_rating:
+        return HttpResponseRedirect('/main')
     return render(request, 'rating.html', context={'Block': Block.objects.get(id=request.GET['block_id'])})
 
 

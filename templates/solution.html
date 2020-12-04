@@ -2,6 +2,14 @@
 
 {% block title %}{{ solution.task.name }}|решение{% endblock %}
 
+{% block links %}
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.0/build/styles/default.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.0/build/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+{% endblock %}
+
+{% load filters %}
+
 {% block scripts %}
 {% if can_edit %}
     function findGetParameter(parameterName) {
@@ -42,6 +50,28 @@
         next();
         previous();
     }
+    {% if can_edit %}
+        function showHideTests() {
+            var text = document.getElementById('tests_text');
+            var button = document.getElementById('tests_button');
+            text.hidden = !text.hidden;
+            if (text.hidden) {
+                button.textContent = 'Показать тесты';
+            } else {
+                button.textContent = 'Скрыть тесты';
+            }
+        }
+        function showHideLog() {
+            var text = document.getElementById('log_text');
+            var button = document.getElementById('log_button');
+            text.hidden = !text.hidden;
+            if (text.hidden) {
+                button.textContent = 'Показать лог';
+            } else {
+                button.textContent = 'Скрыть лог';
+            }
+        }
+    {% endif %}
 {% endif %}
 {% endblock %}
 
@@ -124,11 +154,27 @@
 {% autoescape off %}
 {{ solution.details }}
 {% endautoescape %}
+{% if can_edit %}
+<hr>
+<pre id="tests_text" hidden>
+<h4>Тесты</h4><br>
+{{ solution.task.tests_text }}
+</pre>
+<hr>
+<pre id="log_text" hidden>
+<h4>Лог</h4><br>
+{{ solution.log_text }}
+</pre>
+{% endif %}
                                                 </div>
                                             </div>
                                         </div>
                                       </div>
                                       <div class="modal-footer">
+                                          {% if can_edit %}
+                                            <button type="button" id="log_button" class="btn btn-warning" onclick="showHideLog()">Показать лог</button>
+                                            <button type="button" id="tests_button" class="btn btn-primary" onclick="showHideTests()">Показать тесты</button>
+                                          {% endif %}
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                       </div>
                                     </div>
@@ -185,11 +231,19 @@
         <h3>Files</h3>
     {% for filename, text in solution.files.items %}
         <h5>{{ filename }}</h5>
-        <div class="border border-dark bg-light" style="padding: 15px;">
+        {% if filename|is_code %}
+<pre>
+<code class="c# border border-dark">
+{{ text }}
+</code>
+</pre>
+        {% else %}
+            <div class="border border-dark bg-light" style="padding: 15px;">
 <pre>
 {{ text }}
 </pre>
-        </div>
+            </div>
+        {% endif %}
         <hr>
     {% endfor %}
 {% endblock %}

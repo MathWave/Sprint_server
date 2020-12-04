@@ -15,6 +15,8 @@ urlpatterns = [
     path('block', views.block),
     path('task', views.task),
     path('solution', views.solution),
+    path('rating', views.rating),
+    path('admin/rating', views.rating),
     path('admin/solution', views.solution),
     path('admin/retest', views.retest),
     path('admin/docs', views.docs),

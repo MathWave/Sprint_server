@@ -9,37 +9,14 @@
       <td>
           {% if can_edit or task.show_details %}
                   <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-link" data-toggle="modal" data-target="#resultModalLong{{ solution.id }}">
+                  <button type="button" class="btn btn-link" data-toggle="modal" data-target="#resultModalLong" onclick="showData('{{ solution.id }}')">
                     {{ solution.result }}
                   </button>
-
-                  <!-- Modal -->
-                  <div class="modal fade" id="resultModalLong{{ solution.id }}" tabindex="-1" role="dialog" aria-labelledby="resultModalLongTitle{{ solution.id }}" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="resultModalLongTitle{{ solution.id }}">Подробная информация о тестировании {{ solution.id }}</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="container-fluid">
-                              <div class="row">
-                                  <div class="col-12">
-{% autoescape off %}
-{{ solution.details }}
-{% endautoescape %}
-                                  </div>
-                              </div>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <div id="details_{{ solution.id }}" hidden>{% autoescape off %}{{ solution.details }}{% endautoescape %}</div>
+                  {% if can_edit %}
+                    <div id="tests_{{ solution.id }}" hidden>{{ solution.task.tests_text }}</div>
+                    <div id="log_{{ solution.id }}" hidden>{% autoescape off %}{{ solution.log_text }}{% endautoescape %}</div>
+                  {% endif %}
           {% else %}
                   {{ solution.result }}
           {% endif %}

@@ -38,7 +38,8 @@ ALLOWED_HOSTS = [
     '192.168.0.253',
     '192.168.1.8',
     'localhost',
-    'sprint.cshse.ru'
+    'sprint.cshse.ru',
+    '192.168.1.253'
 ]
 
 

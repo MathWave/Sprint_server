@@ -62,13 +62,24 @@
                 button.textContent = 'Скрыть тесты';
             }
         }
+        function showHideLog() {
+            var text = document.getElementById('log_text');
+            var button = document.getElementById('log_button');
+            text.hidden = !text.hidden;
+            if (text.hidden) {
+                button.textContent = 'Показать лог';
+            } else {
+                button.textContent = 'Скрыть лог';
+            }
+        }
         function fillModalResults(id) {
             jQuery.get('/get_result_data?id=' + id, function(data) {
                 const response = JSON.parse(data);
                 if (response['success'] == true) {
                     document.getElementById('resultModalLongTitle').innerHTML = 'Подробная информация о тестировании ' + id;
                     document.getElementById('results_text').innerHTML = response['results_text'];
-                    document.getElementById('tests_text').innerHTML = response['tests_text'];
+                    document.getElementById('tests_text').innerHTML = '<h4>Тесты</h4><br>' + response['tests_text'];
+                    document.getElementById('log_text').innerHTML = '<h4>Лог</h4><br>' + response['log_text'];
                 }
             });
         }
@@ -107,11 +118,14 @@
 <div id="results_text"></div>
 <hr>
 <pre id="tests_text" hidden></pre>
+<hr>
+<pre id="log_text" hidden></pre>
                         </div>
                     </div>
                 </div>
               </div>
               <div class="modal-footer">
+                <button type="button" id="log_button" class="btn btn-warning" onclick="showHideLog()">Показать лог</button>
                 <button type="button" id="tests_button" class="btn btn-primary" onclick="showHideTests()">Показать тесты</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>

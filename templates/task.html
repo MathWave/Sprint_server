@@ -12,6 +12,12 @@
 
 {% block onload %}doPoll(){% endblock %}
 
+{% block links %}
+<script>
+    var current_solution = null;
+</script>
+{% endblock %}
+
 {% block scripts %}
     function uploaded() {
         document.getElementById('is_uploaded').style.display = 'block';
@@ -24,13 +30,53 @@
             }
             else {
                 document.getElementById('solutions').innerHTML = data;
+                if (current_solution != null) {
+                    document.getElementById('log').innerHTML = document.getElementById('log_' + current_solution).innerHTML;
+                    document.getElementById('details').innerHTML = document.getElementById('details_' + current_solution).innerHTML;
+                }
                 setTimeout(function() {doPoll()}, 2000);
             }
         })
         jQuery.get('/solutions_table?id={{ task.id }}&render=true', function(data) {
             document.getElementById('solutions').innerHTML = data;
+            if (current_solution != null) {
+                document.getElementById('log').innerHTML = document.getElementById('log_' + current_solution).innerHTML;
+                document.getElementById('details').innerHTML = document.getElementById('details_' + current_solution).innerHTML;
+            }
         })
     }
+    {% if can_edit %}
+        function showHideTests(id) {
+            var text = document.getElementById('tests_text_' + id);
+            var button = document.getElementById('tests_button_' + id);
+            text.hidden = !text.hidden;
+            if (text.hidden) {
+                button.textContent = 'Показать тесты';
+            } else {
+                button.textContent = 'Скрыть тесты';
+            }
+        }
+        function showHideLog(id) {
+            var text = document.getElementById('log_text_' + id);
+            var button = document.getElementById('log_button_' + id);
+            text.hidden = !text.hidden;
+            if (text.hidden) {
+                button.textContent = 'Показать лог';
+            } else {
+                button.textContent = 'Скрыть лог';
+            }
+        }
+    {% endif %}
+    {% if task.show_details or can_edit %}
+        function showData(id) {
+            current_solution = id;
+            const dataTypes = ['details'{% if can_edit %}, 'tests', 'log'{% endif %}];
+            for (const dt of dataTypes) {
+                document.getElementById(dt).innerHTML = document.getElementById(dt + '_' + id).innerHTML;
+            }
+            document.getElementById('resultModalLongTitle').innerHTML = 'Подробная информация о тестировании ' + id;
+        }
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -119,6 +165,52 @@
         {% if not can_edit and can_send %}
         Осталось попыток: {{ user|last_attempts:task }}
         {% endif %}
+
+{% if can_edit or task.show_details %}
+         <!-- Modal -->
+         <div class="modal fade" id="resultModalLong" tabindex="-1" role="dialog" aria-labelledby="resultModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="resultModalLongTitle">Подробная информация о тестировании</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid">
+                      <div class="row">
+                          <div class="col-12">
+{% autoescape off %}
+<div id="details"></div>
+{% endautoescape %}
+{% if can_edit %}
+<hr>
+<pre id="tests_text_{{ solution.id }}" hidden>
+<h4>Тесты</h4><br>
+<div id="tests"></div>
+</pre>
+<hr>
+<pre id="log_text_{{ solution.id }}" hidden>
+<h4>Лог</h4><br>
+<div id="log"></div>
+</pre>
+{% endif %}
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  {% if can_edit %}
+                  <button type="button" id="log_button_{{ solution.id }}" class="btn btn-warning" onclick="showHideLog('{{ solution.id }}')">Показать лог</button>
+                  <button type="button" id="tests_button_{{ solution.id }}" class="btn btn-primary" onclick="showHideTests('{{ solution.id }}')">Показать тесты</button>
+                  {% endif %}
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+{% endif %}
         <h2 style="margin-top: 20px;">Решения</h2>
         <table class="table">
             <thead>

@@ -1,0 +1,20 @@
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2600\Solution\SampleProject\SampleProject.csproj (за 95 ms).
+  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2600\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:01.97
+Building tests file started
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+data\tests\9.cs(20,24): error CS7036: Отсутствует аргумент, соответствующий требуемому формальному параметру "className" из "DObject.DObject(string, string)".
+Building tests file finished
+Failed to compile tests

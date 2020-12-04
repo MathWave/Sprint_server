@@ -59,9 +59,11 @@ def in_dict(value, dict):
 def last_attempts(user, task):
     return task.max_solutions_count - len(Solution.objects.filter(task=task, user=user))
 
+
 @register.filter('userinfo_by_user')
 def userinfo_by_user(user):
     return UserInfo.objects.get(user=user)
+
 
 @register.filter('mark_status')
 def mark_status(user, task):
@@ -69,3 +71,13 @@ def mark_status(user, task):
     if len(sols) == 0:
         return '-'
     return sols.last().result
+
+
+@register.filter('fully_marked')
+def fully_marked(user, task):
+    return len(Solution.objects.filter(user=user, task=task, mark=None)) == 0
+
+
+@register.filter('is_code')
+def is_code(path):
+    return path.endswith('.cs')

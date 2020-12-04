@@ -80,8 +80,15 @@
                 <td>
                     <input type="datetime-local" name="time_end" value="{{ Block.time_end_chrome }}">
                 </td>
+            </tr>
+            <tr>
                 <td>
                     Открыто для просмотра<input type="checkbox" name="opened" style="margin-left:15px;" {{ Block.is_opened }}>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Показывать рейтинг участникам<input type="checkbox" name="rating" style="margin-left: 15px;" {% if Block.show_rating %}checked{% endif %}>
                 </td>
             </tr>
         </table>
@@ -89,6 +96,9 @@
     </form>
     <hr>
     {% endif %}
+    <div style="text-align: center;">
+        <a class="btn btn-dark" style="margin-bottom: 10px;" href="/admin/rating?block_id={{ Block.id }}">Рейтинг</a>
+    </div>
         <div style="text-align: center;">
             <input type="submit" class="btn btn-dark" onclick="window.location.href = '/admin/solutions?block_id=' + {{ Block.id }}" value="Посмотреть решения">
         </div>
