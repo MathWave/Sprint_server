@@ -23,7 +23,7 @@
     {% endfor %}
     {% if is_superuser %}
         <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#example" style="margin-top: 20px;">
-                Новый таск
+                <i class="fa fa-plus-circle"></i> Новый таск
             </button>
             <!-- Modal -->
             <div class="modal fade" id="example" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -48,8 +48,8 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
-                    <button type="submit" class="btn btn-success">Создать</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Закрыть</button>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Создать</button>
                   </div>
                 </div>
               </form>
@@ -60,11 +60,11 @@
             <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <label for="file-upload" class="btn btn-dark" style="margin-top: 20px;">
-                    Загрузить архив
+                    <i class="fa fa-upload"></i> Загрузить архив
                 </label>
                 <span id="is_uploaded" style="display: none;">Архив загружен</span>
                 <input type="file" class="btn form-control-file" id="file-upload" value="Выбрать файл" name="file" onchange="uploaded()">
-                <br><input type="submit" value="Импортировать" class="btn btn-outline-dark">
+                <br><button type="submit" value="Импортировать" class="btn btn-outline-dark"><i class="fa fa-play-circle"></i> Импортировать</button>
             </form>
     {% endif %}
     <hr>
@@ -92,24 +92,20 @@
                 </td>
             </tr>
         </table>
-        <input class="btn btn-dark" value="Установить" type="submit" style="margin-top: 20px;">
+        <button class="btn btn-dark" value="Установить" type="submit" style="margin-top: 20px;"><i class="fa fa-save"></i> Установить</button>
     </form>
     <hr>
     {% endif %}
-    <div style="text-align: center;">
-        <a class="btn btn-dark" style="margin-bottom: 10px;" href="/admin/rating?block_id={{ Block.id }}">Рейтинг</a>
-    </div>
-        <div style="text-align: center;">
-            <input type="submit" class="btn btn-dark" onclick="window.location.href = '/admin/solutions?block_id=' + {{ Block.id }}" value="Посмотреть решения">
-        </div>
+    <div>
+        <a class="btn btn-dark" href="/admin/rating?block_id={{ Block.id }}"><i class="fa fa-star"></i> Рейтинг</a>
+        <button type="button" class="btn btn-dark" onclick="window.location.href = '/admin/solutions?block_id=' + {{ Block.id }}" value="Посмотреть решения"><i class="fa fa-list-ul"></i> Посмотреть решения</button>
         {% if is_superuser %}
-            <div style="text-align: center;">
                 <form method="POST" onsubmit="return confirm('Точно удаляем?');">
                     {% csrf_token %}
                     <input type="hidden" name="block_delete" value="{{ Block.id }}">
-                    <input type="submit" value="Удалить блок" class="btn btn-dark" style="margin-top: 10px;">
+                    <button type="submit" value="Удалить блок" class="btn btn-dark" style="margin-top: 10px;"><i class="fa fa-trash"></i> Удалить блок</button>
                 </form>
-            </div>
-            <hr>
         {% endif %}
+    </div>
+    <hr>
 {% endblock %}

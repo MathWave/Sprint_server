@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<FullResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Passed>2</Passed>
+  <Total>2</Total>
+  <Tests>
+    <Result>
+      <Successful>true</Successful>
+      <Message>Passed</Message>
+      <MethodName>Test1</MethodName>
+    </Result>
+    <Result>
+      <Successful>true</Successful>
+      <Message>Passed</Message>
+      <MethodName>Test2</MethodName>
+    </Result>
+  </Tests>
+</FullResult>

@@ -149,8 +149,8 @@
                                         </div>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" name="ACTION" value="SAVE_TESTS">Save</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                        <button type="submit" class="btn btn-primary" name="ACTION" value="SAVE_TESTS"><i class="fa fa-save"></i> Save</button>
                                       </div>
                                     </div>
                                   </div>
@@ -211,8 +211,8 @@
                                                   </div>
                                                   <div class="modal-footer">
                                                     Файл для компиляции <input type="checkbox" name="{{ file.id }}_for_compilation" {{ file.is_for_compilation }}>
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary" name="ACTION" value="SAVE_EXTRA_FILE_{{ file.id }}">Save</button>
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                                                    <button type="submit" class="btn btn-primary" name="ACTION" value="SAVE_EXTRA_FILE_{{ file.id }}"><i class="fa fa-save"></i> Save</button>
                                                   </div>
                                                 </div>
                                               </div>
@@ -228,13 +228,13 @@
                             {% endfor %}
                         </table>
                         <label for="files" class="btn btn-primary">
-                            Загрузить файл
+                            <i class="fa fa-upload"></i> Загрузить файл
                         </label>
                         <form method="POST">
                             <input type="file" class="btn form-control-file" id="files" value="Выбрать файл" name="file" onchange="uploaded1()">
                         </form>
                         <label for="add_file" class="btn btn-success">
-                            +
+                            <i class="fa fa-plus"></i>
                         </label>
                         <input type="button" class="btn btn-success" id="add_file" value="Создать файл" name="new_file"  data-toggle="modal" data-target="#exampleModalLongnewfile">
                         <button name="ACTION" value="UPLOAD_EXTRA_FILE" type="submit" class="btn btn-success" style="display: none;" id="send">Отправить</button>
@@ -259,8 +259,8 @@
                                         </div>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button name="ACTION" value="CREATE_EXTRA_FILE" type="submit" class="btn btn-primary">Create</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Закрыть</button>
+                                        <button name="ACTION" value="CREATE_EXTRA_FILE" type="submit" class="btn btn-primary"><i class="fa fa-file"></i> Создать</button>
                                       </div>
                                     </div>
                                   </div>
@@ -270,9 +270,9 @@
                 </tr>
             </table>
             <hr>
-            <button type="submit" name="ACTION" value="SAVE" class="btn btn-dark">Сохранить</button>
+            <button type="submit" name="ACTION" value="SAVE" class="btn btn-dark"><i class="fa fa-save"></i> Сохранить</button>
             {% if is_superuser %}
-            <button type="submit" name="ACTION" value="DELETE" class="btn btn-dark">Удалить таск</button>
+            <button type="submit" name="ACTION" value="DELETE" class="btn btn-dark"><i class="fa fa-trash"></i> Удалить таск</button>
             {% endif %}
         </form>
 {% endblock %}

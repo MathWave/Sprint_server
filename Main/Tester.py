@@ -125,7 +125,7 @@ class Tester:
         with self.solution.log_fs as fs:
             fs.write(b'Running finished\n')
         with self.solution.log_fs as fs:
-            shell('docker cp solution_container_{}:/usr/src/app/TestResults.xml {}'.format(self.solution.id, self.working_dir), fs)
+            shell('docker cp solution_container_{}:/app/TestResults.xml {}'.format(self.solution.id, self.working_dir), fs)
         with self.solution.log_fs as fs:
             shell('docker rm --force solution_container_{}'.format(self.solution.id), fs)
         with self.solution.log_fs as fs:
@@ -136,7 +136,7 @@ class Tester:
                 fs.write(b'Result file not found in container\n')
             return
         with self.solution.log_fs as fs:
-                fs.write(b'Result file found in container\n')
+            fs.write(b'Result file found in container\n')
         try:
             doc = parse(join(self.working_dir, 'TestResults.xml'))
             res = get_node_value(doc.getElementsByTagName('Passed')) + '/' + get_node_value(doc.getElementsByTagName('Total'))

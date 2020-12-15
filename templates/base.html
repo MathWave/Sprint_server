@@ -9,9 +9,11 @@
         </title>
         {% block links %}
         {% endblock %}
+        <link rel="shortcut icon" href="{% static "img/icon.svg" %}" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href={% static "css/styles.css" %}>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://use.fontawesome.com/49b98aaeb5.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -36,21 +38,21 @@
             <header class="mt-2 mb-2" role="banner">
                 <div class="row no-gutters top-buffer">
                     <div class="col" style="min-width: 100px;">
-                        <button type="button" class="btn {% if current_page == 'main' %}btn-dark{% else %}btn-light{% endif %} btn-block top-button" onclick="main()">Sprint</button>
+                        <button type="button" class="btn {% if current_page == 'main' %}btn-dark{% else %}btn-light{% endif %} btn-block top-button" onclick="main()"><i class="fa fa-random"></i> Sprint</button>
                     </div>
                     {% if is_admin %}
                     <div class="col" style="min-width: 100px;">
-                        <button type="button" class="btn {% if current_page == 'admin' %}btn-dark{% else %}btn-light{% endif %} btn-block top-button" onclick="admin()">Админка</button>
+                        <button type="button" class="btn {% if current_page == 'admin' %}btn-dark{% else %}btn-light{% endif %} btn-block top-button" onclick="admin()"><i class="fa fa-user"></i> Админка</button>
                     </div>
                     {% endif %}
                     <div class="col" style="min-width: 100px;">
-                        <button type="button" class="btn {% if current_page == 'settings' %}btn-dark{% else %}btn-light{% endif %} btn-block top-button"  onclick="settings()">Настройки</button>
+                        <button type="button" class="btn {% if current_page == 'settings' %}btn-dark{% else %}btn-light{% endif %} btn-block top-button"  onclick="settings()"><i class="fa fa-cog"></i> Настройки</button>
                     </div>
                     <div class="col-{% if is_admin %}8{% else %}9{% endif %}">
 
                     </div>
                     <div class="col" style="min-width: 100px;">
-                        <button type="button" class="btn btn-light btn-block top-button" onclick="logout()">Выход</button>
+                        <button type="button" class="btn btn-light btn-block top-button" onclick="logout()"><i class="fa fa-sign-out"></i> Выход</button>
                     </div>
                 </div>
             </header>

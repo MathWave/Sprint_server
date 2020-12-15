@@ -11,7 +11,7 @@
         {% endfor %}
         {% if is_teacher %}
             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#example_{{ key.id }}" style="margin-top: 20px;">
-                Новый блок
+                <i class="fa fa-plus-circle"></i> Новый блок
             </button>
             <!-- Modal -->
                                 <div class="modal fade" id="example_{{ key.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -36,24 +36,24 @@
                                         </div>
                                       </div>
                                       <div class="modal-footer">
-                                      <button type="button" class="btn btn-danger" data-dismiss="modal">Закрыть</button>
-                                        <button type="submit" class="btn btn-success">Создать</button>
+                                      <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times-circle"></i> Закрыть</button>
+                                        <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle"></i> Создать</button>
                                       </div>
                                     </div>
                                   </form>
                                   </div>
                                 </div>
-            <button class="btn btn-dark" onclick="window.location.href = '/admin/users_settings?course_id={{ key.id }}'" style="margin-top: 20px;">Участники курса</button>
+            <button class="btn btn-dark" onclick="window.location.href = '/admin/users_settings?course_id={{ key.id }}'" style="margin-top: 20px;"><i class="fa fa-users"></i> Участники курса</button>
         {% endif %}
     {% endfor %}
     {% if is_superuser %}
     <div>
         <center>
-            <input target="_blank" rel="noopener noreferrer" type="submit" class="btn btn-dark" onclick="window.location.href = '/admin/'" value="Django admin">
+            <button target="_blank" rel="noopener noreferrer" type="submit" class="btn btn-dark" onclick="window.location.href = '/admin/'" value="Django admin"><i class="fa fa-shield"></i> Django admin</button>
         </center>
     </div>
     {% endif %}
     <center>
-      <button class="btn btn-dark" style="margin-top: 20px;" onclick="window.location.href='/admin/docs'">Методичка</button>
+      <button class="btn btn-dark" style="margin-top: 20px;" onclick="window.location.href='/admin/docs'"><i class="fa fa-file"></i> Методичка</button>
     </center>
 {% endblock %}
