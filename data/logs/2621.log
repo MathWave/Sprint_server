@@ -14,3 +14,19 @@ C:\Users\79175\Desktop\sprint_server\data\solutions\2621\Solution\SampleProject\
 
 Прошло времени 00:00:01.04
 Failed to compile project SampleProject
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Все проекты обновлены для восстановления.
+C:\Users\79175\Desktop\sprint_server\data\solutions\2621\Solution\SampleProject\Program.cs(13,17): error CS0029: Не удается неявно преобразовать тип "void" в "string". [C:\Users\79175\Desktop\sprint_server\data\solutions\2621\Solution\SampleProject\SampleProject.csproj]
+
+Ошибка сборки.
+
+C:\Users\79175\Desktop\sprint_server\data\solutions\2621\Solution\SampleProject\Program.cs(13,17): error CS0029: Не удается неявно преобразовать тип "void" в "string". [C:\Users\79175\Desktop\sprint_server\data\solutions\2621\Solution\SampleProject\SampleProject.csproj]
+    Предупреждений: 0
+    Ошибок: 1
+
+Прошло времени 00:00:01.12
+Failed to compile project SampleProject

@@ -14,3 +14,51 @@ C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\
 
 Прошло времени 00:00:00.98
 Failed to compile project SampleProject
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\SampleProject.csproj (за 75 ms).
+C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\Program.cs(18,25): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\SampleProject.csproj]
+
+Ошибка сборки.
+
+C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\Program.cs(18,25): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\SampleProject.csproj]
+    Предупреждений: 0
+    Ошибок: 1
+
+Прошло времени 00:00:01.31
+Failed to compile project SampleProject
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\SampleProject.csproj (за 69 ms).
+C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\Program.cs(18,25): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\SampleProject.csproj]
+
+Ошибка сборки.
+
+C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\Program.cs(18,25): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\SampleProject.csproj]
+    Предупреждений: 0
+    Ошибок: 1
+
+Прошло времени 00:00:01.27
+Failed to compile project SampleProject
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\SampleProject.csproj (за 98 ms).
+C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\Program.cs(18,25): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\SampleProject.csproj]
+
+Ошибка сборки.
+
+C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\Program.cs(18,25): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2602\Solution\SampleProject\SampleProject.csproj]
+    Предупреждений: 0
+    Ошибок: 1
+
+Прошло времени 00:00:01.46
+Failed to compile project SampleProject

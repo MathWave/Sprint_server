@@ -178,6 +178,7 @@ def solutions_filter(request):
         solutions = list(reversed(Solution.objects.filter(task__block_id=request['block_id'])))
     except MultiValueDictKeyError as e:
         return [Solution.objects.get(id=request['id'])]
+    print(len(solutions))
     if 'solution_id' in request.keys():
         solutions = [solution for solution in solutions if solution.id == int(request['solution_id'])]
     if 'task_name' in request.keys():

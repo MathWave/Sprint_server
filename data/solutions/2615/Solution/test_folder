@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<FullResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Passed>1</Passed>
+  <Total>2</Total>
+  <Tests>
+    <Result>
+      <Successful>true</Successful>
+      <Message>Passed</Message>
+      <MethodName>Test1</MethodName>
+    </Result>
+    <Result>
+      <Successful>false</Successful>
+      <Message>Unhandled exception: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+ ---&gt; System.Exception: Случайно выброшенное исключение
+   at Project1.Program.Main(String[] args) in C:\Users\79175\Desktop\sprint_server\data\solutions\2615\Solution\SampleProject\Program.cs:line 17
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at SprintTest.DObject.InvokeMethod(String methodName, Object[] inputValues)
+   at Tests.Program.TestInOut(String input)
+   at Tests.Program.Test2()</Message>
+      <MethodName>Test2</MethodName>
+    </Result>
+  </Tests>
+</FullResult>

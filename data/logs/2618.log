@@ -25,3 +25,30 @@ solution_container_2618
 Untagged: solution_2618:latest
 Deleted: sha256:c44e921480b139f5ed6c18aa31b05118770669999ea90660a13e28238565b526
 Result file not found in container
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Все проекты обновлены для восстановления.
+  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2618\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:01.85
+Building tests file started
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+Building tests file finished
+Got .dll tests file
+Building image
+Image built successfully
+Running container
+Running finished
+solution_container_2618
+Untagged: solution_2618:latest
+Deleted: sha256:5969c64ba54501de4792b2c52d9c7c38e6daeb675b50fa072c6bb1bc69cacd98
+Result file not found in container

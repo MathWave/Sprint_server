@@ -1,0 +1,54 @@
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2637\Solution\SampleProject\SampleProject.csproj (за 84 ms).
+  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2637\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:01.34
+Building tests file started
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+Building tests file finished
+Got .dll tests file
+Building image
+Image built successfully
+Running container
+Running finished
+solution_container_2637
+Untagged: solution_2637:latest
+Deleted: sha256:cbb943f934044cf9b142b0fd5fbb9dda3d0ae36d145a666f5c5bcc053cbb69c5
+Result file found in container
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2637\Solution\SampleProject\SampleProject.csproj (за 96 ms).
+  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2637\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:02.01
+Building tests file started
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+Building tests file finished
+Got .dll tests file
+Building image
+Image built successfully
+Running container
+Running finished
+solution_container_2637
+Untagged: solution_2637:latest
+Deleted: sha256:76ab06358a80d578cbf11f744c8a119f478657ac8b8ecb0cac6c458ef047875b
+Result file found in container

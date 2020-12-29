@@ -131,7 +131,7 @@ class Tester:
         with self.solution.log_fs as fs:
             shell('docker image rm solution_{}'.format(self.solution.id), fs)
         if not exists(join(self.working_dir, 'TestResults.xml')):
-            self.solution.result = 'Time limit'
+            self.solution.set_result('Time limit')
             with self.solution.log_fs as fs:
                 fs.write(b'Result file not found in container\n')
             return
@@ -154,7 +154,7 @@ class Tester:
             with self.solution.log_fs as fs:
                 fs.write(b'Unknown error\n')
             res = 'TEST ERROR'
-        self.solution.result = res
+        self.solution.set_result(res)
 
 
     def test(self):
@@ -165,14 +165,14 @@ class Tester:
             if not exists(self.solution.task.tests_path()):
                 with self.solution.log_fs as fs:
                     fs.write(b'No test file found\n')
-                solution.result = 'TEST ERROR'
+                solution.set_result('TEST ERROR')
                 solution.save()
                 self.delete_everything()
                 start_new(self.host)
                 return
             sln_path = solution_path(join(MEDIA_ROOT, 'solutions', str(solution.id)))
             if sln_path == '':
-                solution.result = 'TEST ERROR'
+                solution.set_result('TEST ERROR')
                 solution.save()
                 self.delete_everything()
                 start_new(self.host)
@@ -188,7 +188,7 @@ class Tester:
                 project = join(sln_path, project)
                 if isdir(project) and is_project(project) and basename(project) != 'TestsProject':
                     if not self.build_and_copy(project, working_dir):
-                        solution.result = 'Compilation error'
+                        solution.set_result('Compilation error')
                         with self.solution.log_fs as fs:
                             fs.write(bytes('Failed to compile project {}\n'.format(prj), encoding='utf-8'))
                         solution.save()
@@ -222,11 +222,11 @@ class Tester:
                     copyfile(file.path, join(working_dir, file.filename))
                 self.nunit_testing()
             else:
-                solution.result = 'TEST ERROR'
+                solution.set_result('TEST ERROR')
                 with self.solution.log_fs as fs:
                     fs.write(b'Failed to compile tests\n')
         except:
-            solution.result = 'TEST ERROR'
+            solution.set_result('TEST ERROR')
             raise
             with self.solution.log_fs as fs:
                 fs.write(b'Unknown error\n')

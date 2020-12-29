@@ -109,6 +109,7 @@ class Task(models.Model):
     max_solutions_count = models.IntegerField(default=10)
     show_details = models.BooleanField(default=False)
     full_solution = models.BooleanField(default=False)
+    mark_formula = models.TextField(default='None')
 
     @property
     def samples(self):
@@ -184,6 +185,16 @@ class Solution(models.Model):
     time_sent = models.DateTimeField(null=True)
     mark = models.IntegerField(null=True)
     comment = models.TextField(default='')
+
+    def set_result(self, result):
+        self.result = result
+        if len(result.split('/')) != 1:
+            result = int(result.split('/')[0])
+        try:
+            self.mark = eval(self.task.mark_formula)
+        except:
+            self.mark = None
+        self.save()
 
     def __str__(self):
         return str(self.id)

@@ -25,7 +25,7 @@ from Sprint.settings import MEDIA_ROOT
 
 
 def download(request):
-    if not check_admin(request.user) or not check_admin_on_course(request.user, Block.objects.get(id=request.GET['id']).course):
+    if not check_admin(request.user) or not check_admin_on_course(request.user, Block.objects.get(id=request.GET['block_id']).course):
         return HttpResponseRedirect('/main')
     sols = solutions_filter(request.GET)
     if len(sols) == 0:
@@ -61,6 +61,8 @@ def retest(request):
         if key != 'block_id':
             req += '&{}={}'.format(key, request.GET[key])
     Thread(target=lambda: re_test(solutions_request, request)).start()
+    if 'next' in request.GET.keys():
+        return HttpResponseRedirect(request.GET['next'])
     return HttpResponseRedirect('/admin/solutions%s' % req)
 
 
@@ -91,7 +93,8 @@ def solution(request):
         current_solution.save()
     return render(request, 'solution.html', context={'solution': current_solution,
                                                      'from_admin': from_admin,
-                                                     'can_edit': can_edit})
+                                                     'can_edit': can_edit,
+                                                     'path': request.path})
 
 
 def solutions(request):
@@ -243,7 +246,60 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def task_test(request):
-    return HttpResponse('ok')
+    current_task = Task.objects.get(id=request.GET['id'])
+    user = request.user
+    if not check_permission_block(user, current_task.block):
+        return HttpResponseRedirect('/main')
+    can_send = can_send_solution(user, current_task)
+    if request.method == 'POST':
+        if 'file' in request.FILES.keys() and can_send:
+            current_solution = Solution.objects.create(
+                task=current_task,
+                user=request.user,
+                result='IN QUEUE',
+                time_sent=timezone.now()
+            )
+            log_file_path = current_solution.log_file
+            with open(log_file_path, 'wb') as fs:
+                pass
+            solution_dir = current_solution.path() + sep
+            if exists(solution_dir):
+                rmtree(solution_dir)
+            mkdir(solution_dir)
+            with open(solution_dir + 'solution.zip', 'wb') as fs:
+                for chunk in request.FILES['file'].chunks():
+                    fs.write(chunk)
+            flag = False
+            solution_created = False
+            try:
+                with ZipFile(solution_dir + 'solution.zip') as obj:
+                    obj.extractall(solution_dir)
+            except BadZipFile:
+                rename(solution_dir + 'solution.zip', solution_dir + request.FILES['file'].name)
+            sln_path = solution_path(solution_dir)
+            if current_task.full_solution != bool(sln_path):
+                current_solution.result = 'TEST ERROR'
+                with open(log_file_path, 'ab') as fs:
+                    fs.write(b'Can\'t find sln file in solution' if current_task.full_solution else b'Sln file in path')                        
+                current_solution.save()
+                return HttpResponseRedirect('/task?id=' + str(current_task.id))
+            if not bool(sln_path):
+                copytree('SampleSolution', join(solution_dir, 'Solution'))
+                for file in listdir(solution_dir):
+                    if file == 'solution.zip' or file == 'Solution':
+                        continue
+                    cur_file = join(solution_dir, file)
+                    if isfile(cur_file):
+                        copyfile(cur_file, join(solution_dir, 'Solution', 'SampleProject', file))
+                        remove(cur_file)
+                    else:
+                        rmtree(cur_file)
+            if not current_task.full_solution:
+                for file in current_task.files_for_compilation:
+                    copyfile(file.path, join(solution_dir, 'Solution', 'SampleProject', file.filename))
+            #Tester(current_solution, request.META['HTTP_HOST']).push()
+            Thread(target=lambda: Tester(current_solution, request.META['HTTP_HOST']).push()).start()
+            return HttpResponseRedirect('/task?id=' + str(current_task.id))
 
 
 def block(request):
@@ -279,6 +335,7 @@ def task_settings(request):
             current_task.time_limit = int(request.POST['time_limit']) if is_integer(request.POST['time_limit']) else 10000
             current_task.show_details = 'show_details' in request.POST.keys()
             current_task.full_solution = 'full_solution' in request.POST.keys()
+            current_task.mark_formula = request.POST['mark_formula']
             for ef in ExtraFile.objects.filter(task=current_task):
                 ef.sample = 'sample_' + str(ef.id) in request.POST.keys()
                 ef.save()

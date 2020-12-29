@@ -25,3 +25,89 @@ solution_container_2612
 Untagged: solution_2612:latest
 Deleted: sha256:91d4376bb0315014dd6e4aab4949aebc4a1d36a9d1b6ddd9496e036fad75f66c
 Result file found in container
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2612\Solution\SampleProject\SampleProject.csproj (за 150 ms).
+  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2612\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:01.93
+Building tests file started
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+Building tests file finished
+Got .dll tests file
+Building image
+Image built successfully
+Running container
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+solution_container_2612
+ля восстановления...
+  Все проекты обновлены для восстановления.
+  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2612\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:01.33
+Building tests file started
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+Building tests file finished
+Got .dll tests file
+Untagged: solution_2612:latest
+Deleted: sha256:90c124b62b0bd365f27bc0a41c1881b14d91bf2c0579bccc93c2ca02d8b8258a
+Result file found in container
+Image built successfully
+Running container
+Running finished
+Result file not found in container
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corpor  SampleProject -> C:\Users\791  Определение проектов для восстановления...
+  Все проекты обновлены для восстановления.
+  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2612\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:02.48
+ (Microsoft Corporation). Все права защищены.
+
+Building tests file finished
+Got .dll tests file
+Building image
+Building tests file started
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+Building tests file finished
+Got .dll tests file
+Building image
+Image built successfully
+Running container
+Image built successfully
+Running container
+Running finished
+Untagged: solution_2612:latest
+Result file not found in container
+Running finished
+solution_container_2612
+Result file not found in container

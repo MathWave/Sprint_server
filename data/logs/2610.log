@@ -14,3 +14,59 @@ C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\
 
 Прошло времени 00:00:01.38
 Failed to compile project SampleProject
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\SampleProject.csproj (за 89 ms).
+C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\Program.cs(8,31): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\SampleProject.csproj]
+
+Ошибка сборки.
+
+C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\Program.cs(8,31): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\SampleProject.csproj]
+    Предупреждений: 0
+    Ошибок: 1
+
+Прошло времени 00:00:01.40
+Failed to compile project SampleProject
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\SampleProject.csproj (за 67 ms).
+C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\Program.cs(8,31): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\SampleProject.csproj]
+
+Ошибка сборки.
+
+C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\Program.cs(8,31): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\SampleProject.csproj]
+    Предупреждений: 0
+    Ошибок: 1
+
+Прошло времени 00:00:01.43
+Failed to compile project SampleProject
+Testing directory created
+Microsoft (R) Build EngineMicrosoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation  Определение проектов для  Определение проект  Восстановлен C:\Users\79  Все проекты обновлены для восстановления.
+C:\Program Files\dotnet\sdk\5.0.100\Microsoft.Common.CurreC:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\Program.cs(8,31): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\SampleProject.csproj]
+
+Ошибка сборки.
+
+C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\Program.cs(8,31): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\SampleProject.csproj]
+    Предупреждений: 0
+    Ошибок: 1
+
+Прошло времени 00:00:01.46
+SampleProject\Program.cs(8,31): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\SampleProject.csproj]
+
+Ошибка сборки.
+
+C:\Program Files\dotnet\sdk\5.0.100\Microsoft.Common.CurrentVersion.targets(2123,5): warning MSB3101: не удалось записать файл состояния "obj\Debug\netcoreapp3.1\SampleProject.csprojAssemblyReference.cache". The process cannot access the file 'C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\obj\Debug\netcoreapp3.1\SampleProject.csprojAssemblyReference.cache' because it is being used by another process. [C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\SampleProject.csproj]
+C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\Program.cs(8,31): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2610\Solution\SampleProject\SampleProject.csproj]
+    Предупреждений: 1
+    Ошибок: 1
+
+Прошло времени 00:00:01.29
+Failed to compile project SampleProject
+Failed to compile project SampleProject

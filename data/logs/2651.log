@@ -1,0 +1,16 @@
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2651\Solution\SampleProject\SampleProject.csproj (за 78 ms).
+C:\Users\79175\Desktop\sprint_server\data\solutions\2651\Solution\SampleProject\Program.cs(10,27): error CS0103: Имя "COnsole" не существует в текущем контексте. [C:\Users\79175\Desktop\sprint_server\data\solutions\2651\Solution\SampleProject\SampleProject.csproj]
+
+Ошибка сборки.
+
+C:\Users\79175\Desktop\sprint_server\data\solutions\2651\Solution\SampleProject\Program.cs(10,27): error CS0103: Имя "COnsole" не существует в текущем контексте. [C:\Users\79175\Desktop\sprint_server\data\solutions\2651\Solution\SampleProject\SampleProject.csproj]
+    Предупреждений: 0
+    Ошибок: 1
+
+Прошло времени 00:00:01.08
+Failed to compile project SampleProject

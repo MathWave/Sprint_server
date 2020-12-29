@@ -26,6 +26,9 @@
         .params {
             margin-top: 20px;
         }
+        .in {
+            width: 500%;
+        }
 {% endblock %}
 {% block content %}
     <h3><a href="/admin/block?id={{ task.block.id }}">{{ task.block.name }}</a></h3>
@@ -38,7 +41,7 @@
                         Легенда
                     </td>
                     <td>
-                        <textarea form="main_form" rows="15" cols="100" style="resize: none;" name="legend">{{ task.legend }}</textarea>
+                        <textarea form="main_form" rows="15" class="in" style="resize: none;" name="legend">{{ task.legend }}</textarea>
                     </td>
                 </tr>
                 <tr class="params">
@@ -46,7 +49,7 @@
                         Формат входных данных
                     </td>
                     <td>
-                        <textarea form="main_form" rows="15" cols="100" style="resize: none;" name="input">{{ task.input }}</textarea>
+                        <textarea form="main_form" rows="15" class="in" style="resize: none;" name="input">{{ task.input }}</textarea>
                     </td>
                 </tr>
                 <tr class="params">
@@ -54,7 +57,7 @@
                         Формат выходных данных
                     </td>
                     <td>
-                        <textarea form="main_form" rows="15" cols="100" style="resize: none;" name="output">{{ task.output }}</textarea>
+                        <textarea form="main_form" rows="15" class="in" style="resize: none;" name="output">{{ task.output }}</textarea>
                     </td>
                 </tr>
                 <tr class="params">
@@ -62,7 +65,7 @@
                         Спецификации
                     </td>
                     <td>
-                        <textarea form="main_form" rows="15" cols="100" style="resize: none;" name="specifications">{{ task.specifications }}</textarea>
+                        <textarea form="main_form" rows="15" class="in" style="resize: none;" name="specifications">{{ task.specifications }}</textarea>
                     </td>
                 </tr>
                 <tr>
@@ -70,7 +73,7 @@
                         Ограничения по времени
                     </td>
                     <td>
-                        <input form="main_form" type="text" name="time_limit" value="{{ task.time_limit }}">
+                        <input form="main_form" type="text" name="time_limit" class="in" value="{{ task.time_limit }}">
                     </td>
                 </tr>
                 <tr>
@@ -78,7 +81,7 @@
                         Вес задачи
                     </td>
                     <td>
-                        <input form="main_form" type="text" name="weight" value="{{ task.weight }}">
+                        <input form="main_form" type="text" name="weight" class="in" value="{{ task.weight }}">
                     </td>
                 </tr>
                 <tr>
@@ -86,7 +89,7 @@
                         Максимальная оценка
                     </td>
                     <td>
-                        <input form="main_form" type="text" name="max_mark" value="{{ task.max_mark }}">
+                        <input form="main_form" type="text" name="max_mark" class="in" value="{{ task.max_mark }}">
                     </td>
                 </tr>
                 <tr>
@@ -94,7 +97,15 @@
                         Максимум решений
                     </td>
                     <td>
-                        <input form="main_form" type="text" name="max_solutions_count" value="{{ task.max_solutions_count }}">
+                        <input form="main_form" type="text" name="max_solutions_count" class="in" value="{{ task.max_solutions_count }}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Формула оценки
+                    </td>
+                    <td>
+                        <input form="main_form" type="text" name="mark_formula" class="in" value="{{ task.mark_formula }}">
                     </td>
                 </tr>
                 <tr>

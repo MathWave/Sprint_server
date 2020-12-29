@@ -1,0 +1,91 @@
+Testing directory created
+Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj (за 80 ms).
+  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:01.43
+Building tests file started
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+Building tests file finished
+Got .dll tests file
+Building image
+Image built successfully
+Running container
+Running finished
+solution_container_2634
+Untagged: solution_2634:latest
+Deleted: sha256:7005cfcd1505567976af894084705da9a798dd4eadf373d810ba799e59de12f0
+Result file found in container
+Testing directory created
+Microsoft (R) Build EngineMicrosoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation  Определение проектов для  Определение проект  Восстановлен C:\Users\79  Все проекты обновлены для восстановления.
+  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:01.73
+eRuntimeConfigurationFiles". [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018: System.IO.IOException: The process cannot access the file 'C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\bin\Debug\SampleProject.runtimeconfig.json' because it is being used by another process. [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at System.IO.File.Create(String path) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at Microsoft.NET.Build.Tasks.GenerateRuntimeConfigurationFiles.WriteToJsonFile(String fileName, Object value) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at Microsoft.NET.Build.Tasks.GenerateRuntimeConfigurationFiles.WriteRuntimeConfig(RuntimeFramework[] runtimeFrameworks, LockFileTargetLibrary platformLibrary, Boolean isFrameworkDependent, IList`1 packageFolders) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at Microsoft.NET.Build.Tasks.GenerateRuntimeConfigurationFiles.ExecuteCore() [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at Microsoft.NET.Build.Tasks.TaskBase.Execute() [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskExecutionHost.Microsoft.Build.BackEnd.ITaskExecutionHost.Execute() [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskBuilder.ExecuteInstantiatedTask(ITaskExecutionHost taskExecutionHost, TaskLoggingContext taskLoggingContext, TaskHost taskHost, ItemBucket bucket, TaskExecutionMode howToExecuteTask) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+
+Ошибка сборки.
+
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018: непредвиденная ошибка при выполнении задачи GenerateRuntimeConfigurationFiles". [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018: System.IO.IOException: The process cannot access the file 'C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\bin\Debug\SampleProject.runtimeconfig.json' because it is being used by another process. [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at System.IO.File.Create(String path) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at Microsoft.NET.Build.Tasks.GenerateRuntimeConfigurationFiles.WriteToJsonFile(String fileName, Object value) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at Microsoft.NET.Build.Tasks.GenerateRuntimeConfigurationFiles.WriteRuntimeConfig(RuntimeFramework[] runtimeFrameworks, LockFileTargetLibrary platformLibrary, Boolean isFrameworkDependent, IList`1 packageFolders) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at Microsoft.NET.Build.Tasks.GenerateRuntimeConfigurationFiles.ExecuteCore() [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at Microsoft.NET.Build.Tasks.TaskBase.Execute() [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskExecutionHost.Microsoft.Build.BackEnd.ITaskExecutionHost.Execute() [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(290,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskBuilder.ExecuteInstantiatedTask(ITaskExecutionHost taskExecutionHost, TaskLoggingContext taskLoggingContext, TaskHost taskHost, ItemBucket bucket, TaskExecutionMode howToExecuteTask) [C:\Users\79175\Desktop\sprint_server\data\solutions\2634\Solution\SampleProject\SampleProject.csproj]
+    Предупреждений: 0
+    Ошибок: 1
+
+Прошло времени 00:00:02.13
+Building tests file started
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+on). Все права защищены.
+
+Building tests file finished
+Got .dll tests file
+Building image
+Building tests file finished
+Got .dll tests file
+Building image
+Image built successfully
+Running container
+Image built successfully
+Running container
+Running finished
+solution_container_2634
+Untagged: solution_2634:latest
+Deleted: sha256:24886d02a0ff68bb634f6e1899a5bf22b3d61bf0bbc44b52b661de8afa7b2830
+Result file not found in container

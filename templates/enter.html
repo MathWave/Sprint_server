@@ -46,23 +46,23 @@
 	<body>
         <div class="center">
             <center>
-            <div>
-                <h1>
-                    <i class="fa fa-random"></i> Sprint
-                </h1>
-            </div>
-            <div>
-                <form method="POST">
-                    {% csrf_token %}
-                    <input type="text" class="form" name="email" placeholder="email"><br>
-                    <input type="password" class="form" name="password" placeholder="password"><br>
-                    <input type="submit" value="Вход" class="sub btn btn-dark form">
-                </form>
-            </div>
-            <div>
-                <button onclick="window.location.href='/restore'" class="sub btn btn-dark form">Восстановить пароль</button>
-            </div>
-                </center>
+                <div>
+                    <h1>
+                        <i class="fa fa-random"></i> Sprint
+                    </h1>
+                </div>
+                <div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="text" class="form" name="email" placeholder="email"><br>
+                        <input type="password" class="form" name="password" placeholder="password"><br>
+                        <input type="submit" value="Вход" class="sub btn btn-dark form">
+                    </form>
+                </div>
+                <div>
+                    <button onclick="window.location.href='/restore'" class="sub btn btn-dark form">Восстановить пароль</button>
+                </div>
+            </center>
         </div>
 	</body>
 </html>

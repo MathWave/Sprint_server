@@ -71,6 +71,14 @@
                 button.textContent = 'Скрыть лог';
             }
         }
+        function retest() {
+            let del = confirm("Подтвердите перетест");
+	        if (del) {
+                const sols = findGetParameter('solutions');
+                const link = '/admin/retest?block_id={{ solution.task.block.id }}&solution_id={{ solution.id }}&next={% autoescape off %}{{ path }}?id={{ solution.id }}{% if current_page == 'admin' %}%26solutions={% endif %}{% endautoescape %}'{% if current_page == 'admin' %} + sols.replaceAll(' ', '%20'){% endif %};
+                window.location.href = link;
+            }
+        }
     {% endif %}
 {% endif %}
 {% endblock %}
@@ -90,7 +98,7 @@
                                 <td>
                                     <a href="{% if current_page == 'admin' %}/admin{% endif %}/block?id={{ solution.task.block.id }}">{{ solution.task.block.name }}</a>
                                     {% if current_page == 'admin' %}
-                                         | <a style="margin-top: 15px;" href="/admin/solutions?block_id={{ solution.task.block.id }}">К посылкам</a>
+                                         | <a style="margin-top: 15px;" href="/admin/solutions?block_id={{ solution.task.block.id }}">К посылкам</a> | <a style="margin-top: 15px;" href="/admin/rating?block_id={{ solution.task.block.id }}">К рейтингу</a>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -223,6 +231,7 @@
                         <button type="submit" name="action" value="Зачесть" class="btn btn-dark"><i class="fa fa-check"></i> Зачесть</button>
                         <button type="submit" name="action" value="Незачесть" class="btn btn-dark"><i class="fa fa-times"></i> Не зачесть</button>
                         <button type="submit" name="action" value="Выставить макс. балл" class="btn btn-dark"><i class="fa fa-arrow-up"></i> Выставить макс. балл</button>
+                        <button type="button" class="btn btn-dark" onclick="retest()"><i class="fa fa-undo"></i> Перетест</button>
                     {% endif %}
                     </form>
                 </h5>
