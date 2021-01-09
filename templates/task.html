@@ -31,7 +31,9 @@
             else {
                 document.getElementById('solutions').innerHTML = data;
                 if (current_solution != null) {
+                    {% if can_edit %}
                     document.getElementById('log').innerHTML = document.getElementById('log_' + current_solution).innerHTML;
+                    {% endif %}
                     document.getElementById('details').innerHTML = document.getElementById('details_' + current_solution).innerHTML;
                 }
                 setTimeout(function() {doPoll()}, 2000);
@@ -40,7 +42,9 @@
         jQuery.get('/solutions_table?id={{ task.id }}&render=true', function(data) {
             document.getElementById('solutions').innerHTML = data;
             if (current_solution != null) {
+                {% if can_edit %}
                 document.getElementById('log').innerHTML = document.getElementById('log_' + current_solution).innerHTML;
+                {% endif %}
                 document.getElementById('details').innerHTML = document.getElementById('details_' + current_solution).innerHTML;
             }
         })

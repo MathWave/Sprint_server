@@ -11,7 +11,23 @@
             document.getElementById('send').style.display = 'block';
             document.getElementById('is_uploaded1').nodeValue = document.getElementById('file-upload1').nodeValue;
         }
+        function valueChanged() {
+            const other = document.getElementById('show_details');
+            other.disabled = !document.getElementById('show_result').checked;
+            console.log('changed');
+            if (other.disabled) {
+                other.checked = false;
+            }
+        }
+        function set_checkboxes() {
+            if (!document.getElementById('show_result').checked) {
+                document.getElementById('show_details').disabled = true;
+            }
+        }
 {% endblock %}
+
+{% block onload %}set_checkboxes(){% endblock %}
+
 {% block styles %}
         input[type="file"] {
             display: none;
@@ -118,10 +134,18 @@
                 </tr>
                 <tr>
                     <td>
+                        Показывать результат тестирования
+                    </td>
+                    <td>
+                        <input form="main_form" type="checkbox" id="show_result" name="show_result" onchange="valueChanged()" {% if task.show_result %}checked{% endif %}>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         Показывать детали тестирования
                     </td>
                     <td>
-                        <input form="main_form" type="checkbox" name="show_details" {{ task.showable }}>
+                        <input form="main_form" type="checkbox" id="show_details" name="show_details" {{ task.showable }}>
                     </td>
                 </tr>
 

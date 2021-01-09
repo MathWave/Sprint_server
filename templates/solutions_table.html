@@ -17,13 +17,24 @@
                     <div id="tests_{{ solution.id }}" hidden>{{ solution.task.tests_text }}</div>
                     <div id="log_{{ solution.id }}" hidden>{% autoescape off %}{{ solution.log_text }}{% endautoescape %}</div>
                   {% endif %}
-          {% else %}
+          {% else %}{% if task.show_result %}
                   {{ solution.result }}
+          {% else %}
+                  Accepted
+                {% endif %}
           {% endif %}
           
       </td>
       <td>
+        {% if task.show_result or can_edit %}
           {{ solution.mark_property }}
+        {% else %}
+        {% if solution.mark == null %}
+          Checking
+        {% else %}
+          Checked
+        {% endif %}
+        {% endif %}
       </td>
       <td>
 <pre>

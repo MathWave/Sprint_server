@@ -107,6 +107,7 @@ class Task(models.Model):
     weight = models.FloatField(default=1.0)
     max_mark = models.IntegerField(default=10)
     max_solutions_count = models.IntegerField(default=10)
+    show_result = models.BooleanField(default=True)
     show_details = models.BooleanField(default=False)
     full_solution = models.BooleanField(default=False)
     mark_formula = models.TextField(default='None')
@@ -201,6 +202,10 @@ class Solution(models.Model):
 
     def path(self):
         return join(base_dir, 'solutions', str(self.id))
+
+    def write_log(self, text):
+        with self.log_fs as fs:
+            fs.write(bytes(text + '\n', 'cp866'))
 
     @property
     def log_file(self):

@@ -83,7 +83,7 @@
 {% endif %}
 {% endblock %}
 
-{% if can_edit %}{% block onload %}fillContent(){% endblock %}{% endif %}
+{% block onload %}{% if can_edit %}fillContent(){% endif %}{% endblock %}
 
 {% block content %}
         <div class="row">
@@ -189,7 +189,11 @@
                                   </div>
                                 </div>
                         {% else %}
+                        {% if solution.task.show_result %}
                                 {{ solution.result }}
+                        {% else %}
+                                Accepted
+                            {% endif %}
                         {% endif %}
                                 </td>
                             </tr>
@@ -208,7 +212,15 @@
                                             </select>
                                         </label>
                                     {% else %}
+                                    {% if solution.task.show_result %}
                                         {{ solution.mark_property }}
+                                    {% else %}
+                                        {% if solution.mark == null %}
+                                            Checking
+                                        {% else %}
+                                            Checked
+                                        {% endif %}
+                                    {% endif %}
                                     {% endif %}
                                 </td>
                             </tr>

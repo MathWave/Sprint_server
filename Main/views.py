@@ -75,6 +75,13 @@ def solution(request):
             return HttpResponseRedirect('/main')
     can_edit = check_admin_on_course(request.user, current_solution.task.block.course)
     if not can_edit:
+        # тут по хорошему надо использовать регулярки, но я что-то не разобрался
+        while True:
+            i = current_solution.details.find('<pre>')
+            if i == -1:
+                break
+            j = current_solution.details.find('</pre>') + 6
+            current_solution.details = current_solution.details.replace(current_solution.details[i:j], '')
         if current_solution.user != request.user:
             return HttpResponseRedirect('/main')
     solutions_request = solutions_filter(request.GET)
@@ -336,6 +343,7 @@ def task_settings(request):
             current_task.show_details = 'show_details' in request.POST.keys()
             current_task.full_solution = 'full_solution' in request.POST.keys()
             current_task.mark_formula = request.POST['mark_formula']
+            current_task.show_result = 'show_result' in request.POST.keys()
             for ef in ExtraFile.objects.filter(task=current_task):
                 ef.sample = 'sample_' + str(ef.id) in request.POST.keys()
                 ef.save()
@@ -493,8 +501,17 @@ def solutions_table(request):
     user = request.user
     if not check_permission_block(user, current_task.block):
         return HttpResponse("done")
-    sols = Solution.objects.filter(task=current_task, user=user)
+    sols = Solution.objects.filter(task=current_task, user=user)          
     can_edit = check_admin_on_course(request.user, current_task.block.course)
+    # тут по хорошему надо использовать регулярки, но я что-то не разобрался
+    if not can_edit:
+        for sol in sols:
+            while True:
+                i = sol.details.find('<pre>')
+                if i == -1:
+                    break
+                j = sol.details.find('</pre>') + 6
+                sol.details = sol.details.replace(sol.details[i:j], '')
     if any(sol.result == 'TESTING' or sol.result == 'IN QUEUE' for sol in sols) or 'render' in request.GET.keys():
         return render(request, 'solutions_table.html', context={ 
             'solutions': reversed(sols),

@@ -109,6 +109,7 @@ class Tester:
             rmtree(join(sln_path, 'test_folder'))
 
     def nunit_testing(self):
+        solution = self.solution
         with self.solution.log_fs as fs:
             fs.write(b'Building image\n')
         shell('docker build -t solution_{} {}'.format(self.solution.id, self.working_dir))
@@ -117,13 +118,11 @@ class Tester:
         def execute():
             with self.solution.log_fs as fs:
                 shell('docker run --name solution_container_{} solution_{}'.format(self.solution.id, self.solution.id), output=fs)
-        with self.solution.log_fs as fs:
-            fs.write(b'Running container\n')
+        solution.write_log('Running container')
         t = Thread(target=execute)
         t.start()
         t.join(self.solution.task.time_limit / 1000)
-        with self.solution.log_fs as fs:
-            fs.write(b'Running finished\n')
+        solution.write_log('Running finished')
         with self.solution.log_fs as fs:
             shell('docker cp solution_container_{}:/app/TestResults.xml {}'.format(self.solution.id, self.working_dir), fs)
         with self.solution.log_fs as fs:
@@ -132,11 +131,9 @@ class Tester:
             shell('docker image rm solution_{}'.format(self.solution.id), fs)
         if not exists(join(self.working_dir, 'TestResults.xml')):
             self.solution.set_result('Time limit')
-            with self.solution.log_fs as fs:
-                fs.write(b'Result file not found in container\n')
+            solution.write_log('Result file not found in container')
             return
-        with self.solution.log_fs as fs:
-            fs.write(b'Result file found in container\n')
+        solution.write_log('Result file found in container')
         try:
             doc = parse(join(self.working_dir, 'TestResults.xml'))
             res = get_node_value(doc.getElementsByTagName('Passed')) + '/' + get_node_value(doc.getElementsByTagName('Total'))
@@ -151,8 +148,7 @@ class Tester:
                     mes = get_node_value(el.getElementsByTagName('Message'))
                     self.solution.details += '<pre>{}</pre>'.format(mes)
         except:
-            with self.solution.log_fs as fs:
-                fs.write(b'Unknown error\n')
+            solution.write_log('Unknown error')
             res = 'TEST ERROR'
         self.solution.set_result(res)
 
@@ -184,19 +180,23 @@ class Tester:
             with self.solution.log_fs as fs:
                 fs.write(b'Testing directory created\n')
             for project in listdir(sln_path):
+                solution.write_log('Checking if {} is project'.format(project))
                 prj = project
                 project = join(sln_path, project)
                 if isdir(project) and is_project(project) and basename(project) != 'TestsProject':
                     if not self.build_and_copy(project, working_dir):
                         solution.set_result('Compilation error')
-                        with self.solution.log_fs as fs:
-                            fs.write(bytes('Failed to compile project {}\n'.format(prj), encoding='utf-8'))
+                        solution.write_log('Failed to compile project {}'.format(prj))
                         solution.save()
                         self.delete_everything()
                         start_new(self.host)
                         return
             dll_path = solution.task.tests_path()
+            with self.solution.log_fs as fs:
+                fs.write(b'Copying test file to working directory\n')
             copyfile(dll_path, join(working_dir, str(solution.task.id) + '.cs'))
+            with self.solution.log_fs as fs:
+                fs.write(b'Test file copied\n')
             for file in listdir('SprintTest'):
                 try:
                     copyfile(join('SprintTest', file), join(working_dir, file))
