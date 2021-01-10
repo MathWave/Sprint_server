@@ -47,8 +47,8 @@
         }
 {% endblock %}
 {% block content %}
-    <h3><a href="/admin/block?id={{ task.block.id }}">{{ task.block.name }}</a></h3>
-    <h5>{{ task.name }}</h5>
+    <h5><a href="/admin/block?id={{ task.block.id }}">{{ task.block.name }}</a></h5>
+    <h2>{{ task.name }} <a style="color: black;" href="/task?id={{ task.id }}"><i class="fa fa-eye"></i></a></h2>
         <form action="" method="POST" id="main_form" enctype="multipart/form-data">
             {% csrf_token %}
             <table>

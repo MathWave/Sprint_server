@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block content %}
-    <h3>{{ Block.name }}</h3>
+    <h3>{{ Block.name }} <a style="color: black;" href="/block?id={{ Block.id }}"><i class="fa fa-eye"></i></a></h3>
     <h5>Таски</h5>
     {% for task in Block.tasks %}
         <a href="/admin/task?id={{ task.id }}">{{ task.name }}</a><br>

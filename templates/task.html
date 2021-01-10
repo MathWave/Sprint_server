@@ -91,9 +91,7 @@
         <h5>
             <a href="/block?id={{ task.block.id }}">Обратно к блоку</a>
         </h5>
-        <h2>
-            {{ task.name }}
-        </h2>
+        <h2>{{ task.name }} {% if can_edit %}<a style="color: black;" href="/admin/task?id={{ task.id }}"><i class="fa fa-pencil"></i></a>{% endif %}</h2>
         <hr>
         <h3>Легенда</h3>
         {% autoescape off %}

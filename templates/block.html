@@ -5,7 +5,7 @@
 {% block title %}{{ Block.name }}{% endblock %}
 
 {% block content %}
-    <h2>{{ Block.name }}</h2>
+    <h3>{{ Block.name }} {% if can_edit %}<a style="color: black;" href="/admin/block?id={{ Block.id }}"><i class="fa fa-pencil"></i></a> {% endif %}</h3>
     <h5>Таски</h5>
     <table>
         {% for task in Block.tasks %}

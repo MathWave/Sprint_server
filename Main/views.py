@@ -117,6 +117,9 @@ def solutions(request):
     sols = solutions_filter(request.GET)
     for key in request.GET.keys():
         req += '&{}={}'.format(key, request.GET[key])
+    if request.method == 'POST':
+        Solution.objects.get(id=request.POST['DELETE_SOLUTION']).delete()
+        return HttpResponseRedirect('/admin/solutions?block_id={}{}'.format(current_block.id, req))
     return render(request, 'solutions.html', context={'Block': current_block,
                                                       'filter': ' '.join([str(sol.id) for sol in sols]),
                                                       'solutions': sols,
@@ -315,6 +318,7 @@ def block(request):
         return HttpResponseRedirect('/main')
     return render(request, 'block.html', context={'Block': current_block,
                                                   'is_admin': check_admin(request.user),
+                                                  'can_edit': check_admin_on_course(request.user, current_block.course),
                                                   'user': request.user})
 
 

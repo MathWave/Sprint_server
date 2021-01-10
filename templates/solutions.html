@@ -235,6 +235,7 @@
                     <th scope="col">Результат</th>
                     <th scope="col">Оценка</th>
                     <th scope="col">Комментарий</th>
+                    <th scope="col">Действия</th>
                 </tr>
             </thead>
             <tbody>
@@ -273,6 +274,12 @@
                             {% else %}
                                 <p>Нет комментария</p>
                             {% endif %}
+                        </td>
+                        <td>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <button name="DELETE_SOLUTION" value="{{ solution.id }}" onclick="var del = confirm('Подтвердите удаление');if (del){this.form.submit();}" class="btn btn-danger" type="игеещт"><i class="fa fa-trash"></i></button>
+                            </form>
                         </td>
                      </tr>
                 {% endfor %}

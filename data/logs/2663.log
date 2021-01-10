@@ -5,14 +5,14 @@ Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
   Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2658\Solution\SampleProject\SampleProject.csproj (за 66 ms).
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2658\Solution\SampleProject\bin\Debug\SampleProject.dll
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2663\Solution\SampleProject\SampleProject.csproj (за 62 ms).
+  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2663\Solution\SampleProject\bin\Debug\SampleProject.dll
 
 Сборка успешно завершена.
     Предупреждений: 0
     Ошибок: 0
 
-Прошло времени 00:00:01.38
+Прошло времени 00:00:01.07
 Checking if SampleSolution.sln is project
 Checking if test_folder is project
 Copying test file to working directory
@@ -27,9 +27,9 @@ Building image
 Image built successfully
 Running container
 Running finished
-solution_container_2658
-Untagged: solution_2658:latest
-Deleted: sha256:d9fa5f162e9097ac63d8f56132067ad4fc4f1902c63f5e67e8f3750ea132707d
+solution_container_2663
+Untagged: solution_2663:latest
+Deleted: sha256:31f268f94ab274701fef104c1084e81a37f83e3fdd3f1cad9780058b2e158c68
 Result file found in container
 Testing directory created
 Checking if SampleProject is project
@@ -37,14 +37,14 @@ Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
   Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2658\Solution\SampleProject\SampleProject.csproj (за 66 ms).
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2658\Solution\SampleProject\bin\Debug\SampleProject.dll
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2663\Solution\SampleProject\SampleProject.csproj (за 63 ms).
+  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2663\Solution\SampleProject\bin\Debug\SampleProject.dll
 
 Сборка успешно завершена.
     Предупреждений: 0
     Ошибок: 0
 
-Прошло времени 00:00:01.23
+Прошло времени 00:00:01.27
 Checking if SampleSolution.sln is project
 Checking if test_folder is project
 Copying test file to working directory
@@ -59,7 +59,7 @@ Building image
 Image built successfully
 Running container
 Running finished
-solution_container_2658
-Untagged: solution_2658:latest
-Deleted: sha256:8459ab0c4afa1b7d2c89c3397331240ba2096f3aebd7afc9be894ae2ee704aa5
+solution_container_2663
+Untagged: solution_2663:latest
+Deleted: sha256:a292f4a8940d1ab8734a3e4b9507f3516c4a4b36bc6899faa77fc82456a2d0ac
 Result file found in container
