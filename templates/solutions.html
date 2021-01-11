@@ -224,6 +224,9 @@
         <button style="margin-top: 10px;" class="btn btn-dark" onclick="retest()"><i class="fa fa-undo"></i> Перетест</button>
         <hr>
         <h5>Решения</h5>
+        <form method="POST" id="delete_form">
+            {% csrf_token %}
+        </form>
         <table class="table">
             <thead>
                 <tr>
@@ -276,10 +279,8 @@
                             {% endif %}
                         </td>
                         <td>
-                            <form method="POST">
-                                {% csrf_token %}
-                                <button name="DELETE_SOLUTION" value="{{ solution.id }}" onclick="var del = confirm('Подтвердите удаление');if (del){this.form.submit();}" class="btn btn-danger" type="игеещт"><i class="fa fa-trash"></i></button>
-                            </form>
+                            <button class="btn btn-primary" onclick="window.location.href='/admin/download?block_id={{ Block.id }}&solution_id={{ solution.id }}';"><i class="fa fa-download"></i></button>
+                            <button name="DELETE_SOLUTION" form="delete_form" value="{{ solution.id }}" onclick="var del = confirm('Подтвердите удаление');if (del){this.form.submit();}" class="btn btn-danger" type="игеещт"><i class="fa fa-trash"></i></button>
                         </td>
                      </tr>
                 {% endfor %}

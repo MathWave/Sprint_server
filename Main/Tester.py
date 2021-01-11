@@ -192,11 +192,9 @@ class Tester:
                         start_new(self.host)
                         return
             dll_path = solution.task.tests_path()
-            with self.solution.log_fs as fs:
-                fs.write(b'Copying test file to working directory\n')
+            solution.write_log('Copying test file to working directory')
             copyfile(dll_path, join(working_dir, str(solution.task.id) + '.cs'))
-            with self.solution.log_fs as fs:
-                fs.write(b'Test file copied\n')
+            solution.write_log('Test file copied')
             for file in listdir('SprintTest'):
                 try:
                     copyfile(join('SprintTest', file), join(working_dir, file))
@@ -209,8 +207,7 @@ class Tester:
             build_tests_cmd += self.solution.task.tests_path()
             if exists(join(self.working_dir, 'tests.dll')):
                 remove(join(self.working_dir, 'tests.dll'))
-            with self.solution.log_fs as fs:
-                fs.write(b'Building tests file started\n')
+            solution.write_log('Building tests file started')
             with self.solution.log_fs as fs:
                 shell(build_tests_cmd, fs)
             with self.solution.log_fs as fs:
@@ -223,8 +220,7 @@ class Tester:
                 self.nunit_testing()
             else:
                 solution.set_result('TEST ERROR')
-                with self.solution.log_fs as fs:
-                    fs.write(b'Failed to compile tests\n')
+                solution.write_log('Failed to compile tests')
         except:
             solution.set_result('TEST ERROR')
             raise

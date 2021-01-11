@@ -8,14 +8,10 @@ namespace Project1
         static void Main(string[] args)
         {
             string line = Console.ReadLine();
-if (line != "123")
-{
-Console.WriteLine();
-Console.WriteLine();
-Console.WriteLine();
-}
-
-        }
+            Console.WriteLine(line);
+            Console.WriteLine(line);
+            Console.WriteLine(line);
+        } 
 
         public static int Sum(int a, int b)
         {
