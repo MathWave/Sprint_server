@@ -2,6 +2,27 @@
 
 {% block title %}Админка{% endblock %}
 
+{% block styles %}
+  .form {
+    margin-bottom: 15px;
+  }
+{% endblock %}
+
+{% block scripts %}
+  function change() {
+    let surname = document.getElementById('surname').value;
+    let name = document.getElementById('name').value;
+    let middle_name = document.getElementById('middle_name').value;
+    let group = document.getElementById('group').value;
+    let email = document.getElementById('email').value;
+    let invite = document.getElementById('inviteButton');
+    console.log(surname + ' ' + name + ' ' + middle_name + ' ' + group + ' ' + email);
+    let dis = surname == '' || name == '' || middle_name == '' || group == '' || email == '' || email.indexOf('@') == -1 || email.indexOf('.') == -1 || email.indexOf('.') < email.indexOf('@');
+    console.log(dis);
+    invite.disabled = dis;
+  }
+{% endblock %}
+
 {% block content %}
     <h2>Доступные курсы</h2>
     {% for key, value in blocks.items %}
@@ -47,6 +68,16 @@
         {% endif %}
     {% endfor %}
     {% if is_superuser %}
+    <h3 style="margin-top: 30px;">Пригласить пользователя</h3>
+    <form method="POST">
+      {% csrf_token %}
+      <input name="surname" placeholder="Фамилия" class="form" id="surname" onchange="change();"><br>
+      <input name="name" placeholder="Имя" class="form" id="name" onchange="change();"><br>
+      <input name="middle_name" placeholder="Отчество" class="form" id="middle_name" onchange="change();"><br>
+      <input name="group" placeholder="Группа" class="form" id="group" onchange="change();"><br>
+      <input name="email" placeholder="Почта" class="form" id="email" onchange="change();"><br>
+      <button type="submit" id='inviteButton' name="invite" value="Пригласить" class="btn btn-dark" disabled>Пригласить</button>
+    </form>
     <div>
         <center>
             <button target="_blank" rel="noopener noreferrer" type="submit" class="btn btn-dark" onclick="window.location.href = '/admin/'" value="Django admin"><i class="fa fa-shield"></i> Django admin</button>

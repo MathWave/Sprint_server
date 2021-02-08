@@ -1,0 +1,19 @@
+{% for solution in solutions %}
+<tr style="background-color: {% if solution.result == 'TESTING' %}#FFE2B7{% else %}{% if solution.result == 'IN QUEUE' %}#EAEAFF{% endif %}{% endif %};">
+    <td>
+        <b><a href="/admin/solution?id={{ solution.id }}">{{ solution.id }}</a></b>
+    </td>
+    <td>
+        <a href="/admin/task?id={{ solution.task.id }}">{{ solution.task.name }}</a>
+    </td>
+    <td>
+        {{ solution.time_sent }}
+    </td>
+    <td>
+        {{ solution.userinfo.surname }} {{ solution.userinfo.name }} {{ solution.userinfo.middle_name }}
+    </td>
+    <td>
+        <b>{{ solution.result }}</b>
+    </td>
+</tr>
+{% endfor %}

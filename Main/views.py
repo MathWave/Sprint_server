@@ -17,11 +17,36 @@ from json import load, dumps, loads
 from .Tester import Tester, shell
 from .main import solutions_filter, check_admin_on_course, re_test, check_admin, check_teacher, random_string, \
     send_email, check_permission_block, is_integer, check_god, blocks_available, check_login, \
-    get_restore_hash, block_solutions_info, delete_folder, solution_path, can_send_solution, get_in_html_tag
-from .models import System, Solution, Block, Subscribe, Course, UserInfo, Task, Restore, ExtraFile
+    get_restore_hash, block_solutions_info, delete_folder, solution_path, can_send_solution, get_in_html_tag, register_user
+from .models import System, Solution, Block, Subscribe, Course, UserInfo, Task, Restore, ExtraFile, Message
 from os.path import sep, join, exists, isfile, dirname
 from shutil import rmtree, copytree, make_archive, copyfile
 from Sprint.settings import MEDIA_ROOT
+from Main.templatetags.filters import *
+
+
+def download_rating(request):
+    block = Block.objects.get(id=request.GET['block_id'])
+    if not check_admin_on_course(request.user, block.course):
+        return HttpResponseRedirect('/main')
+    s = 'ФИО,'
+    tasks = block.tasks
+    users = [UserInfo.objects.get(user=user.user) for user in Subscribe.objects.filter(course=block.course, is_assistant=False, user__is_staff=False)]
+    for task in tasks:
+        try:
+            s += task.name.split('.')[0] + ','
+        except IndexError:
+            s += task.name + ','
+    s += 'Score,Summ\n'
+    for user in users:
+        s += str(user) + ','
+        for task in tasks:
+            s += str(mark_for_task(task, user.user)) + ','
+        s += '0,' + str(mark_for_block(block, user.user)) + '\n'
+    response = HttpResponse(bytes(s, encoding='utf-8'), content_type='application/force-download')
+    response['Content-Disposition'] = 'inline; filename=rating.csv'
+    return response
+
 
 
 def download(request):
@@ -44,6 +69,14 @@ def download(request):
     response['Content-Disposition'] = 'inline; filename=solutions.zip'
     rmtree(dirname(cur_folder))
     return response
+
+
+def queue(request):
+    block = Block.objects.get(id=request.GET['block_id'])
+    if not check_admin_on_course(request.user, block.course):
+        return HttpResponseRedirect('/main')
+    return render(request, 'queue.html', {'Block': block})
+
 
 
 def docs(request):
@@ -128,13 +161,14 @@ def solutions(request):
                                                       'solutions_info': block_solutions_info(current_block)})
 
 
+def messages(request):
+    current_block = Block.objects.get(id=request.GET['block_id'])
+    return render(request, 'messages.html', context={'Block': current_block})
+
+
 def users_settings(request):
     current_course = Course.objects.get(id=request.GET['course_id'])
-    if not check_teacher(request.user):
-        return HttpResponseRedirect('/main')
-    try:
-        Subscribe.objects.get(user=request.user, course=current_course)
-    except ObjectDoesNotExist:
+    if not check_admin_on_course(request.user, current_course):
         if not request.user.is_superuser:
             return HttpResponseRedirect('/main')
     if request.method == 'POST':
@@ -142,14 +176,14 @@ def users_settings(request):
             line = request.POST['input']
             if '@' in line:
                 users = UserInfo.objects.filter(user__email=line)
-            elif any(c.isdigit() for c in line) or line == '-':
+            elif any(c.isdigit() for c in line):
                 users = UserInfo.objects.filter(group=line)
             else:
                 try:
                     s, n, m = line.split(' ')
                 except ValueError:
                     s, n, m = '', '', ''
-                users = UserInfo.objects.filter(surname=s, name=n, middle_name=m)
+                users = list(UserInfo.objects.filter(surname=s, name=n, middle_name=m)) + list(UserInfo.objects.filter(group=line))
             for user in users:
                 try:
                     Subscribe.objects.get(user=user.user, course=current_course)
@@ -169,24 +203,19 @@ def users_settings(request):
                 except ObjectDoesNotExist:
                     flag = True
                 if flag:
-                    user = User.objects.create_user(username=u['email'],
-                                                    email=u['email'],
-                                                    password=password)
-                    UserInfo.objects.create(
-                        surname=u['surname'],
-                        name=u['name'],
-                        middle_name=u['middle_name'],
-                        group=u['group'],
-                        user=user
-                    )
+                    register_user(u)
+                try:
+                    Subscribe.objects.get(user=user, course=current_course)
+                except ObjectDoesNotExist:
                     Subscribe.objects.create(user=user, course=current_course, is_assistant=False)
-                    send_email('You have been registered in Sprint!', u['email'],
-                               'Your password is: {}\nPlease change it after login in settings!'.format(password))
         else:
-            username = request.POST['user']
+            key = list(request.POST.keys())[1]
+            role = request.POST[key]
+            username = '_'.join(key.split('_')[1:])
             s = Subscribe.objects.get(user__email=username, course=current_course)
-            s.is_assistant = not s.is_assistant
+            s.is_assistant = role == 'Ассистент'
             s.save()
+        return HttpResponseRedirect('/admin/users_settings?course_id=' + str(current_course.id))
     return render(request, 'users_settings.html', context={'course': current_course})
 
 
@@ -197,6 +226,15 @@ def task(request):
         return HttpResponseRedirect('/main')
     can_send = can_send_solution(user, current_task)
     if request.method == 'POST':
+        if 'message' in request.POST.keys():
+            Message.objects.create(
+                task=current_task,
+                sender=request.user,
+                reply_to=None,
+                for_all=False,
+                text=request.POST['message']
+            )
+            return HttpResponseRedirect('/task?id=' + str(current_task.id))
         if 'file' in request.FILES.keys() and can_send:
             current_solution = Solution.objects.create(
                 task=current_task,
@@ -337,7 +375,7 @@ def task_settings(request):
             i = action.split('_')[-1]
             ef = ExtraFile.objects.get(id=int(i))
             with open(ef.path, 'wb') as fs:
-                fs.write(bytes(request.POST['extra_file_text_' + i], encoding='utf-8'))
+                fs.write(bytes(request.POST['extra_file_text_' + i].strip(), encoding='utf-8'))
             ef.for_compilation = '{}_for_compilation'.format(ef.id) in request.POST.keys()
             ef.save()
         elif action == 'SAVE':
@@ -348,6 +386,7 @@ def task_settings(request):
             current_task.full_solution = 'full_solution' in request.POST.keys()
             current_task.mark_formula = request.POST['mark_formula']
             current_task.show_result = 'show_result' in request.POST.keys()
+            current_task.priority = request.POST['priority']
             for ef in ExtraFile.objects.filter(task=current_task):
                 ef.sample = 'sample_' + str(ef.id) in request.POST.keys()
                 ef.save()
@@ -494,6 +533,7 @@ def block_settings(request):
             current_block.time_start = time_start
             current_block.time_end = time_end
             current_block.show_rating = "rating" in request.POST.keys()
+            current_block.priority = request.POST['priority']
             current_block.save()
             return HttpResponseRedirect('/admin/block?id={}'.format(current_block.id))
     return render(request, 'block_settings.html', context={'is_superuser': check_teacher(request.user),
@@ -524,6 +564,14 @@ def solutions_table(request):
     return HttpResponse('done')
 
 
+def queue_table(request):
+    block = Block.objects.get(id=request.GET['block_id'])
+    if not check_admin_on_course(request.user, block):
+        return HttpResponse('get away from here')
+    sols = list(Solution.objects.filter(task__block=block, result='TESTING')) + list(Solution.objects.filter(task__block=block, result='IN QUEUE'))
+    return render(request, 'queue_table.html', {'solutions': sorted(sols, key=lambda x: -x.task.block.priority * 10 - x.task.priority)})
+
+
 def get_result_data(request):
     solution = Solution.objects.get(id=request.GET['id'])
     if not check_admin_on_course(request.user, solution.task.block.course):
@@ -550,13 +598,22 @@ def rating(request):
     current_block = Block.objects.get(id=request.GET['block_id'])
     if not check_admin_on_course(request.user, current_block.course) and not current_block.show_rating:
         return HttpResponseRedirect('/main')
-    return render(request, 'rating.html', context={'Block': Block.objects.get(id=request.GET['block_id'])})
+    return render(request, 'rating.html', context={'Block': Block.objects.get(id=request.GET['block_id']), 'admin_course': check_admin_on_course(request.user, current_block.course)})
 
 
 def admin(request):
     if not check_admin(request.user):
         return HttpResponseRedirect('/main')
     if request.method == 'POST':
+        if 'invite' in request.POST.keys():
+            register_user(request.POST)
+            return HttpResponseRedirect('/admin/main')
+        name = request.POST['name']
+        current_block = Block.objects.create(name=name,
+                                            course=course,
+                                            opened=False,
+                                            time_start=timezone.now(),
+                                            time_end=timezone.now())
         course = Course.objects.get(id=request.POST['course_id'])
         if not check_teacher(request.user):
             return HttpResponseRedirect('/main')
@@ -565,12 +622,6 @@ def admin(request):
         except ObjectDoesNotExist:
             if not request.user.is_superuser:
                 return HttpResponseRedirect('/main')
-        name = request.POST['name']
-        current_block = Block.objects.create(name=name,
-                                             course=course,
-                                             opened=False,
-                                             time_start=timezone.now(),
-                                             time_end=timezone.now())
         return HttpResponseRedirect('/admin/block?id=' + str(current_block.id))
     return render(request, "admin.html", context={"blocks": blocks_available(request.user),
                                                   'is_superuser': check_god(request.user),
@@ -603,12 +654,14 @@ def settings(request):
     context = {'is_admin': check_admin(request.user), 'form': ChangePasswordForm()}
     if request.method == 'POST':
         old = request.POST['old']
-        new = request.POST['new']
-        again = request.POST['again']
+        new = request.POST['new'].strip()
+        again = request.POST['again'].strip()
         username = request.user.username
         user = authenticate(username=username, password=old)
         if user is None:
             context['error'] = 'Неверный пароль'
+        if len(new) < 8 or not any([a.isdigit() for a in new]) or new.lower() == new:
+            context['error'] = 'Пароль слишком слабый'
         elif new != again:
             context['error'] = 'Пароли не совпадают'
         elif new == '' or new.replace(' ', '') == '':

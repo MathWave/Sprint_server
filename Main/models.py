@@ -26,6 +26,11 @@ class Course(models.Model):
     def subscribes(self):
         return sorted(Subscribe.objects.filter(course=self), key=lambda s: s.user.email)
 
+
+    @property
+    def students(self):
+        return sorted(Subscribe.objects.filter(course=self, is_assistant=False, user__is_staff=False), key=lambda s: s.user.email)
+
     def __str__(self):
         return self.name
 
@@ -37,7 +42,11 @@ class Block(models.Model):
     time_end = models.DateTimeField()
     opened = models.BooleanField(default=False)
     show_rating = models.BooleanField(default=True)
+    priority = models.IntegerField(default=5)
     
+    @property
+    def messages(self):
+        return Message.objects.filter(task__block=self)
 
     def __str__(self):
         return self.name
@@ -111,6 +120,41 @@ class Task(models.Model):
     show_details = models.BooleanField(default=False)
     full_solution = models.BooleanField(default=False)
     mark_formula = models.TextField(default='None')
+    priority = models.IntegerField(default=5)
+
+    @property
+    def students_solutions(self):
+        students = [sub.user for sub in Subscribe.objects.filter(course=self.block.course)]
+        solutions = Solution.objects.filter(task=self)
+        return [sol for sol in solutions if sol.user in students]
+
+    @property
+    def correct_count(self):
+        solutions = self.students_solutions
+        count = 0
+        for sol in solutions:
+            res = sol.result.split('/')
+            if len(res) == 2 and res[0] == res[1]:
+                count += 1
+        return count
+
+    @property
+    def solutions_count(self):
+        return len(self.students_solutions)
+
+    @property
+    def partially_passed(self):
+        solutions = self.students_solutions
+        count = 0
+        for sol in solutions:
+            res = sol.result.split('/')
+            if len(res) == 2 and res[0] != res[1]:
+                count += 1
+        return count
+
+    @property
+    def solutions_with_error(self):
+        return self.solutions_count - self.correct_count - self.partially_passed
 
     @property
     def samples(self):
@@ -348,6 +392,13 @@ class ExtraFile(models.Model):
         with open(self.path, 'wb') as fs:
             fs.write(data)
 
+
+class Message(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    reply_to = models.ForeignKey('Message', on_delete=models.CASCADE, null=True)
+    for_all = models.BooleanField()
+    text = models.TextField()
 
 
 @receiver(post_delete, sender=Task)

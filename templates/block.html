@@ -25,7 +25,10 @@
             </tr>
         {% endfor %}
     </table>
+    {% if Block.show_rating %}
     <a href="/rating?block_id={{ Block.id }}" class="btn btn-dark" style="margin-top: 15px;"><i class="fa fa-star"></i> Рейтинг</a>
+    {% endif %}
+    <a href="/messages?block_id={{ Block.id }}" class="btn btn-dark" style="margin-top: 15px;"><i class="fa fa-comments"></i> Сообщения</a>
     <hr>
     {% if Block.opened %}
         Открыто для просмотра

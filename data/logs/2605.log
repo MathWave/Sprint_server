@@ -1,108 +1,71 @@
 Testing directory created
+Checking if SampleProject is project
 Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj (за 85 ms).
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\bin\Debug\SampleProject.dll
+(CMicrosoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпора  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\soluti  Все проекты обновлены для восстановления.
+C:\Program Files\dotne  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\bin\Debug\SampleProject.dll
 
 Сборка успешно завершена.
     Предупреждений: 0
     Ошибок: 0
 
-Прошло времени 00:00:01.66
+Прошло времени 00:00:03.88
+Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\obj\Debug\netcoreapp3.1\SampleProject.csprojAssemblyReference.cache' because it is being used by another process. [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018: непредвиденная ошибка при выполнении задачи CreateAppHost". [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018: System.IO.IOException: The process cannot access the file 'C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\obj\Debug\netcoreapp3.1\apphost.exe' because it is being used by another process. [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at System.IO.FileSystem.CopyFile(String sourceFullPath, String destFullPath, Boolean overwrite) [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite) [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at Microsoft.NET.HostModel.AppHost.BinaryUtils.CopyFile(String sourcePath, String destinationPath) [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at Microsoft.NET.HostModel.AppHost.HostWriter.CreateAppHost(String appHostSourceFilePath, String appHostDestinationFilePath, String appBinaryFilePath, Boolean windowsGraphicalUserInterface, String assemblyToCopyResorcesFrom) [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at Microsoft.NET.Build.Tasks.CreateAppHost.ExecuteCore() [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at Microsoft.NET.Build.Tasks.TaskBase.Execute() [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskExecutionHost.Microsoft.Build.BackEnd.ITaskExecutionHost.Execute() [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskBuilder.ExecuteInstantiatedTask(ITaskExecutionHost taskExecutionHost, TaskLoggingContext taskLoggingContext, TaskHost taskHost, ItemBucket bucket, TaskExecutionMode howToExecuteTask) [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+
+Ошибка сборки.
+
+C:\Program Files\dotnet\sdk\5.0.100\Microsoft.Common.CurrentVersion.targets(2123,5): warning MSB3101: не удалось записать файл состояния "obj\Debug\netcoreapp3.1\SampleProject.csprojAssemblyReference.cache". The process cannot access the file 'C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\obj\Debug\netcoreapp3.1\SampleProject.csprojAssemblyReference.cache' because it is being used by another process. [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018: непредвиденная ошибка при выполнении задачи CreateAppHost". [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018: System.IO.IOException: The process cannot access the file 'C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\obj\Debug\netcoreapp3.1\apphost.exe' because it is being used by another process. [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at System.IO.FileSystem.CopyFile(String sourceFullPath, String destFullPath, Boolean overwrite) [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at System.IO.File.Copy(String sourceFileName, String destFileName, Boolean overwrite) [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at Microsoft.NET.HostModel.AppHost.BinaryUtils.CopyFile(String sourcePath, String destinationPath) [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at Microsoft.NET.HostModel.AppHost.HostWriter.CreateAppHost(String appHostSourceFilePath, String appHostDestinationFilePath, String appBinaryFilePath, Boolean windowsGraphicalUserInterface, String assemblyToCopyResorcesFrom) [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at Microsoft.NET.Build.Tasks.CreateAppHost.ExecuteCore() [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at Microsoft.NET.Build.Tasks.TaskBase.Execute() [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskExecutionHost.Microsoft.Build.BackEnd.ITaskExecutionHost.Execute() [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(460,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskBuilder.ExecuteInstantiatedTask(ITaskExecutionHost taskExecutionHost, TaskLoggingContext taskLoggingContext, TaskHost taskHost, ItemBucket bucket, TaskExecutionMode howToExecuteTask) [C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj]
+    Предупреждений: 1
+    Ошибок: 1
+
+Прошло времени 00:00:03.28
+Checking if SampleSolution.sln is project
+Checking if test_folder is project
+Copying test file to working directory
+Test file copied
 Building tests file started
 Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
 c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
+ests file started
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+error CS2012: Не удается открыть "C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\test_folder\tests.dll" для записи - "Процесс не может получить доступ к файлу "C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\test_folder\tests.dll", так как этот файл используется другим процессом.".
+Building tests file finished
+Got .dll tests file
 Building tests file finished
 Got .dll tests file
 Building image
+Building image
+Image built successfully
+Running container
 Image built successfully
 Running container
 Running finished
 solution_container_2605
 Untagged: solution_2605:latest
-Deleted: sha256:a4cedcda67dccc2b0ed42f50411838e4d12ac7dbb9ce22814f109e2872874a9e
-Result file found in container
-Testing directory created
-Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj (за 69 ms).
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\bin\Debug\SampleProject.dll
-
-Сборка успешно завершена.
-    Предупреждений: 0
-    Ошибок: 0
-
-Прошло времени 00:00:01.78
-Building tests file started
-Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
-c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-Building tests file finished
-Got .dll tests file
-Building image
-Image built successfully
-Running container
-Running finished
-solution_container_2605
-Untagged: solution_2605:latest
-Deleted: sha256:f346622059973dbff3e2c04e6b6b2e346803ba298e2ee6bb239a535d1052d78d
-Result file found in container
-Testing directory created
-Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\SampleProject.csproj (за 99 ms).
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\bin\Debug\SampleProject.dll
-
-Сборка успешно завершена.
-    Предупреждений: 0
-    Ошибок: 0
-
-Прошло времени 00:00:01.56
-Building tests file started
-Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
-c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-Building tests file finished
-Got .dll tests file
-Building image
-Testing directory created
-Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Все проекты обновлены для восстановления.
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2605\Solution\SampleProject\bin\Debug\SampleProject.dll
-
-Сборка успешно завершена.
-    Предупреждений: 0
-    Ошибок: 0
-
-Прошло времени 00:00:01.16
-Building tests file started
-Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
-c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-Building tests file finished
-Got .dll tests file
-Building image
-Image built successfully
-Running container
-Running finished
-solution_container_2605
-Untagged: solution_2605:latest
-Deleted: sha256:1791578007bbef74cb13dfa1ee1c80db749b8bc3741f490ca92d8122dfcd2427
-Result file found in container
-Image built successfully
-Running container
-Running finished
-solution_container_2605
-Untagged: solution_2605:latest
-Deleted: sha256:5399b43fc4322c28a2b42f61273f55ba4fb15c325e49f3bc29fd3be690c9c01b
+Deleted: sha256:7d49e973125a666e59509b7e5e5f5d7d38813605210fc679a305af252fc49a72
+Result file not found in container
 Result file not found in container

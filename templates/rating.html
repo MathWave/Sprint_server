@@ -6,20 +6,21 @@
 
 {% block content %}
 	<h3>Рейтинг (beta)</h3>
-	<h4><a href="/{% if current_page == 'admin' %}admin/{% endif %}block?id={{ Block.id }}">{{ Block.name }}</a></h4>
+	<h4><a style="color: black;" href="/{% if current_page == 'admin' %}admin/{% endif %}block?id={{ Block.id }}">{{ Block.name }}</a></h4>
 	<table border="1px solid black" style="width: 100%;">
 		<thead>
 			<tr>
 				<th scope="col">Студент</th>
 				{% for task in Block.tasks %}
-					<th>{{ task.name }}</th>
+					<th>{% if admin_course %}<a href="/admin/solutions?block_id={{ Block.id }}&task_name={{ task.name }}">{{ task.name }}</a>{% else %}{{ task.name }}{% endif %}</th>
 				{% endfor %}
+				<th scope="col" style="background-color: lightblue;">Оценка</th>
 			</tr>
 		</thead>
 		<tbody>
-			{% for sub in Block.course.subscribes %}
+			{% for sub in Block.course.students %} 
 					<tr>
-						<th scope="row">{{ sub.user|userinfo_by_user }}</th>
+						<th scope="row">{% if admin_course %}<a href="/admin/solutions?block_id={{ Block.id }}&user={{ sub.user|userinfo_by_user }}">{{ sub.user|userinfo_by_user }}</a>{% else %}{{ sub.user|userinfo_by_user }}{% endif %}</th>
 						{% for task in Block.tasks %}
 							{% with status=sub.user|mark_status:task %}
 								<th style="background-color: {% if status == '-' %}white{% else %}{% if sub.user|fully_marked:task %}lime{% else %}yellow{% endif %}{% endif %};">
@@ -31,8 +32,18 @@
 								</th>
 							{% endwith %}
 						{% endfor %}
+						<td style="background-color: lightblue;">
+							{% with mark=Block|mark_for_block:sub.user %}
+								{% if mark|marked %}
+									<div style="margin-left: 20px; border: 1px solid black; background: {{ mark|mark_color }}; width: 25px; text-align: center;">
+										{{ mark }}
+									</div>
+								{% endif %}
+							{% endwith %}
+						</td>
 					</tr>
 			{% endfor %}
 		</tbody>
 	</table>
+	<button class="btn btn-dark" style="margin-top: 30px;" onclick="window.location.href='/admin/download_rating?block_id={{ Block.id }}'">Скачать csv</button>
 {% endblock %}

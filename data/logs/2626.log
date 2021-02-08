@@ -1,16 +1,21 @@
 Testing directory created
+Checking if SampleProject is project
 Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
   Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2626\Solution\SampleProject\SampleProject.csproj (за 84 ms).
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2626\Solution\SampleProject\SampleProject.csproj (за 152 ms).
   SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2626\Solution\SampleProject\bin\Debug\SampleProject.dll
 
 Сборка успешно завершена.
     Предупреждений: 0
     Ошибок: 0
 
-Прошло времени 00:00:01.11
+Прошло времени 00:00:02.95
+Checking if SampleSolution.sln is project
+Checking if test_folder is project
+Copying test file to working directory
+Test file copied
 Building tests file started
 Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
 c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
@@ -23,32 +28,5 @@ Running container
 Running finished
 solution_container_2626
 Untagged: solution_2626:latest
-Deleted: sha256:ad8ef4f16490a9272941e9f94f12a993490e43d6e621789f98aa5a9471dfbf0c
-Result file found in container
-Testing directory created
-Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2626\Solution\SampleProject\SampleProject.csproj (за 116 ms).
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2626\Solution\SampleProject\bin\Debug\SampleProject.dll
-
-Сборка успешно завершена.
-    Предупреждений: 0
-    Ошибок: 0
-
-Прошло времени 00:00:01.60
-Building tests file started
-Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
-c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-Building tests file finished
-Got .dll tests file
-Building image
-Image built successfully
-Running container
-Running finished
-solution_container_2626
-Untagged: solution_2626:latest
-Deleted: sha256:047de64c7b302382d31dbf6c33f035c038837dc4d6c9e35630a1bbcd7975ed28
+Deleted: sha256:85ca8f80f1e2d9ab2286b3dd5362d2f757829118708ed82ef542a7b25cd29d1a
 Result file found in container

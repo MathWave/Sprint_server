@@ -91,33 +91,86 @@
         <h5>
             <a href="/block?id={{ task.block.id }}">Обратно к блоку</a>
         </h5>
-        <h2>{{ task.name }} {% if can_edit %}<a style="color: black;" href="/admin/task?id={{ task.id }}"><i class="fa fa-pencil"></i></a>{% endif %}</h2>
+        <h2>
+            {{ task.name }} 
+            {% if can_edit %}
+                <a style="color: black;" href="/admin/task?id={{ task.id }}"><i class="fa fa-pencil"></i></a>
+            {% endif %}
+            <a style="color: black;" href="" data-toggle="modal" data-target="#messageModal"><i class="fa fa-comment"></i></a>
+        </h2>
+        <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="messageModalLabel">Написать сообщение преподавателям</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <textarea name="message" rows="10" cols="50" style="resize: none;"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
         <hr>
-        <h3>Легенда</h3>
-        {% autoescape off %}
-            {{ task.legend }}
-        {% endautoescape %}
-        <hr>
-        <h3>Формат входных данных</h3>
-            {% autoescape off %}
+        <div class="row">
+            <div class="col-9">
+                <h3>Легенда</h3>
+                {% autoescape off %}
+                    {{ task.legend }}
+                {% endautoescape %}
+                <hr>
+                <h3>Формат входных данных</h3>
+                    {% autoescape off %}
 
-            {{ task.input }}
-            {% endautoescape %}
+                    {{ task.input }}
+                    {% endautoescape %}
 
-        <hr>
-        <h3>Формат выходных данных</h3>
-            {% autoescape off %}
+                <hr>
+                <h3>Формат выходных данных</h3>
+                    {% autoescape off %}
 
-            {{ task.output }}
-            {% endautoescape %}
+                    {{ task.output }}
+                    {% endautoescape %}
 
-        <hr>
-        <h3>Спецификации</h3>
-            {% autoescape off %}
+                <hr>
+                <h3>Спецификации</h3>
+                    {% autoescape off %}
 
-            {{ task.specifications }}
-            {% endautoescape %}
-
+                    {{ task.specifications }}
+                    {% endautoescape %}
+            </div>
+            <div class="col"></div>
+            <div class="col-2">
+                <h5>Таски</h5>
+                <table>
+                {% for t in task.block.tasks %}
+                    <tr>
+                    {% with mark=t|mark_for_task:user %}
+                        {% if mark|marked %}
+                            <td>
+                            <div style="margin-left: 20px; border: 1px solid black; background: {{ mark|mark_color }}; width: 25px; text-align: center;">
+                                {{ mark }}
+                            </div>
+                            </td>
+                        {% endif %}
+                    {% endwith %}
+                    <td>
+                    <a href="/task?id={{ t.id }}">{% if t.id == task.id %}<b>{{ t.name }}</b>{% else %}{{ t.name }}{% endif %}</a><br>
+                    </td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
         <hr>
         <h3>Самплы</h3>
             {% for sample in task.samples %}

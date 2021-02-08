@@ -1,5 +1,7 @@
 ﻿{% extends 'base.html' %}
 
+{% load filters %}
+
 {% block title %}{{ task.name }}|настройки{% endblock %}
 
 {% block scripts %}
@@ -148,7 +150,19 @@
                         <input form="main_form" type="checkbox" id="show_details" name="show_details" {{ task.showable }}>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        Приоритет
+                    </td>
+                    <td>
+                        <select name="priority">
+                            {% for i in 10|num_range %}
+                                <option {% if task.priority == i %}selected{% endif %}>{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
 
+                </tr>
 
 
 
@@ -306,8 +320,12 @@
             </table>
             <hr>
             <button type="submit" name="ACTION" value="SAVE" class="btn btn-dark"><i class="fa fa-save"></i> Сохранить</button>
-            {% if is_superuser %}
-            <button type="submit" name="ACTION" value="DELETE" class="btn btn-dark"><i class="fa fa-trash"></i> Удалить таск</button>
-            {% endif %}
         </form>
+        {% if is_superuser %}
+        <form style="margin-top: 15px;" id="another_form" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="ACTION" value="DELETE" form="another_form">
+            <button form="another_form" type="button" onclick="let del = confirm('Данное действие приведет к удалению условия, тестов, дополнительных файлов и решений, привязанных к этому таску. Точно удаляем?'); if (del) {this.form.submit();}" class="btn btn-dark"><i class="fa fa-trash"></i> Удалить таск</button>
+        </form>
+        {% endif %}
 {% endblock %}

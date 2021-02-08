@@ -1,18 +1,17 @@
 Testing directory created
-Checking if .vs is project
 Checking if SampleProject is project
 Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
   Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2669\Solution\SampleProject\SampleProject.csproj (за 71 ms).
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2669\Solution\SampleProject\SampleProject.csproj (за 154 ms).
   SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2669\Solution\SampleProject\bin\Debug\SampleProject.dll
 
 Сборка успешно завершена.
     Предупреждений: 0
     Ошибок: 0
 
-Прошло времени 00:00:02.34
+Прошло времени 00:00:02.30
 Checking if SampleSolution.sln is project
 Checking if test_folder is project
 Copying test file to working directory
@@ -29,5 +28,5 @@ Running container
 Running finished
 solution_container_2669
 Untagged: solution_2669:latest
-Deleted: sha256:d886848a4740b30278220b459fae54c32e3dad6ba0e529cc4858be6ea34eeb4b
+Deleted: sha256:eff407df6dcb6374167651673fca6648297c97fd063b3ecdf6f04922acb830e3
 Result file found in container

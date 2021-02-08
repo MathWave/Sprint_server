@@ -2,7 +2,7 @@
 
 {% load filters %}
 
-{% block title %}{{ Block.name }}|решения{% endblock %}
+{% block title %}{{ Block.name }} | решения{% endblock %}
 
 {% block scripts %}
         function filter() {
@@ -157,71 +157,97 @@
             </div>
           </div>
         </div>
-        <h3><a href="/admin/block?id={{ Block.id }}">Обратно к настройкам блока</a></h3>
-        <h5>
-            {{ Block.name }}
-        </h5>
-        <h2>Фильтр</h2>
-        <table>
-            <tr>
-                <td>Id</td>
-                <td><input class="input_field" type="text" placeholder="Id" id="idi" name="idi" value="{{ options.solution_id }}"></td>
-            </tr>
-            <tr>
-                <td>Таск</td>
-                <td>
-                    <select class="input_field" id="task_name" name="task_name">
-                        <option value="">Все</option>
-                        {% for task in solutions_info.tasks %}
-                            <option value="{{ task.name }}" {% if options.task_name == task.name %}selected{% endif %}>{{ task.name }}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Пользователь</td>
-                <td>
-                    <select class="input_field" id="user" name="user">
-                        <option value="">Все</option>
-                        {% for u in solutions_info.users %}
-                            <option value="{{ u }}" {% if options.user == u %}selected{% endif %}>{{ u }}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Группа</td>
-                <td>
-                    <select class="input_field" id="group" name="group">
-                        <option value="">Все</option>
-                        {% for group in solutions_info.groups %}
-                            <option value="{{ group }}" {% if options.group == group %}selected{% endif %}>{{ group }}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Последнее решение</td>
-                <td><input type="checkbox" id="last_solution" name="last_solution" {% if options.last_solution %}checked{% endif %}>{{ option.last_solution }}</td>
-            </tr>
-            <tr>
-                <td>Лучший результат</td>
-                <td><input type="checkbox" id="best_result" name="best_result" {% if options.best_result %}checked{% endif %}></td>
-            </tr>
-            <tr>
-                <td>Только студенты</td>
-                <td><input type="checkbox" id="only_students" name="only_students" {% if options.only_students %}checked{% endif %}></td>
-            </tr>
-            <tr>
-                <td>Еще не проверено</td>
-                <td><input type="checkbox" id="not_seen" name="not_seen" {% if options.not_seen %}checked{% endif %}></td>
-            </tr>
-        </table>
-        
-        <button type="button" class="btn btn-dark" id="control" onclick="filter()" style="margin-top: 20px;"><i class="fa fa-check"></i> Применить</button><br>
-        <button type="button" class="btn btn-dark" id="control" onclick="window.location.href='/admin/solutions?block_id={{ Block.id }}'" style="margin-top: 10px;"><i class="fa fa-times"></i> Сбросить</button><br>
-        <button style="margin-top: 10px;" class="btn btn-dark" onclick="download()"><i class="fa fa-download"></i> Скачать решения</button><br>
-        <button style="margin-top: 10px;" class="btn btn-dark" onclick="retest()"><i class="fa fa-undo"></i> Перетест</button>
+        <h2><a href="/admin/block?id={{ Block.id }}">{{ Block.name }}</a></h2>
+    <div class="row">
+        <div class="col-6">
+            <h4>Фильтр</h4>
+            <table>
+                <tr>
+                    <td>Id</td>
+                    <td><input class="input_field" type="text" placeholder="Id" id="idi" name="idi" value="{{ options.solution_id }}"></td>
+                </tr>
+                <tr>
+                    <td>Таск</td>
+                    <td>
+                        <select class="input_field" id="task_name" name="task_name">
+                            <option value="">Все</option>
+                            {% for task in solutions_info.tasks %}
+                                <option value="{{ task.name }}" {% if options.task_name == task.name %}selected{% endif %}>{{ task.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Пользователь</td>
+                    <td>
+                        <select class="input_field" id="user" name="user">
+                            <option value="">Все</option>
+                            {% for u in solutions_info.users %}
+                                <option value="{{ u }}" {% if options.user == u %}selected{% endif %}>{{ u }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Группа</td>
+                    <td>
+                        <select class="input_field" id="group" name="group">
+                            <option value="">Все</option>
+                            {% for group in solutions_info.groups %}
+                                <option value="{{ group }}" {% if options.group == group %}selected{% endif %}>{{ group }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Последнее решение</td>
+                    <td><input type="checkbox" id="last_solution" name="last_solution" {% if options.last_solution %}checked{% endif %}>{{ option.last_solution }}</td>
+                </tr>
+                <tr>
+                    <td>Лучший результат</td>
+                    <td><input type="checkbox" id="best_result" name="best_result" {% if options.best_result %}checked{% endif %}></td>
+                </tr>
+                <tr>
+                    <td>Только студенты</td>
+                    <td><input type="checkbox" id="only_students" name="only_students" {% if options.only_students %}checked{% endif %}></td>
+                </tr>
+                <tr>
+                    <td>Еще не проверено</td>
+                    <td><input type="checkbox" id="not_seen" name="not_seen" {% if options.not_seen %}checked{% endif %}></td>
+                </tr>
+            </table>
+            
+            <button type="button" class="btn btn-dark" id="control" onclick="filter()" style="margin-top: 20px;"><i class="fa fa-check"></i> Применить</button><br>
+            <button type="button" class="btn btn-dark" id="control" onclick="window.location.href='/admin/solutions?block_id={{ Block.id }}'" style="margin-top: 10px;"><i class="fa fa-times"></i> Сбросить</button><br>
+            <button style="margin-top: 10px;" class="btn btn-dark" onclick="download()"><i class="fa fa-download"></i> Скачать решения</button><br>
+            <button style="margin-top: 10px;" class="btn btn-dark" onclick="retest()"><i class="fa fa-undo"></i> Перетест</button>
+        </div>
+        <div class="col-6">
+            <h4>Статистика по таскам</h4>
+            <table class="table">
+                <thead>
+                    <th scope="col">Таск</th>
+                    <th scope="col">Верно</th>
+                    <th scope="col">Частично</th>
+                    <th scope="col">С ошибкой</th>
+                    <th scope="col">Все</th>
+                </thead>
+                <tbody>
+                    {% for task in Block.tasks %}
+                        <tr>
+                            <th scope="row">{{ task.name }}</th>
+                            <td>{{ task.correct_count }}</td>
+                            <td>{{ task.partially_passed }}</td>
+                            <td>{{ task.solutions_with_error }}</td>
+                            <td>{{ task.solutions_count }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
         <hr>
         <h5>Решения</h5>
         <form method="POST" id="delete_form">
@@ -243,7 +269,7 @@
             </thead>
             <tbody>
                 {% for solution in solutions %}
-                     <tr>
+                     <tr style="background-color: {% if solution.result == 'TESTING' %}#FFE2B7{% else %}{% if solution.result == 'IN QUEUE' %}#EAEAFF{% endif %}{% endif %};">
                         <th scope="row">
                             <a href="/admin/solution?id={{ solution.id }}&solutions={{ filter }}">{{ solution.id }}</a>
                         </th>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load filters %}
+
+{% block content %}
+    <h3 style="margin-bottom: 30px;">Сообщения</h3>
+    {% for message in Block.messages %}
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8" style="margin-bottom: 50px;">
+                {% with userinfo=message.sender|userinfo_by_user %}
+                <div style="background-color: #DDDDDD; padding: 15px;">
+                    <b>
+                        {{ userinfo }} | {{ userinfo.group }} | 
+                        <a href="/{% if current_page == 'admin' %}admin/{% endif %}task?id={{ message.task.id }}">{{ message.task.name }}</a>
+                        {% if is_admin %} | <a href="/admin/solutions?block_id={{ Block.id }}&task_name={{ message.task.name }}&user={{ userinfo }}">Решения участника</a>{% endif %}
+                    </b>
+                </div>
+                <div class="border border-dark bg-light" style="padding: 30px;">
+                    {{ message.text }}
+                </div>
+                <div>
+                    <button class="btn btn-danger" style="right: 0;">Ответить всем</button>
+                    <button class="btn btn-success" style="right: 0;">Ответить</button>
+                </div>
+                {% endwith %}
+            </div>
+            <div class="col-2"></div>
+        </div>
+    {% endfor %}
+{% endblock %}

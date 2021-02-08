@@ -9,6 +9,7 @@ from xml.dom.minidom import parse
 from Sprint.settings import MEDIA_ROOT
 from .main import solution_path
 from sys import stdout
+from functools import cmp_to_key
 
 
 def shell(cmd, output=stdout):
@@ -20,7 +21,14 @@ def shell(cmd, output=stdout):
 def start_new(host):
     in_queue = list(Solution.objects.filter(result='IN QUEUE'))
     if in_queue:
-        Tester(in_queue[0], host).test()
+        sol = in_queue[0]
+        for s in in_queue:
+            dif = s.task.block.priority * 10 + s.task.priority - sol.task.block.priority * 10 - sol.task.priority
+            if dif > 0:
+                sol = s
+            elif dif == 0 and s.id < sol.id:
+                sol = s
+        Tester(sol, host).test()
 
 
 def is_project(path):
@@ -58,7 +66,7 @@ class Tester:
             rmtree(join(path, 'bin', 'Debug'))
         self.build(path)
         name = basename(path)
-        if not any(x.endswith('.exe') for x in listdir(join(path, 'bin', 'Debug'))):
+        if not exists(join(path, 'bin', 'Debug')) or not any(x.endswith('.exe') for x in listdir(join(path, 'bin', 'Debug'))):
             return False
         self.files.append(basename(path))
         for file in listdir(join(path, 'bin', 'Debug')):
@@ -175,7 +183,10 @@ class Tester:
                 return
             working_dir = join(sln_path, 'test_folder')
             if exists(working_dir):
-                rmtree(working_dir)
+                try:
+                    rmtree(working_dir)
+                except:
+                    remove(working_dir)
             mkdir(working_dir)
             with self.solution.log_fs as fs:
                 fs.write(b'Testing directory created\n')

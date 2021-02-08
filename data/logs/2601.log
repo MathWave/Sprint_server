@@ -1,108 +1,72 @@
 Testing directory created
+Checking if SampleProject is project
 Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj (за 78 ms).
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\bin\Debug\SampleProject.dll
+(CMicrosoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
+(C) Корпора  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\soluti  Все проекты обновлены для восстановления.
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018: непредвиденная ошибка при выполнении задачи GenerateDepsFile". [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProj  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\bin\Debug\SampleProject.dll
 
 Сборка успешно завершена.
     Предупреждений: 0
     Ошибок: 0
 
-Прошло времени 00:00:02.52
-Building tests file started
-Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
-c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+Прошло времени 00:00:03.05
+sprint_server\data\solutions\2601\Solution\SampleProject\bin\Debug\SampleProject.deps.json' because it is being used by another process. [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at System.IO.File.Create(String path) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at Microsoft.NET.Build.Tasks.GenerateDepsFile.WriteDepsFile(String depsFilePath) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at Microsoft.NET.Build.Tasks.GenerateDepsFile.ExecuteCore() [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at Microsoft.NET.Build.Tasks.TaskBase.Execute() [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskExecutionHost.Microsoft.Build.BackEnd.ITaskExecutionHost.Execute() [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskBuilder.ExecuteInstantiatedTask(ITaskExecutionHost taskExecutionHost, TaskLoggingContext taskLoggingContext, TaskHost taskHost, ItemBucket bucket, TaskExecutionMode howToExecuteTask) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
 
-Building tests file finished
-Got .dll tests file
-Building image
-Image built successfully
-Running container
-Running finished
-solution_container_2601
-Untagged: solution_2601:latest
-Deleted: sha256:eadebe0370f4f4de0b639fe889fabd6a875ee309106cab63b0b4811d4cea0864
-Result file found in container
-Testing directory created
-Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+Ошибка сборки.
 
-  Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj (за 73 ms).
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\bin\Debug\SampleProject.dll
-
-Сборка успешно завершена.
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018: непредвиденная ошибка при выполнении задачи GenerateDepsFile". [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018: System.IO.IOException: The process cannot access the file 'C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\bin\Debug\SampleProject.deps.json' because it is being used by another process. [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at System.IO.File.Create(String path) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at Microsoft.NET.Build.Tasks.GenerateDepsFile.WriteDepsFile(String depsFilePath) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at Microsoft.NET.Build.Tasks.GenerateDepsFile.ExecuteCore() [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at Microsoft.NET.Build.Tasks.TaskBase.Execute() [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskExecutionHost.Microsoft.Build.BackEnd.ITaskExecutionHost.Execute() [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
+C:\Program Files\dotnet\sdk\5.0.100\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(195,5): error MSB4018:    at Microsoft.Build.BackEnd.TaskBuilder.ExecuteInstantiatedTask(ITaskExecutionHost taskExecutionHost, TaskLoggingContext taskLoggingContext, TaskHost taskHost, ItemBucket bucket, TaskExecutionMode howToExecuteTask) [C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj]
     Предупреждений: 0
-    Ошибок: 0
+    Ошибок: 1
 
-Прошло времени 00:00:01.48
+Прошло времени 00:00:02.75
+Checking if SampleSolution.sln is project
+Checking if test_folder is project
+Copying test file to working directory
+Test file copied
 Building tests file started
 Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
 c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
+ests file started
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+error CS2012: Не удается открыть "C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\test_folder\tests.dll" для записи - "Процесс не может получить доступ к файлу "C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\test_folder\tests.dll", так как этот файл используется другим процессом.".
+Building tests file finished
+Got .dll tests file
 Building tests file finished
 Got .dll tests file
 Building image
+Building image
+Image built successfully
+Running container
 Image built successfully
 Running container
 Running finished
 solution_container_2601
 Untagged: solution_2601:latest
-Deleted: sha256:c31b1f1df7c7cb2750de0ecefc4e36b2b485e05889da1d277b4f58e407398164
-Result file found in container
-Testing directory created
-Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\SampleProject.csproj (за 90 ms).
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\bin\Debug\SampleProject.dll
-
-Сборка успешно завершена.
-    Предупреждений: 0
-    Ошибок: 0
-
-Прошло времени 00:00:01.68
-Building tests file started
-Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
-c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-Building tests file finished
-Got .dll tests file
-Building image
-Testing directory created
-Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Все проекты обновлены для восстановления.
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2601\Solution\SampleProject\bin\Debug\SampleProject.dll
-
-Сборка успешно завершена.
-    Предупреждений: 0
-    Ошибок: 0
-
-Прошло времени 00:00:01.16
-Building tests file started
-Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
-c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-Building tests file finished
-Got .dll tests file
-Building image
-Image built successfully
-Running container
-Running finished
-solution_container_2601
-Untagged: solution_2601:latest
-Deleted: sha256:edfb9ef3d69e5c837256da480656c85cd3e33736f96cac145299bcc35af0c164
-Result file found in container
-Image built successfully
-Running container
-Running finished
-solution_container_2601
-Untagged: solution_2601:latest
-Deleted: sha256:02abcd82c8a2bff61ad546d1b57e80c937740d515704fe13ebcb384100137542
+Deleted: sha256:c94650c0154cabdb648ac7e2ace597ae0f0c75d0cac1eda1105e3d9d0b4e02b7
+Result file not found in container
 Result file not found in container

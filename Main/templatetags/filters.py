@@ -8,26 +8,19 @@ register = template.Library()
 @register.filter('mark_for_task')
 def mark_for_task(task, user):
     try:
-        return int(list(Solution.objects.filter(task=task, user=user, mark__isnull=False))[-1].mark * 10 / task.max_mark)
+        return round(list(Solution.objects.filter(task=task, user=user, mark__isnull=False))[-1].mark * 10 / task.max_mark)
     except IndexError:
-        return -1
+        return 0
 
 
 @register.filter('mark_for_block')
 def mark_for_block(block, user):
     tasks = Task.objects.filter(block=block)
-    if len(tasks) == 0:
-        return -1
     mark = 0
-    flag = False
     for task in tasks:
         mft = mark_for_task(task, user)
-        if mft >= 0:
-            flag = True
-            mark += mft * task.weight
-    if flag:
-        return round(mark)
-    return -1
+        mark += mft * task.weight
+    return round(mark)
 
 
 @register.filter('marked')
@@ -81,3 +74,8 @@ def fully_marked(user, task):
 @register.filter('is_code')
 def is_code(path):
     return path.endswith('.cs')
+
+
+@register.filter('num_range')
+def num_range(n):
+    return range(1, n + 1)

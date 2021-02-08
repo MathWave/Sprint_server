@@ -178,7 +178,6 @@ def solutions_filter(request):
         solutions = list(reversed(Solution.objects.filter(task__block_id=request['block_id'])))
     except MultiValueDictKeyError as e:
         return [Solution.objects.get(id=request['id'])]
-    print(len(solutions))
     if 'solution_id' in request.keys():
         solutions = [solution for solution in solutions if solution.id == int(request['solution_id'])]
     if 'task_name' in request.keys():
@@ -222,6 +221,8 @@ def re_test(solutions_request, request):
     from .Tester import Tester
     for sol in solutions_request:
         sol.details = ''
+        with open(sol.log_file, 'wb') as fs:
+            fs.write(b'')
         sol.save()
         Thread(target=lambda: Tester(sol, request.META['HTTP_HOST']).push()).start()
         sleep(.1)
@@ -252,3 +253,17 @@ def solution_path(path):
     if files:
         return path
     return ''.join([solution_path(join(path, file)) for file in listdir(path) if isdir(join(path, file))])
+
+
+def register_user(u):
+    password = random_string()
+    user = User.objects.create_user(username=u['email'], email=u['email'], password=password)
+    UserInfo.objects.create(
+        surname=u['surname'],
+        name=u['name'],
+        middle_name=u['middle_name'],
+        group=u['group'],
+        user=user
+    )
+    send_email('You have been registered in Sprint!', u['email'],
+                'Your password is: {}\nPlease change it after login in settings!\nhttps://sprint.cshse.ru/'.format(password))

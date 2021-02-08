@@ -1,9 +1,10 @@
 Testing directory created
+Checking if SampleProject is project
 Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
   Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj (за 67 ms).
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj (за 111 ms).
 C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(12,10): error CS1010: Символ новой строки в константе. [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
 C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(13,2): error CS1525: Недопустимый термин "?" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
 C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(13,7): error CS1003: Синтаксическая ошибка, требуется ":" [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
@@ -88,97 +89,5 @@ C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\
     Предупреждений: 0
     Ошибок: 39
 
-Прошло времени 00:00:01.01
-Failed to compile project SampleProject
-Testing directory created
-Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Все проекты обновлены для восстановления.
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(12,10): error CS1010: Символ новой строки в константе. [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(13,2): error CS1525: Недопустимый термин "?" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(13,7): error CS1003: Синтаксическая ошибка, требуется ":" [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(13,21): error CS1525: Недопустимый термин ">" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(13,22): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(14,13): error CS1003: Синтаксическая ошибка, требуется ":" [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(14,18): error CS1003: Синтаксическая ошибка, требуется "," [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(14,19): error CS1003: Синтаксическая ошибка, требуется "," [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(14,67): error CS1003: Синтаксическая ошибка, требуется "," [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(14,112): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(15,13): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(15,21): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(16,12): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(16,19): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(17,10): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(18,13): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(19,24): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(19,36): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(20,23): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(20,32): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(21,25): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(21,37): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(22,6): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(22,14): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(23,13): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(24,24): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(24,36): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(25,23): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(25,32): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(26,25): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(26,37): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(27,6): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(27,14): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(28,4): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(28,11): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(29,2): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(30,1): error CS1010: Символ новой строки в константе. [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(30,4): error CS1026: Требуется ")" [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(30,4): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-
-Ошибка сборки.
-
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(12,10): error CS1010: Символ новой строки в константе. [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(13,2): error CS1525: Недопустимый термин "?" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(13,7): error CS1003: Синтаксическая ошибка, требуется ":" [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(13,21): error CS1525: Недопустимый термин ">" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(13,22): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(14,13): error CS1003: Синтаксическая ошибка, требуется ":" [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(14,18): error CS1003: Синтаксическая ошибка, требуется "," [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(14,19): error CS1003: Синтаксическая ошибка, требуется "," [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(14,67): error CS1003: Синтаксическая ошибка, требуется "," [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(14,112): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(15,13): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(15,21): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(16,12): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(16,19): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(17,10): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(18,13): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(19,24): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(19,36): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(20,23): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(20,32): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(21,25): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(21,37): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(22,6): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(22,14): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(23,13): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(24,24): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(24,36): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(25,23): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(25,32): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(26,25): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(26,37): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(27,6): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(27,14): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(28,4): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(28,11): error CS1525: Недопустимый термин "<" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(29,2): error CS1525: Недопустимый термин "/" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(30,1): error CS1010: Символ новой строки в константе. [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(30,4): error CS1026: Требуется ")" [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\Program.cs(30,4): error CS1002: Требуется ";". [C:\Users\79175\Desktop\sprint_server\data\solutions\2619\Solution\SampleProject\SampleProject.csproj]
-    Предупреждений: 0
-    Ошибок: 39
-
-Прошло времени 00:00:01.29
+Прошло времени 00:00:02.32
 Failed to compile project SampleProject

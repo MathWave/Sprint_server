@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load filters %}
+
+{% block title %}{{ Block.name }} | очередь{% endblock %}
+
+{% block scripts %}
+    function doPoll() {
+        jQuery.get('/queue_table?block_id={{ Block.id }}', function(data) {
+            document.getElementById('body').innerHTML = data;
+            setTimeout(function() {doPoll()}, 2000);
+        })
+    }
+{% endblock %}
+
+{% block onload %}doPoll(){% endblock %}
+
+{% block content %}
+    <h3><a href="/admin/block?id={{ Block.id }}">{{ Block.name }}</a></h3>
+    <h4>Очередь тестирования</h4>
+    <table class="table">
+        <thead>
+            <th scope="col">id</th>
+            <th scope="col">Таск</th>
+            <th scope="col">Дата и время отправки</th>
+            <th scope="col">Студент</th>
+            <th scope="col">Статус</th>
+        </thead>
+        <tbody id="body">
+
+        </tbody>
+    </table>
+{% endblock %}

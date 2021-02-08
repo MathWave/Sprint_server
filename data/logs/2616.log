@@ -1,36 +1,10 @@
 Testing directory created
+Checking if SampleProject is project
 Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
   Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2616\Solution\SampleProject\SampleProject.csproj (за 63 ms).
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2616\Solution\SampleProject\bin\Debug\SampleProject.dll
-
-Сборка успешно завершена.
-    Предупреждений: 0
-    Ошибок: 0
-
-Прошло времени 00:00:01.13
-Building tests file started
-Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
-c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-Building tests file finished
-Got .dll tests file
-Building image
-Image built successfully
-Running container
-Running finished
-solution_container_2616
-Untagged: solution_2616:latest
-Deleted: sha256:7adc1e43da57f5e9c5ff53f75612dcd3e2e0ace12c89d0a5e930e89ca709b5c1
-Result file found in container
-Testing directory created
-Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Все проекты обновлены для восстановления.
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2616\Solution\SampleProject\SampleProject.csproj (за 59 ms).
 C:\Users\79175\Desktop\sprint_server\data\solutions\2616\Solution\SampleProject\Program.cs(12,10): error CS1010: Символ новой строки в константе. [C:\Users\79175\Desktop\sprint_server\data\solutions\2616\Solution\SampleProject\SampleProject.csproj]
 C:\Users\79175\Desktop\sprint_server\data\solutions\2616\Solution\SampleProject\Program.cs(13,2): error CS1525: Недопустимый термин "?" в выражении [C:\Users\79175\Desktop\sprint_server\data\solutions\2616\Solution\SampleProject\SampleProject.csproj]
 C:\Users\79175\Desktop\sprint_server\data\solutions\2616\Solution\SampleProject\Program.cs(13,7): error CS1003: Синтаксическая ошибка, требуется ":" [C:\Users\79175\Desktop\sprint_server\data\solutions\2616\Solution\SampleProject\SampleProject.csproj]
@@ -115,5 +89,5 @@ C:\Users\79175\Desktop\sprint_server\data\solutions\2616\Solution\SampleProject\
     Предупреждений: 0
     Ошибок: 39
 
-Прошло времени 00:00:01.28
+Прошло времени 00:00:01.12
 Failed to compile project SampleProject

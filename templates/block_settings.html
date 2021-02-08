@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load filters %}
+
 {% block title %}{{ Block.name }}|настройки{% endblock %}
 
 {% block styles %}
@@ -91,6 +93,17 @@
                     Показывать рейтинг участникам<input type="checkbox" name="rating" style="margin-left: 15px;" {% if Block.show_rating %}checked{% endif %}>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Приоритет <select name="priority">
+                        {% for i in 10|num_range %}
+                            <option {% if i == Block.priority %}selected{% endif %}>{{ i }}</option>
+                        {% endfor %}
+                    </select>
+
+                </td>
+
+            </tr>
         </table>
         <button class="btn btn-dark" value="Установить" type="submit" style="margin-top: 20px;"><i class="fa fa-save"></i> Установить</button>
     </form>
@@ -99,8 +112,9 @@
     <div>
         <a class="btn btn-dark" href="/admin/rating?block_id={{ Block.id }}"><i class="fa fa-star"></i> Рейтинг</a>
         <button type="button" class="btn btn-dark" onclick="window.location.href = '/admin/solutions?block_id=' + {{ Block.id }}" value="Посмотреть решения"><i class="fa fa-list-ul"></i> Посмотреть решения</button>
+        <a class="btn btn-dark" href="/admin/queue?block_id={{ Block.id }}"><i class="fa fa-align-left"></i> Очередь тестирования</a>
         {% if is_superuser %}
-                <form method="POST" onsubmit="return confirm('Точно удаляем?');">
+                <form method="POST" onsubmit="return confirm('Сейчас ты пытаешься сделать то, что может привести к серьезным последствиям. Если ты удалишь этот блок, то вместе с ним удалятся все таски, условия, тесты, дополнительные файлы и решения, сдаваемые в этот блок. Все данные будут безвозвратно утеряны. Оно нам надо?');">
                     {% csrf_token %}
                     <input type="hidden" name="block_delete" value="{{ Block.id }}">
                     <button type="submit" value="Удалить блок" class="btn btn-dark" style="margin-top: 10px;"><i class="fa fa-trash"></i> Удалить блок</button>

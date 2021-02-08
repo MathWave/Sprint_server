@@ -1,16 +1,21 @@
 Testing directory created
+Checking if SampleProject is project
 Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
   Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2622\Solution\SampleProject\SampleProject.csproj (за 74 ms).
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2622\Solution\SampleProject\SampleProject.csproj (за 120 ms).
   SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2622\Solution\SampleProject\bin\Debug\SampleProject.dll
 
 Сборка успешно завершена.
     Предупреждений: 0
     Ошибок: 0
 
-Прошло времени 00:00:01.19
+Прошло времени 00:00:02.34
+Checking if SampleSolution.sln is project
+Checking if test_folder is project
+Copying test file to working directory
+Test file copied
 Building tests file started
 Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
 c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
@@ -23,32 +28,5 @@ Running container
 Running finished
 solution_container_2622
 Untagged: solution_2622:latest
-Deleted: sha256:a531ba9800fe14cd5cea66feb2d06e4658aba04706f03376204024eeea3102e8
-Result file found in container
-Testing directory created
-Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Все проекты обновлены для восстановления.
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2622\Solution\SampleProject\bin\Debug\SampleProject.dll
-
-Сборка успешно завершена.
-    Предупреждений: 0
-    Ошибок: 0
-
-Прошло времени 00:00:01.55
-Building tests file started
-Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
-c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-Building tests file finished
-Got .dll tests file
-Building image
-Image built successfully
-Running container
-Running finished
-solution_container_2622
-Untagged: solution_2622:latest
-Deleted: sha256:50122f8e7aa6670487850c2fd8e5b25c5d0797285e486fd8f82ea364ccd1da81
+Deleted: sha256:0f37db83024308a9b890268436baeae08d90f5d2f9ab2baedb0d2c8197fac2e6
 Result file found in container

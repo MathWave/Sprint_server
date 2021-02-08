@@ -1,16 +1,21 @@
 Testing directory created
+Checking if SampleProject is project
 Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
 (C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
 
   Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2607\Solution\SampleProject\SampleProject.csproj (за 84 ms).
+  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2607\Solution\SampleProject\SampleProject.csproj (за 74 ms).
   SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2607\Solution\SampleProject\bin\Debug\SampleProject.dll
 
 Сборка успешно завершена.
     Предупреждений: 0
     Ошибок: 0
 
-Прошло времени 00:00:01.18
+Прошло времени 00:00:02.63
+Checking if SampleSolution.sln is project
+Checking if test_folder is project
+Copying test file to working directory
+Test file copied
 Building tests file started
 Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
 c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
@@ -23,86 +28,5 @@ Running container
 Running finished
 solution_container_2607
 Untagged: solution_2607:latest
-Deleted: sha256:dd095d3043411253524d0237c14e532fcaf7f6ecfc857d1496c690a082c6bdc3
+Deleted: sha256:1331512c65e004ee51fd6a940c8d784bbcf0e3f7cbd8b62e41d4eb77da9f11d0
 Result file found in container
-Testing directory created
-Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2607\Solution\SampleProject\SampleProject.csproj (за 85 ms).
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2607\Solution\SampleProject\bin\Debug\SampleProject.dll
-
-Сборка успешно завершена.
-    Предупреждений: 0
-    Ошибок: 0
-
-Прошло времени 00:00:01.66
-Building tests file started
-Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
-c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-Building tests file finished
-Got .dll tests file
-Building image
-Image built successfully
-Running container
-Running finished
-solution_container_2607
-Untagged: solution_2607:latest
-Deleted: sha256:df83674ce4b53597643fa4609f2baa2504773e0cad6d3e480adc7044804eab85
-Result file found in container
-Testing directory created
-Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Восстановлен C:\Users\79175\Desktop\sprint_server\data\solutions\2607\Solution\SampleProject\SampleProject.csproj (за 79 ms).
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2607\Solution\SampleProject\bin\Debug\SampleProject.dll
-
-Сборка успешно завершена.
-    Предупреждений: 0
-    Ошибок: 0
-
-Прошло времени 00:00:01.84
-Building tests file started
-Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
-c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-Building tests file finished
-Got .dll tests file
-Building image
-Testing directory created
-Microsoft (R) Build Engine версии 16.8.0+126527ff1 для .NET
-(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-  Определение проектов для восстановления...
-  Все проекты обновлены для восстановления.
-  SampleProject -> C:\Users\79175\Desktop\sprint_server\data\solutions\2607\Solution\SampleProject\bin\Debug\SampleProject.dll
-
-Сборка успешно завершена.
-    Предупреждений: 0
-    Ошибок: 0
-
-Прошло времени 00:00:01.18
-Building tests file started
-Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20567.16 (53c5d7d3)
-c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
-
-Building tests file finished
-Got .dll tests file
-Building image
-Image built successfully
-Running container
-Running finished
-solution_container_2607
-Untagged: solution_2607:latest
-Deleted: sha256:9055d1a35ff3404d29c4cdd363869a19955b1772fe1c5985753a8f9738a4c0c5
-Result file found in container
-Image built successfully
-Running container
-Running finished
-solution_container_2607
-Untagged: solution_2607:latest
-Deleted: sha256:a268b21f32f78220800743241bab5eeffb7a28b40d53f2378ffb3542a1a1ecd2
-Result file not found in container
