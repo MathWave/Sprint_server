@@ -179,7 +179,7 @@ def solutions_filter(request):
     except MultiValueDictKeyError as e:
         return [Solution.objects.get(id=request['id'])]
     if 'solution_id' in request.keys():
-        solutions = [solution for solution in solutions if solution.id == int(request['solution_id'])]
+        solutions = [solution for solution in solutions if any([solution.id == int(i) for i in request['solution_id'].strip().split()])]
     if 'task_name' in request.keys():
         solutions = [solution for solution in solutions if solution.task.name == request['task_name']]
     if 'user' in request.keys():

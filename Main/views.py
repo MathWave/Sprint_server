@@ -12,7 +12,7 @@ from django.utils.timezone import make_aware
 from zipfile import ZipFile, BadZipFile
 from threading import Thread
 from os import remove, mkdir, listdir, rename
-from os.path import exists
+from os.path import exists, sep
 from json import load, dumps, loads
 from .Tester import Tester, shell
 from .main import solutions_filter, check_admin_on_course, re_test, check_admin, check_teacher, random_string, \
@@ -57,12 +57,36 @@ def download(request):
         return HttpResponseRedirect('/admin/solutions?block_id=' + request.GET['block_id'])
     new_folder = join(MEDIA_ROOT, request.user.username)
     if exists(new_folder):
-        rmtree(new_folder)
+        try:
+            rmtree(new_folder)
+        except:
+            remove(new_folder)
     mkdir(new_folder)
     cur_folder = join(new_folder, 'solutions')
     mkdir(cur_folder)
     for sol in sols:
-        copytree(join(MEDIA_ROOT, 'solutions', str(sol.id)), join(cur_folder, str(sol.id)))
+        uinfo = UserInfo.objects.get(user=sol.user)
+        folder = join(cur_folder, str(uinfo) + '-' + str(uinfo.user.id))
+        if not exists(folder):
+            mkdir(folder)
+        files = sol.files
+        files_for_compilation = [f.filename for f in sol.task.files_for_compilation]
+        for f in files.copy().keys():
+            if f.split(sep)[-1] in files_for_compilation:
+                del files[f]
+        if len(files.keys()) == 1:
+            dest = join(folder, "-".join([sol.task.name.split('.')[0], str(sol.id), 'dotnet', sol.result.replace('/', 'from')])) + '.cs'
+            source = join(sol.path(), list(files.keys())[0])
+            with open(dest, 'wb') as fs:
+                fs.write(open(source, 'rb').read())
+        else:
+            newname = join(folder, '-'.join([sol.task.name.split('.')[0], str(sol.id), 'dotnet', sol.result])).replace('/', 'from')
+            mkdir(newname)
+            for f in files.keys():
+                with open(join(newname, f.split(sep)[-1]), 'wb') as fs:
+                    fs.write(open(join(sol.path(), f), 'rb').read())
+            make_archive(newname, 'zip', newname)
+            rmtree(newname)
     zip_folder = join(dirname(cur_folder), 'solutions')
     make_archive(zip_folder, 'zip', cur_folder)
     response = HttpResponse(open(zip_folder + '.zip', 'rb').read(), content_type='application/force-download')
@@ -720,7 +744,7 @@ def enter(request):
     if check_login(request.user):
         return HttpResponseRedirect('/main')
     if request.method == 'POST':
-        user = authenticate(username=request.POST['email'].strip(), password=request.POST['password'])
+        user = authenticate(username=request.POST['email'].strip(), password=request.POST['password'].strip())
         if user is not None:
             login(request, user)
         return HttpResponseRedirect('/enter')
