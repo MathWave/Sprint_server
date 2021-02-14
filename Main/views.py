@@ -102,7 +102,6 @@ def queue(request):
     return render(request, 'queue.html', {'Block': block})
 
 
-
 def docs(request):
     if not check_admin(request.user):
         return HttpResponseRedirect('/main')
@@ -125,11 +124,14 @@ def retest(request):
 
 def solution(request):
     current_solution = Solution.objects.get(id=request.GET['id'])
-    try:
-        Subscribe.objects.get(user=request.user, course=current_solution.task.block.course)
-    except ObjectDoesNotExist:
-        if not request.user.is_superuser:
-            return HttpResponseRedirect('/main')
+    if not user.is_authenticated:
+        return HttpResponseRedirect('/main')
+    if current_solution.user != request.user:
+        try:
+            Subscribe.objects.get(user=request.user, is_assistant=True, course=current_solution.task.block.course)
+        except:
+            if not request.user.is_superuser:
+                return HttpResponseRedirect('/main')
     can_edit = check_admin_on_course(request.user, current_solution.task.block.course)
     if not can_edit:
         # тут по хорошему надо использовать регулярки, но я что-то не разобрался
