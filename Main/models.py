@@ -6,6 +6,7 @@ from os.path import sep, join, exists
 from os import remove
 from Sprint.settings import MEDIA_ROOT
 from django.core.exceptions import ObjectDoesNotExist
+from json import loads
 
 
 base_dir = 'data'
@@ -29,7 +30,8 @@ class Course(models.Model):
 
     @property
     def students(self):
-        return sorted(Subscribe.objects.filter(course=self, is_assistant=False, user__is_staff=False), key=lambda s: s.user.email)
+        userinfo = lambda sub: sub.user.userinfo
+        return sorted(Subscribe.objects.filter(course=self, is_assistant=False, user__is_staff=False), key=lambda s: userinfo(s).surname + userinfo(s).name + userinfo(s).middle_name)
 
     def __str__(self):
         return self.name
@@ -43,6 +45,7 @@ class Block(models.Model):
     opened = models.BooleanField(default=False)
     show_rating = models.BooleanField(default=True)
     priority = models.IntegerField(default=5)
+    cheating_checking = models.BooleanField(default=False)
     
     @property
     def messages(self):
@@ -75,6 +78,17 @@ class Block(models.Model):
     def subscribed_users(self):
         return [UserInfo.objects.get(user=s.user) for s in Subscribe.objects.filter(course=self.course)]
 
+    @property
+    def cheating_results_path(self):
+        return join(MEDIA_ROOT, 'cheating_results', str(self.id))
+
+    @property
+    def cheating_checked(self):
+        return self.cheating_results != {}
+
+    @property
+    def cheating_results(self):
+        return loads(open(self.cheating_results_path, 'r').read()) if exists(self.cheating_results_path) else {}
 
 class Restore(models.Model):
     code = models.TextField()
@@ -316,6 +330,19 @@ class Solution(models.Model):
     def files(self):
         return Solution.get_files(self.path())
 
+    @property
+    def user_files(self):
+        f = {}
+        comp_files = [ef.filename for ef in ExtraFile.objects.filter(task=self.task, for_compilation=True)]
+        for fi in self.files.keys():
+            if not fi in comp_files:
+                f[fi] = self.files[fi]
+        return f
+
+    @property
+    def passed_all_tests(self):
+        spl = self.result.split('/')
+        return len(spl) == 2 and spl[0] == spl[1]
 
 class System(models.Model):
     key = models.TextField()

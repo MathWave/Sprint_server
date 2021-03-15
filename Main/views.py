@@ -17,7 +17,7 @@ from json import load, dumps, loads
 from .Tester import Tester, shell
 from .main import solutions_filter, check_admin_on_course, re_test, check_admin, check_teacher, random_string, \
     send_email, check_permission_block, is_integer, check_god, blocks_available, check_login, \
-    get_restore_hash, block_solutions_info, delete_folder, solution_path, can_send_solution, get_in_html_tag, register_user
+    get_restore_hash, block_solutions_info, delete_folder, solution_path, can_send_solution, get_in_html_tag, register_user, check_cheating, result_comparer
 from .models import System, Solution, Block, Subscribe, Course, UserInfo, Task, Restore, ExtraFile, Message
 from os.path import sep, join, exists, isfile, dirname
 from shutil import rmtree, copytree, make_archive, copyfile
@@ -124,7 +124,7 @@ def retest(request):
 
 def solution(request):
     current_solution = Solution.objects.get(id=request.GET['id'])
-    if not user.is_authenticated:
+    if not request.user.is_authenticated:
         return HttpResponseRedirect('/main')
     if current_solution.user != request.user:
         try:
@@ -625,6 +625,44 @@ def rating(request):
     if not check_admin_on_course(request.user, current_block.course) and not current_block.show_rating:
         return HttpResponseRedirect('/main')
     return render(request, 'rating.html', context={'Block': Block.objects.get(id=request.GET['block_id']), 'admin_course': check_admin_on_course(request.user, current_block.course)})
+
+
+def cheating(request):
+    current_block = Block.objects.get(id=request.GET['block_id'])
+    if not check_admin_on_course(request.user, current_block.course):
+        return HttpResponseRedirect('/main')
+    if request.method == 'POST':
+        if not current_block.cheating_checking:
+            req = ['_'.join(elem.split('_')[1:]) for elem in request.POST.keys() if elem.startswith('check_')]
+            tasks = Task.objects.filter(id__in=[int(elem.split('_')[1]) for elem in req if elem.startswith('task')])
+            users = User.objects.filter(id__in=[int(elem.split('_')[1]) for elem in req if elem.startswith('user')])
+            solutions = Solution.objects.filter(user__in=users).filter(task__in=tasks)
+            if 'all_tests' in request.POST.keys():
+                solutions = [sol for sol in solutions if sol.passed_all_tests]
+            if 'best_result' in request.POST.keys():
+                sols = {}
+                for solution in solutions:
+                    if (solution.user.username, solution.task.id) in sols.keys():
+                        comp = result_comparer(sols[(solution.user.username, solution.task.id)][0].result, solution.result)
+                        if comp == 1:
+                            sols[(solution.user.username, solution.task.id)] = [solution]
+                        elif comp == 0:
+                            sols[(solution.user.username, solution.task.id)].append(solution)
+                    else:
+                        sols[(solution.user.username, solution.task.id)] = [solution]
+                solutions = [val for sol in sols.values() for val in sol]
+                solutions = list(sorted(solutions, key=lambda s: s.id))
+            if 'last_solution' in request.POST.keys():
+                sols = {}
+                for sol in solutions:
+                    pair = sol.user, sol.task
+                    if pair not in sols.keys():
+                        sols[pair] = []
+                    sols[pair].append(sol)
+                solutions = [sols[key][len(sols[key]) - 1] for key in sols.keys()]
+            Thread(target=check_cheating, args=(solutions, current_block, int(request.POST['cheating_percent']))).start()
+        return HttpResponseRedirect('/admin/cheating?block_id=' + str(current_block.id))
+    return render(request, 'cheating.html', {'Block': current_block})
 
 
 def admin(request):

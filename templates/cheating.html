@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% load filters %}
+
+{% block title %}{{ Block.name }} | списывание{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.0/build/styles/default.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.4.0/build/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+{% endblock %}
+
+{% block scripts %}
+    function check_list(entity_type) {
+        var cbox = document.getElementById('check_' + entity_type + '_all');
+        var boxes = document.getElementsByClassName('check_' + entity_type);
+        for (var i = 0; i < boxes.length; i++) {
+            boxes[i].checked = cbox.checked;
+        }
+    }
+
+    function prepare_for_submit() {
+        var conf = confirm('Точно запускаем проверку? Новую проверку можно будет запустить только после завершения данной');
+        if (conf) {
+            document.getElementById('main_form').submit();
+        }
+    }
+{% endblock %}
+
+{% block content %}
+    <h3>Списывание в <a href="/admin/block?id={{ Block.id }}">{{ Block.name }}</a></h3>
+    <hr>
+    <form method="POST" id="main_form">
+        {% csrf_token %}
+        <h5>Проверить таски</h5>
+        <b><input type="checkbox" id="check_task_all" onchange="check_list('task')" checked> Все</b><br>
+        {% for task in Block.tasks %}
+            <input type="checkbox" class="check_task" name="check_task_{{ task.id }}" checked> {{ task.name }}<br>
+        {% endfor %}
+        <hr>
+        <h5>Проверить пользователей</h5>
+        <b><input type="checkbox" id="check_user_all" onchange="check_list('user')" checked> Все</b><br>
+        {% for sub in Block.course.subscribes %}
+            <input type="checkbox" class="check_user" name="check_user_{{ sub.user.id }}" checked> {{ sub.user.userinfo }}<br>
+        {% endfor %}
+        <hr>
+        <h5>Дополнительно (пока не работает, но когда-нибудь руки дойдут)</h5>
+        <table>
+            <tr>
+                <td>
+                    <input type="checkbox" name="best_result">
+                </td>
+                <td>
+                    Проверять только решения с лучшим результатом
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" name="last_solution">
+                </td>
+                <td>
+                    Проверять только последнее решение
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" name="all_tests">
+                </td>
+                <td>
+                    Проверять только прошедшие все тесты
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <select name="cheating_percent">
+                        {% for i in 100|num_range %}
+                            <option>{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    Какой процент схожести считать списыванием
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <button type="button" {% if Block.cheating_checking %}class="btn btn-secondary"{% else %}class="btn btn-dark" onclick="prepare_for_submit()"{% endif %}><i class="fa fa-rocket"></i> Запустить проверку</button>
+    </form>
+    <hr>
+    {% if Block.cheating_checking %}
+        <center><h1>Идет проверка</h1></center>
+    {% else %}
+    {% if Block.cheating_checked %}
+        <h1>Результаты проверки</h1>
+        {% for data in Block.cheating_results %}
+            {% with user=data|user_by_id cheating_data=Block.cheating_results|dict_key:data %}
+                <br><h3>{{ user.userinfo }} [{{ cheating_data|length }}]</h3>
+                <button class="btn btn-link" onclick="var content = document.getElementById('div_{{ user.id }}'); content.hidden = !content.hidden;">Отчет</button>
+                <div id="div_{{ user.id }}" hidden>
+                    {% for cheat in cheating_data %}
+                        {% with solution=cheat.solution|solution_by_id %}
+                            <div class="row">
+                                <div class="col-5">
+<h5><a href="/solution?id={{ solution.id }}">{{ solution.id }}</a> | {{ solution.user.userinfo }} | {{ cheat.file }}</h5>
+<pre>
+<code class="c# border border-dark">
+{{ solution|solution_file_text:cheat.file }}
+</code>
+</pre>
+                                </div>
+                                <div class="col-2">
+                                    <center>
+                                        <a href="/task?id={{ solution.task.id }}">{{ solution.task.name }}</a><br>
+                                        <b>{{ cheat.similarity }}%</b><br>
+                                        <i class="fa fa-arrow-{% if cheat.source %}right{% else %}left{% endif %}"></i>
+                                    </center>
+                                </div>
+                                <div class="col-5">
+                                    {% with solution2=cheat.similar|solution_by_id %}
+<h5><a href="/solution?id={{ solution.id }}">{{ solution2.id }}</a> | {{ solution2.user.userinfo }} | {{ cheat.file }}</h5>
+<pre>
+<code class="c# border border-dark">
+{{ solution2|solution_file_text:cheat.file }}
+</code>
+</pre>
+                                    {% endwith %}
+                                </div>
+                            </div>
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+            {% endwith %}
+        {% endfor %}
+    {% endif %}
+    {% endif %}
+{% endblock %}

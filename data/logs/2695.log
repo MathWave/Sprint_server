@@ -1,0 +1,55 @@
+Testing directory created
+Checking if .vs is project
+Checking if SampleProject is project
+
+Вас приветствует .NET 5.0!
+---------------------
+Версия пакета SDK: 5.0.103
+
+Телеметрия
+---------
+Средства .NET собирают данные об использовании для повышения удобства. Данные собираются корпорацией Майкрософт и предоставляются сообществу. Вы можете отключить отправку данных телеметрии, установив значение "1" или "true" для переменной среды DOTNET_CLI_TELEMETRY_OPTOUT в подходящей оболочке.
+
+Дополнительные сведения о сборе данных телеметрии средствами CLI .NET см. на странице https://aka.ms/dotnet-cli-telemetry.
+
+----------------
+Установлен сертификат разработки HTTPS в ASP.NET Core.
+Чтобы сделать сертификат доверенным, выполните команду "dotnet dev-certs https --trust" (только в Windows и macOS).
+Дополнительные сведения об HTTPS: https://aka.ms/dotnet-https
+----------------
+Как написать свое первое приложение: https://aka.ms/dotnet-hello-world
+Узнать о новых возможностях: https://aka.ms/dotnet-whats-new
+Просмотреть документацию: https://aka.ms/dotnet-docs
+Сообщить о проблемах и найти исходный код на GitHub: https://github.com/dotnet/core
+Для просмотра доступных команд введите команду "dotnet --help" или посетите следующую страницу: https://aka.ms/dotnet-cli.
+--------------------------------------------------------------------------------------
+Microsoft (R) Build Engine версии 16.8.3+39993bd9d для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\Sprint_server\data\solutions\2695\Solution\SampleProject\SampleProject.csproj (за 87 ms).
+  SampleProject -> C:\Users\79175\Desktop\Sprint_server\data\solutions\2695\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:02.67
+Checking if SampleSolution.sln is project
+Checking if test_folder is project
+Copying test file to working directory
+Test file copied
+Building tests file started
+Компилятор Microsoft (R) Visual C# версии 3.8.0-5.20604.10 (9ed4b774)
+c Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+Building tests file finished
+Got .dll tests file
+Building image
+Image built successfully
+Running container
+Running finished
+solution_container_2695
+Untagged: solution_2695:latest
+Deleted: sha256:cf05b41f74c17a886862c981ec8603660e36174e4eca99e02280d2781ab553e1
+Result file found in container

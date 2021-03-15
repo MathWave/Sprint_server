@@ -19,6 +19,10 @@
 {% endblock %}
 
 {% block scripts %}
+    function partyhard() {
+        var elem = document.getElementById('paint');
+        elem.hidden = false;
+    }
     function uploaded() {
         document.getElementById('is_uploaded').style.display = 'block';
         document.getElementById('is_uploaded').nodeValue = document.getElementById('file-upload').nodeValue;
@@ -281,4 +285,6 @@
                 
             </tbody>
         </table>
+        <iframe id="paint" src="https://jspaint.app/" style="width: 100%; height: 1000px;" hidden></iframe>
+
 {% endblock %}

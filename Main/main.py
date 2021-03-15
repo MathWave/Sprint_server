@@ -9,8 +9,12 @@ from string import ascii_letters
 import smtplib
 from threading import Thread
 from time import sleep
-from os import listdir
-from os.path import isdir
+from os import listdir, mkdir
+from os.path import isdir, basename
+from shutil import copyfile, rmtree
+from copydetect import CopyDetector
+import copydetect
+from json import dumps
 
 
 base_dir = 'data'
@@ -267,3 +271,66 @@ def register_user(u):
     )
     send_email('You have been registered in Sprint!', u['email'],
                 'Your password is: {}\nPlease change it after login in settings!\nhttps://sprint.cshse.ru/'.format(password))
+
+
+def check_cheating(solutions, block, cheating_percent):
+    block.cheating_checking = True
+    block.save()
+    try:
+        cheating_data = {}
+        cheating_path = join(MEDIA_ROOT, 'cheating', str(block.id))
+        if exists(cheating_path):
+            rmtree(cheating_path)
+        mkdir(cheating_path)
+        for solution in solutions:
+            for file in solution.user_files.keys():
+                user_file = join(MEDIA_ROOT, 'solutions', str(solution.id), file)
+                dest_file = join(cheating_path, '_'.join([str(solution.id), basename(file)]))
+                copyfile(user_file, dest_file)
+        files_len = len(solutions)
+        files = listdir(cheating_path)
+        for i in range(len(files) - 1):
+            for j in range(i + 1, len(files)):
+                file1 = files[i]
+                file2 = files[j]
+                s1 = file1.split('_')
+                s2 = file2.split('_')
+                sol1 = Solution.objects.get(id=int(s1[0]))
+                sol2 = Solution.objects.get(id=int(s2[0]))
+                filename1 = '_'.join(s1[1:])
+                filename2 = '_'.join(s2[1:])
+                if sol1.user == sol2.user or sol1.task != sol2.task or filename1 != filename2:
+                    continue
+                fp1 = copydetect.CodeFingerprint(join(cheating_path, file1), 25, 1)
+                fp2 = copydetect.CodeFingerprint(join(cheating_path, file2), 25, 1)
+                token_overlap, similarities, slices = copydetect.compare_files(fp1, fp2)
+                similarity = (similarities[0] + similarities[1]) / 2
+                if similarity >= cheating_percent / 100:
+                    if sol1.user.id not in cheating_data.keys():
+                        cheating_data[sol1.user.id] = []
+                    if sol2.user.id not in cheating_data.keys():
+                        cheating_data[sol2.user.id] = []
+                    cheating_data[sol1.user.id].append({
+                        'source': True,
+                        'solution': sol1.id,
+                        'file': filename1,
+                        'similar': sol2.id,
+                        'similarity': round(similarity * 100, 2)
+                    })
+                    cheating_data[sol2.user.id].append({
+                        'source': False,
+                        'solution': sol2.id,
+                        'file': filename2,
+                        'similar': sol1.id,
+                        'similarity': round(similarity * 100, 2)
+                    })
+    finally:
+        if exists(cheating_path):
+            rmtree(cheating_path)
+        with open(block.cheating_results_path, 'w') as fs:
+            fs.write(dumps(cheating_data))
+        block = Block.objects.get(id=block.id)
+        block.cheating_checking = False
+        block.save()
+        print('finished')
+    

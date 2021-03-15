@@ -113,6 +113,7 @@
         <a class="btn btn-dark" href="/admin/rating?block_id={{ Block.id }}"><i class="fa fa-star"></i> Рейтинг</a>
         <button type="button" class="btn btn-dark" onclick="window.location.href = '/admin/solutions?block_id=' + {{ Block.id }}" value="Посмотреть решения"><i class="fa fa-list-ul"></i> Посмотреть решения</button>
         <a class="btn btn-dark" href="/admin/queue?block_id={{ Block.id }}"><i class="fa fa-align-left"></i> Очередь тестирования</a>
+        <a class="btn btn-dark" href="/admin/cheating?block_id={{ Block.id }}"><i class="fa fa-bomb"></i> Проверка на списывание</a>
         {% if is_superuser %}
                 <form method="POST" onsubmit="return confirm('Сейчас ты пытаешься сделать то, что может привести к серьезным последствиям. Если ты удалишь этот блок, то вместе с ним удалятся все таски, условия, тесты, дополнительные файлы и решения, сдаваемые в этот блок. Все данные будут безвозвратно утеряны. Оно нам надо?');">
                     {% csrf_token %}

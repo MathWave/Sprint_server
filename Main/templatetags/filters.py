@@ -1,5 +1,6 @@
 from django import template
 from Main.models import Solution, Task, UserInfo
+from django.contrib.auth.models import User
 
 
 register = template.Library()
@@ -79,3 +80,33 @@ def is_code(path):
 @register.filter('num_range')
 def num_range(n):
     return range(1, n + 1)
+
+
+@register.filter('length')
+def length(collection):
+    return len(collection)
+
+
+@register.filter('user_by_id')
+def user_by_id(user_id):
+    return User.objects.get(id=user_id)
+
+
+@register.filter('dict_key')
+def dict_key(d, k):
+    return d[k]
+
+
+@register.filter('solution_by_id')
+def solution_by_id(solution_id):
+    return Solution.objects.get(id=solution_id)
+
+
+@register.filter('solution_file_text')
+def solution_file_text(solution, filename):
+    files = solution.user_files
+    for key in files.keys():
+        value = files[key]
+        if key.endswith(filename):
+            return value
+    raise Exception(f'No such file for solution {solution.id} and filename {filename}')

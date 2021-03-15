@@ -29,6 +29,7 @@ urlpatterns = [
     path('admin/users_settings', views.users_settings),
     path('admin/download', views.download),
     path('admin/queue', views.queue),
+    path('admin/cheating', views.cheating),
     path('queue_table', views.queue_table),
     path('task_test', views.task_test),
     path('solutions_table', views.solutions_table),
