@@ -40,11 +40,11 @@
         <hr>
         <h5>Проверить пользователей</h5>
         <b><input type="checkbox" id="check_user_all" onchange="check_list('user')" checked> Все</b><br>
-        {% for sub in Block.course.subscribes %}
+        {% for sub in Block.course.students %}
             <input type="checkbox" class="check_user" name="check_user_{{ sub.user.id }}" checked> {{ sub.user.userinfo }}<br>
         {% endfor %}
         <hr>
-        <h5>Дополнительно (пока не работает, но когда-нибудь руки дойдут)</h5>
+        <h5>Дополнительно</h5>
         <table>
             <tr>
                 <td>
@@ -117,7 +117,7 @@
                                 </div>
                                 <div class="col-5">
                                     {% with solution2=cheat.similar|solution_by_id %}
-<h5><a href="/solution?id={{ solution.id }}">{{ solution2.id }}</a> | {{ solution2.user.userinfo }} | {{ cheat.file }}</h5>
+<h5><a href="/solution?id={{ solution2.id }}">{{ solution2.id }}</a> | {{ solution2.user.userinfo }} | {{ cheat.file }}</h5>
 <pre>
 <code class="c# border border-dark">
 {{ solution2|solution_file_text:cheat.file }}
