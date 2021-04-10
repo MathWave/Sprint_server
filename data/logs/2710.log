@@ -1,0 +1,36 @@
+Testing directory created
+Checking if .vs is project
+Checking if SampleProject is project
+Microsoft (R) Build Engine версии 16.9.0+57a23d249 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\Sprint_server\data\solutions\2710\Solution\SampleProject\SampleProject.csproj (за 118 ms).
+  SampleProject -> C:\Users\79175\Desktop\Sprint_server\data\solutions\2710\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:02.73
+Checking if SampleSolution.sln is project
+Checking if test_folder is project
+Copying test file to working directory
+Test file copied
+Building tests file started
+Microsoft (R) Visual C# Compiler version 4.8.4084.0
+for C# 5
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+This compiler is provided as part of the Microsoft (R) .NET Framework, but only supports language versions up to C# 5, which is no longer the latest version. For compilers that support newer versions of the C# programming language, see http://go.microsoft.com/fwlink/?LinkID=533240
+
+Building tests file finished
+Got .dll tests file
+Building image
+Image built successfully
+Running container
+Running finished
+solution_container_2710
+Untagged: solution_2710:latest
+Deleted: sha256:0c7fb8f8191037a32f6f10fb353c672342af9e4522236ffb9bafc865437ddf56
+Result file found in container

@@ -1,0 +1,29 @@
+Testing directory created
+Checking if .vs is project
+Checking if SampleProject is project
+Microsoft (R) Build Engine версии 16.9.0+57a23d249 для .NET
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+  Определение проектов для восстановления...
+  Восстановлен C:\Users\79175\Desktop\Sprint_server\data\solutions\2706\Solution\SampleProject\SampleProject.csproj (за 68 ms).
+  SampleProject -> C:\Users\79175\Desktop\Sprint_server\data\solutions\2706\Solution\SampleProject\bin\Debug\SampleProject.dll
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Прошло времени 00:00:01.08
+Checking if SampleSolution.sln is project
+Checking if test_folder is project
+Copying test file to working directory
+Test file copied
+Building tests file started
+Microsoft (R) Visual C# Compiler version 4.8.4084.0
+for C# 5
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+This compiler is provided as part of the Microsoft (R) .NET Framework, but only supports language versions up to C# 5, which is no longer the latest version. For compilers that support newer versions of the C# programming language, see http://go.microsoft.com/fwlink/?LinkID=533240
+
+data\tests\19.cs(15,31): error CS1056: Непредусмотренный символ "$"
+Building tests file finished
+Failed to compile tests
