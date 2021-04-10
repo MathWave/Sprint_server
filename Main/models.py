@@ -4,6 +4,8 @@ from django.dispatch import receiver
 from django.db.models.signals import post_delete
 from os.path import sep, join, exists
 from os import remove
+
+from Main.commands import shell
 from Sprint.settings import MEDIA_ROOT
 from django.core.exceptions import ObjectDoesNotExist
 from json import loads
@@ -89,6 +91,15 @@ class Block(models.Model):
     @property
     def cheating_results(self):
         return loads(open(self.cheating_results_path, 'r').read()) if exists(self.cheating_results_path) else {}
+
+    @property
+    def cheating_status(self):
+        if self.cheating_checking:
+            return 'Идет проверка'
+        if not exists(self.cheating_results_path):
+            return 'Еще не проверено'
+        return 'Проверка завершена'
+
 
 class Restore(models.Model):
     code = models.TextField()
@@ -430,7 +441,6 @@ class Message(models.Model):
 
 @receiver(post_delete, sender=Task)
 def delete_task_hook(sender, instance, using, **kwargs):
-    from os.path import exists
     if exists(instance.tests_path()):
         from os import remove
         remove(instance.tests_path())
@@ -438,10 +448,11 @@ def delete_task_hook(sender, instance, using, **kwargs):
 
 @receiver(post_delete, sender=Solution)
 def delete_solution_hook(sender, instance, using, **kwargs):
-    from os.path import exists
     if exists(instance.path()):
         from shutil import rmtree
         rmtree(instance.path())
+    shell('docker rm --force solution_container_{}'.format(instance.id))
+    shell('docker image rm solution_{}'.format(instance.id))
 
 
 @receiver(post_delete, sender=ExtraFile)

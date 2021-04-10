@@ -87,9 +87,7 @@
         <button type="button" {% if Block.cheating_checking %}class="btn btn-secondary"{% else %}class="btn btn-dark" onclick="prepare_for_submit()"{% endif %}><i class="fa fa-rocket"></i> Запустить проверку</button>
     </form>
     <hr>
-    {% if Block.cheating_checking %}
-        <center><h1>Идет проверка</h1></center>
-    {% else %}
+    <center><h1>{{ Block.cheating_status }}</h1></center>
     {% if Block.cheating_checked %}
         <h1>Результаты проверки</h1>
         {% for data in Block.cheating_results %}
@@ -131,6 +129,5 @@
                 </div>
             {% endwith %}
         {% endfor %}
-    {% endif %}
     {% endif %}
 {% endblock %}

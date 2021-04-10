@@ -1,7 +1,6 @@
 from shutil import rmtree, copytree, copyfile
 from os.path import join, basename, exists, isdir, abspath, sep
 from os import remove, listdir, mkdir
-from .models import Solution, ExtraFile
 from subprocess import Popen
 import subprocess
 from threading import Thread
@@ -10,12 +9,7 @@ from Sprint.settings import MEDIA_ROOT
 from .main import solution_path
 from sys import stdout
 from functools import cmp_to_key
-
-
-def shell(cmd, output=stdout):
-    p = Popen(cmd, shell=True, stdout=output)
-    p.wait()
-    p.kill()
+from Main.models import *
 
 
 def start_new(host):

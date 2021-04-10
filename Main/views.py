@@ -14,10 +14,11 @@ from threading import Thread
 from os import remove, mkdir, listdir, rename
 from os.path import exists, sep
 from json import load, dumps, loads
-from .Tester import Tester, shell
+from .Tester import Tester
 from .main import solutions_filter, check_admin_on_course, re_test, check_admin, check_teacher, random_string, \
     send_email, check_permission_block, is_integer, check_god, blocks_available, check_login, \
     get_restore_hash, block_solutions_info, delete_folder, solution_path, can_send_solution, get_in_html_tag, register_user, check_cheating, result_comparer
+from .commands import shell
 from .models import System, Solution, Block, Subscribe, Course, UserInfo, Task, Restore, ExtraFile, Message
 from os.path import sep, join, exists, isfile, dirname
 from shutil import rmtree, copytree, make_archive, copyfile
@@ -46,7 +47,6 @@ def download_rating(request):
     response = HttpResponse(bytes(s, encoding='utf-8'), content_type='application/force-download')
     response['Content-Disposition'] = 'inline; filename=rating.csv'
     return response
-
 
 
 def download(request):
@@ -188,6 +188,7 @@ def solutions(request):
 
 
 def messages(request):
+    return HttpResponseRedirect('/main')
     current_block = Block.objects.get(id=request.GET['block_id'])
     return render(request, 'messages.html', context={'Block': current_block})
 
@@ -225,11 +226,11 @@ def users_settings(request):
                 password = random_string()
                 flag = False
                 try:
-                    User.objects.get(email=u['email'])
+                    user = User.objects.get(email=u['email'])
                 except ObjectDoesNotExist:
                     flag = True
                 if flag:
-                    register_user(u)
+                    user = register_user(u)
                 try:
                     Subscribe.objects.get(user=user, course=current_course)
                 except ObjectDoesNotExist:
@@ -401,7 +402,8 @@ def task_settings(request):
             i = action.split('_')[-1]
             ef = ExtraFile.objects.get(id=int(i))
             with open(ef.path, 'wb') as fs:
-                fs.write(bytes(request.POST['extra_file_text_' + i].strip(), encoding='utf-8'))
+                file_text = request.POST['extra_file_text_' + i]
+                fs.write(bytes(file_text, encoding='utf-8'))
             ef.for_compilation = '{}_for_compilation'.format(ef.id) in request.POST.keys()
             ef.save()
         elif action == 'SAVE':
@@ -450,7 +452,7 @@ def task_settings(request):
                                 ef = ExtraFile.objects.get(filename=file, task=current_task)
                             except ObjectDoesNotExist:
                                 ef = ExtraFile.objects.create(filename=file, task=current_task)
-                            ef.write(open(join(wdir, file), 'rb').read().strip())
+                            ef.write(open(join(wdir, file), 'rb').read())
                     rmtree(wdir)
                 except BadZipFile:
                     pass
@@ -673,12 +675,12 @@ def admin(request):
             register_user(request.POST)
             return HttpResponseRedirect('/admin/main')
         name = request.POST['name']
+        course = Course.objects.get(id=request.POST['course_id'])
         current_block = Block.objects.create(name=name,
                                             course=course,
                                             opened=False,
                                             time_start=timezone.now(),
                                             time_end=timezone.now())
-        course = Course.objects.get(id=request.POST['course_id'])
         if not check_teacher(request.user):
             return HttpResponseRedirect('/main')
         try:
@@ -721,7 +723,7 @@ def settings(request):
         new = request.POST['new'].strip()
         again = request.POST['again'].strip()
         username = request.user.username
-        user = authenticate(username=username, password=old)
+        user = request.user
         if user is None:
             context['error'] = 'Неверный пароль'
         if len(new) < 8 or not any([a.isdigit() for a in new]) or new.lower() == new:
@@ -734,9 +736,7 @@ def settings(request):
             user.set_password(new)
             user.save()
             context['error'] = 'Пароль успешно изменен'
-            user = authenticate(username=username, password=new)
-            if user is not None and user.is_active:
-                login(request, user)
+            login(request, user)
     return render(request, 'settings.html', context=context)
 
 

@@ -12,7 +12,7 @@ namespace Tests
 
         public void TestInOut(string input)
         {
-            string expected = $"{input}\n{input}\n{input}";
+            string expected = input + "\n" + input + "\n" + input;
             sr = new StringReader(input);
             sw = new StringWriter();
             Console.SetIn(sr);
@@ -46,4 +46,5 @@ namespace Tests
         }
     }
 }
+
 

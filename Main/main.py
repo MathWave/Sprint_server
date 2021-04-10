@@ -1,7 +1,11 @@
+from subprocess import Popen
+from sys import stdout
+
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils import timezone
-from Main.models import *
+from Main.models import Course, Block, Task, Solution, ThreadSafe, Restore, System, Subscribe, UserInfo
 from contextlib import contextmanager
 from django.db.transaction import atomic
 from random import choice
@@ -10,12 +14,13 @@ import smtplib
 from threading import Thread
 from time import sleep
 from os import listdir, mkdir
-from os.path import isdir, basename
+from os.path import isdir, basename, dirname, join, exists
 from shutil import copyfile, rmtree
 from copydetect import CopyDetector
 import copydetect
 from json import dumps
 
+from Sprint.settings import MEDIA_ROOT
 
 base_dir = 'data'
 
@@ -246,7 +251,7 @@ def delete_folder(path):
     flag = True
     while flag:
         try:
-            rmtree(dirname(cur_folder))
+            rmtree(dirname(path))
             flag = False
         except:
             pass
@@ -271,6 +276,7 @@ def register_user(u):
     )
     send_email('You have been registered in Sprint!', u['email'],
                 'Your password is: {}\nPlease change it after login in settings!\nhttps://sprint.cshse.ru/'.format(password))
+    return user
 
 
 def check_cheating(solutions, block, cheating_percent):
