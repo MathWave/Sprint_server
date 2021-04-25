@@ -1,29 +1,28 @@
-from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseRedirect, HttpResponse, FileResponse
-from django.shortcuts import render
-from django.core.files import File
-from .forms import *
-from django.contrib.auth import login, authenticate, logout
-from django.utils import timezone
-from datetime import datetime
-import datetime as dt
-from django.utils.timezone import make_aware
-from zipfile import ZipFile, BadZipFile
-from threading import Thread
-from os import remove, mkdir, listdir, rename
-from os.path import exists, sep
 from json import load, dumps, loads
-from .Tester import Tester
-from .main import solutions_filter, check_admin_on_course, re_test, check_admin, check_teacher, random_string, \
-    send_email, check_permission_block, is_integer, check_god, blocks_available, check_login, \
-    get_restore_hash, block_solutions_info, delete_folder, solution_path, can_send_solution, get_in_html_tag, register_user, check_cheating, result_comparer
-from .commands import shell
-from .models import System, Solution, Block, Subscribe, Course, UserInfo, Task, Restore, ExtraFile, Message
+from os import remove, mkdir, listdir, rename
 from os.path import sep, join, exists, isfile, dirname
 from shutil import rmtree, copytree, make_archive, copyfile
-from Sprint.settings import MEDIA_ROOT
+from threading import Thread
+from zipfile import ZipFile, BadZipFile
+from datetime import datetime, timedelta
+
+from django.contrib.auth import login, authenticate, logout
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render
+from django.utils import timezone
+from django.utils.timezone import make_aware
+
 from Main.templatetags.filters import *
+from Sprint.settings import MEDIA_ROOT
+from .Tester import Tester
+from .forms import *
+from .main import solutions_filter, check_admin_on_course, re_test, check_admin, check_teacher, random_string, \
+    send_email, check_permission_block, is_integer, check_god, blocks_available, check_login, \
+    get_restore_hash, block_solutions_info, solution_path, can_send_solution, get_in_html_tag, register_user, \
+    check_cheating, result_comparer
+from .models import Block, Subscribe, Course, Restore, ExtraFile, Message
 
 
 def download_rating(request):
@@ -478,10 +477,6 @@ def task_settings(request):
             cs_file = current_task.tests_path()
             with open(cs_file, 'wb') as fs:
                 fs.write(bytes(tt, encoding='utf-8'))
-            for ef in ExtraFile.objects.filter(task=current_task):
-                ef.write(bytes(request.POST['extra_file_text_{}'.format(ef.id)], encoding='utf-8'))
-                ef.for_compilation = str(ef.id) + '_for_compilation' in request.POST.keys()
-                ef.save()
         else:
             raise NotImplementedError()
         current_task.save()
@@ -555,8 +550,8 @@ def block_settings(request):
             Block.objects.get(id=request.POST['block_delete']).delete()
             return HttpResponseRedirect('/admin/main')
         else:
-            time_start = make_aware(datetime.strptime(request.POST['time_start'], "%Y-%m-%dT%H:%M") + dt.timedelta(hours=3))
-            time_end = make_aware(datetime.strptime(request.POST['time_end'], "%Y-%m-%dT%H:%M") + dt.timedelta(hours=3))
+            time_start = make_aware(datetime.strptime(request.POST['time_start'], "%Y-%m-%dT%H:%M") + timedelta(hours=3))
+            time_end = make_aware(datetime.strptime(request.POST['time_end'], "%Y-%m-%dT%H:%M") + timedelta(hours=3))
             current_block.opened = 'opened' in request.POST.keys()
             current_block.time_start = time_start
             current_block.time_end = time_end

@@ -1,15 +1,11 @@
-from shutil import rmtree, copytree, copyfile
-from os.path import join, basename, exists, isdir, abspath, sep
-from os import remove, listdir, mkdir
-from subprocess import Popen
-import subprocess
+from os import listdir, mkdir
+from os.path import basename, isdir
+from shutil import rmtree, copyfile
 from threading import Thread
 from xml.dom.minidom import parse
-from Sprint.settings import MEDIA_ROOT
-from .main import solution_path
-from sys import stdout
-from functools import cmp_to_key
+
 from Main.models import *
+from .main import solution_path
 
 
 def start_new(host):
@@ -60,7 +56,8 @@ class Tester:
             rmtree(join(path, 'bin', 'Debug'))
         self.build(path)
         name = basename(path)
-        if not exists(join(path, 'bin', 'Debug')) or not any(x.endswith('.exe') for x in listdir(join(path, 'bin', 'Debug'))):
+        if not exists(join(path, 'bin', 'Debug')) or not any(
+                x.endswith('.exe') for x in listdir(join(path, 'bin', 'Debug'))):
             return False
         self.files.append(basename(path))
         for file in listdir(join(path, 'bin', 'Debug')):
@@ -117,16 +114,20 @@ class Tester:
         shell('docker build -t solution_{} {}'.format(self.solution.id, self.working_dir))
         with self.solution.log_fs as fs:
             fs.write(b'Image built successfully\n')
+
         def execute():
             with self.solution.log_fs as fs:
-                shell('docker run --name solution_container_{} solution_{}'.format(self.solution.id, self.solution.id), output=fs)
+                shell('docker run --name solution_container_{} solution_{}'.format(self.solution.id, self.solution.id),
+                      output=fs)
+
         solution.write_log('Running container')
         t = Thread(target=execute)
         t.start()
         t.join(self.solution.task.time_limit / 1000)
         solution.write_log('Running finished')
         with self.solution.log_fs as fs:
-            shell('docker cp solution_container_{}:/app/TestResults.xml {}'.format(self.solution.id, self.working_dir), fs)
+            shell('docker cp solution_container_{}:/app/TestResults.xml {}'.format(self.solution.id, self.working_dir),
+                  fs)
         with self.solution.log_fs as fs:
             shell('docker rm --force solution_container_{}'.format(self.solution.id), fs)
         with self.solution.log_fs as fs:
@@ -138,7 +139,8 @@ class Tester:
         solution.write_log('Result file found in container')
         try:
             doc = parse(join(self.working_dir, 'TestResults.xml'))
-            res = get_node_value(doc.getElementsByTagName('Passed')) + '/' + get_node_value(doc.getElementsByTagName('Total'))
+            res = get_node_value(doc.getElementsByTagName('Passed')) + '/' + get_node_value(
+                doc.getElementsByTagName('Total'))
             self.solution.details = ''
             for el in doc.getElementsByTagName('Result'):
                 self.solution.details += '<h5><b>' + get_node_value(el.getElementsByTagName('MethodName')) + '</b></h5>'
@@ -153,7 +155,6 @@ class Tester:
             solution.write_log('Unknown error')
             res = 'TEST ERROR'
         self.solution.set_result(res)
-
 
     def test(self):
         solution = self.solution
@@ -206,7 +207,13 @@ class Tester:
                 except:
                     pass
             self.working_dir = working_dir
-            build_tests_cmd = 'csc -out:{} -t:library /r:{} /r:{} /r:{} '.format(join(self.working_dir, 'tests.dll'), join(self.working_dir, 'SprintTest.dll'), join(working_dir, 'System.Runtime.dll'), join(working_dir, 'System.Reflection.dll'))
+            build_tests_cmd = 'csc -out:{} -t:library /r:{} /r:{} /r:{} '.format(join(self.working_dir, 'tests.dll'),
+                                                                                 join(self.working_dir,
+                                                                                      'SprintTest.dll'),
+                                                                                 join(working_dir,
+                                                                                      'System.Runtime.dll'),
+                                                                                 join(working_dir,
+                                                                                      'System.Reflection.dll'))
             for file in self.files:
                 build_tests_cmd += '/r:{}.dll '.format(join(self.working_dir, file))
             build_tests_cmd += self.solution.task.tests_path()

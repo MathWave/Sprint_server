@@ -1,25 +1,22 @@
-from subprocess import Popen
-from sys import stdout
-
-from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist
-from django.utils.datastructures import MultiValueDictKeyError
-from django.utils import timezone
-from Main.models import Course, Block, Task, Solution, ThreadSafe, Restore, System, Subscribe, UserInfo
-from contextlib import contextmanager
-from django.db.transaction import atomic
-from random import choice
-from string import ascii_letters
 import smtplib
-from threading import Thread
-from time import sleep
+from contextlib import contextmanager
+from json import dumps
 from os import listdir, mkdir
 from os.path import isdir, basename, dirname, join, exists
+from random import choice
 from shutil import copyfile, rmtree
-from copydetect import CopyDetector
-import copydetect
-from json import dumps
+from string import ascii_letters
+from threading import Thread
+from time import sleep
 
+import copydetect
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.transaction import atomic
+from django.utils import timezone
+from django.utils.datastructures import MultiValueDictKeyError
+
+from Main.models import Course, Block, Solution, ThreadSafe, Restore, System, Subscribe, UserInfo
 from Sprint.settings import MEDIA_ROOT
 
 base_dir = 'data'
