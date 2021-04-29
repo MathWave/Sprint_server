@@ -4,8 +4,6 @@ from Main import views
 
 urlpatterns = [
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
-    path('admin/', admin.site.urls),
-
     path('main', views.main),
     path('settings', views.settings),
     path('enter', views.enter, name='enter'),
@@ -35,5 +33,6 @@ urlpatterns = [
     path('solutions_table', views.solutions_table),
     path('get_result_data', views.get_result_data),
     path('get_comment_data', views.get_comment_data),
+    path('admin/', admin.site.urls),
     re_path('^', views.redirect)
 ]
