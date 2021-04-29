@@ -31,15 +31,7 @@ SECURE_SSL_REDIRECT = DEPLOY
 
 
 ALLOWED_HOSTS = [
-    'mathwave.pythonanywhere.com',
-    '127.0.0.1',
-    '0.0.0.0',
-    '172.22.41.5',
-    '192.168.0.253',
-    '192.168.1.8',
-    'localhost',
-    'sprint.cshse.ru',
-    '192.168.1.253'
+    '*'
 ]
 
 
